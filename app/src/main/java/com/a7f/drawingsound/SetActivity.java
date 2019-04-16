@@ -3,11 +3,11 @@ package com.a7f.drawingsound;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SheetListActivity extends AppCompatActivity {
+public class SetActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sheet_list);
+        setContentView(R.layout.activity_set);
     }
 }

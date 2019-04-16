@@ -63,12 +63,14 @@
         android:weightSum="2"
         >
         <Button
+            android:id="@+id/ButtonPrev"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="prev"
             android:layout_gravity="bottom"/>
         <Button
+            android:id="@+id/ButtonSet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

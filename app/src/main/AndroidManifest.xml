@@ -19,10 +19,9 @@
         <activity android:name=".HummingActivity" />
         <activity android:name=".SheetActivity" />
         <activity android:name=".SheetSettingActivity" />
-        <activity
-            android:name=".SheetListActivity"
-            android:label="@string/title_activity_sheet_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".SheetListActivity" />
+        <activity android:name=".SetActivity" />
+        <activity android:name=".SignupActivity"></activity>
     </application>
 
 </manifest>
