@@ -106,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
 
         ButtonLogin.setOnClickListener(LoginClickListener);
         ButtonSignup.setOnClickListener(SignupClickListener);
+
+//        finish();
     }
 
     Button.OnClickListener LoginClickListener = new View.OnClickListener() {
@@ -117,9 +119,9 @@ public class MainActivity extends AppCompatActivity {
 
     Button.OnClickListener SignupClickListener = new View.OnClickListener() {
         public void onClick(View v){
-            //할일 적어주세염
+            Intent intent = new Intent(MainActivity.this, SignupActivity.class);
+            startActivity(intent);
         }
     };
-
 
 }
