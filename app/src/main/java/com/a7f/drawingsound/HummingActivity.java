@@ -129,6 +129,7 @@ public class HummingActivity extends AppCompatActivity {
     Button.OnClickListener ApplyClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             Intent intent=new Intent(HummingActivity.this,SheetActivity.class);
+            intent.putExtra("outputName",outputFile);
             startActivity(intent);
         }
     };
