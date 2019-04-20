@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class HummingActivity extends AppCompatActivity {
     Button ButtonStart;
@@ -23,11 +24,16 @@ public class HummingActivity extends AppCompatActivity {
     private String outputFile;
     private MediaPlayer mediaPlayer;
 
+    private Random random ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_humming);
+
+
+        random = new Random();
 
         ButtonStart = (Button)findViewById(R.id.ButtonStart);
         ButtonReset = (Button)findViewById(R.id.ButtonReset);
@@ -46,12 +52,15 @@ public class HummingActivity extends AppCompatActivity {
 
     Button.OnClickListener StartClickListener = new View.OnClickListener() {
         public void onClick(View v){
-            Log.d("Button", ButtonStart.getText().toString());
+            String filename = "/recording" + random.nextInt(100) + ".3gp";
+            Log.d("filename",filename);
+
             if(ButtonStart.getText().equals("Start")){
 
                 try {
                     // outputFile 생성
-                    outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";
+
+                    outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + filename;
 
                     // mediarecoder
                     myAudioRecorder = new MediaRecorder();
