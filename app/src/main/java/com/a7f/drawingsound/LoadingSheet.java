@@ -8,6 +8,7 @@ import android.util.Log;
 public class LoadingSheet extends AppCompatActivity {
     Intent intent;
     String outputName;
+    Thread t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,17 +21,20 @@ public class LoadingSheet extends AppCompatActivity {
 
         Log.d("outputName", outputName);
 
-        intent = new Intent(LoadingSheet.this,SheetSettingActivity.class);
 
-//        try {
-//            Thread.sleep(4000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-        startActivity(intent);
-        finish();
+        t = new Thread() {
+            public void run() {
+                try{
+                    sleep(1000);
+                    intent = new Intent(LoadingSheet.this,SheetSettingActivity.class);
+                    startActivity(intent);
+                    finish();
+                } catch (InterruptedException e){
+                    //
+                }
+            }
+        };
 
+        t.start();
     }
 }
