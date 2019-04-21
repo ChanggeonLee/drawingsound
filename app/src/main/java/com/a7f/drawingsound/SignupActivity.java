@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
     Button ButtonSave;
@@ -27,11 +29,17 @@ public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("user");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -63,6 +71,7 @@ public class SignupActivity extends AppCompatActivity {
         Log.d(TAG, "createAccount:" + email);
         Log.d(TAG, "createAccount:" + password);
 
+//        myRef.setValue(email);
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
@@ -71,8 +80,6 @@ public class SignupActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -109,3 +116,5 @@ public class SignupActivity extends AppCompatActivity {
         }
     };
 }
+
+
