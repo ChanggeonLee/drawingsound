@@ -15,14 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:layout_weight="1"
-        android:text="email"/>
+        android:hint="Email" />
     <EditText
         android:id="@+id/EditTextPasswd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:layout_weight="1"
-        android:text="passwd"/>
+        android:hint="Passwd"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

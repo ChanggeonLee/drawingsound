@@ -3,25 +3,40 @@ package com.a7f.drawingsound;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     Button ButtonLogin;
     Button ButtonSignup;
+    EditText EditTextEmail;
+    EditText EditTextPasswd;
 
 
     // 사용자 권한 확인 필요 변수
     static final int RECORD_PERMISSON=1;
     static final int READ_PERMISSON=1;
     static final int WRITE_PERMISSON=1;
+
+    private static final String TAG = "LoginWithEmail";
+
+    private FirebaseAuth mAuth;
 
     public void PRecord(){
         // 권한 부여 되어 있는지 확인
@@ -104,16 +119,64 @@ public class MainActivity extends AppCompatActivity {
         ButtonLogin = (Button)findViewById(R.id.ButtonLogin);
         ButtonSignup = (Button)findViewById(R.id.ButtonSignup);
 
+        EditTextEmail = (EditText)findViewById(R.id.EditTextEmail);
+        EditTextPasswd = (EditText)findViewById(R.id.EditTextPasswd);
+        EditTextPasswd.setTransformationMethod(new PasswordTransformationMethod());
+
         ButtonLogin.setOnClickListener(LoginClickListener);
         ButtonSignup.setOnClickListener(SignupClickListener);
 
-//        finish();
+        mAuth = FirebaseAuth.getInstance();
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            Intent intent=new Intent(MainActivity.this,SetActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    private void signIn(String email, String password) {
+        Log.d(TAG, "signIn:" + email);
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            Intent intent=new Intent(MainActivity.this,SetActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+        });
+    }
+
 
     Button.OnClickListener LoginClickListener = new View.OnClickListener() {
         public void onClick(View v){
-             Intent intent=new Intent(MainActivity.this,SetActivity.class);
-             startActivity(intent);
+
+            String email,passwd;
+
+            email = EditTextEmail.getText().toString();
+            passwd = EditTextPasswd.getText().toString();
+
+            signIn(email,passwd);
         }
     };
 
