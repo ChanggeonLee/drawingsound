@@ -209,11 +209,13 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v){
 
             String email,passwd;
-
             email = EditTextEmail.getText().toString();
             passwd = EditTextPasswd.getText().toString();
-            if(checkNetwork()) {
-                signIn(email, passwd);
+
+            if(!email.isEmpty() && !passwd.isEmpty()){
+                if(checkNetwork()) {
+                    signIn(email, passwd);
+                }
             }
         }
     };
