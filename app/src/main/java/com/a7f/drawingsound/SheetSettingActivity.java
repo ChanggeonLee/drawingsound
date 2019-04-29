@@ -26,7 +26,8 @@ public class SheetSettingActivity extends AppCompatActivity {
     Button.OnClickListener Prevonclick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(SheetSettingActivity.this,HummingActivity.class);
+            Intent intent = new Intent(SheetSettingActivity.this,HummingFFTActivity.class);
+            finish();
             startActivity(intent);
         }
     };
@@ -35,6 +36,7 @@ public class SheetSettingActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(SheetSettingActivity.this,SheetListActivity.class);
+            finish();
             startActivity(intent);
         }
     };

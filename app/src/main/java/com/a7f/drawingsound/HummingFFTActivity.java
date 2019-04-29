@@ -1,5 +1,6 @@
 package com.a7f.drawingsound;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -39,19 +40,7 @@ public class HummingFFTActivity extends AppCompatActivity {
     Button ButtonApply;
 
     // 실시간으로 FFT 적용된걸 보여줌
-//    ImageView ImageViewFFT;
     TextView TextViewFFT;
-    Bitmap bitmap;
-    Canvas canvas;
-    Paint paint;
-
-    // recorder setting
-    private MediaRecorder myAudioRecorder;
-    private String outputFile;
-    private MediaPlayer mediaPlayer;
-
-    // file name randomize
-    private Random random;
 
     // FFT setting
     int frequency = 8000;
@@ -76,30 +65,19 @@ public class HummingFFTActivity extends AppCompatActivity {
     private void setFFT(){
         // FFT setting
         transformer = new RealDoubleFFT(blockSize);
-
-        // FFT 적용을 실시간으로 보여주기 위해서 설정
         TextViewFFT = (TextView)findViewById(R.id.TextViewFFT);
-//        ImageViewFFT = (ImageView)findViewById(R.id.ImageViewFFT);
-//        bitmap = Bitmap.createBitmap((int)8, (int)100, Bitmap.Config.ARGB_8888);
-//        canvas = new Canvas(bitmap);
-//        paint = new Paint();
-//        paint.setColor(Color.GREEN);
-//        ImageViewFFT.setImageBitmap(bitmap);
     }
 
     private void setHandler(){
-        random = new Random();
-
         ButtonStart = (Button)findViewById(R.id.ButtonStart);
         ButtonReset = (Button)findViewById(R.id.ButtonReset);
         ButtonPlay = (Button)findViewById(R.id.ButtonPlay);
         ButtonApply = (Button)findViewById(R.id.ButtonApply);
 
         ButtonStart.setOnClickListener(StartClickListener);
-//        ButtonReset.setOnClickListener(ResetClickListener);
+        ButtonReset.setOnClickListener(ResetClickListener);
 //        ButtonPlay.setOnClickListener(PlayClickListener);
-//        ButtonApply.setOnClickListener(ApplyClickListener);
-
+        ButtonApply.setOnClickListener(ApplyClickListener);
 
         ButtonReset.setEnabled(false);
         ButtonPlay.setEnabled(false);
@@ -113,12 +91,35 @@ public class HummingFFTActivity extends AppCompatActivity {
                 started = false;
                 ButtonStart.setText("Start");
                 recordTask.cancel(true);
+
+                ButtonStart.setEnabled(false);
+                ButtonReset.setEnabled(true);
+                ButtonApply.setEnabled(true);
             }else{
                 started = true;
                 ButtonStart.setText("Stop");
                 recordTask = new RecordAudio();
                 recordTask.execute();
             }
+        }
+    };
+
+    Button.OnClickListener ResetClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ButtonStart.setEnabled(true);
+            ButtonReset.setEnabled(false);
+            ButtonPlay.setEnabled(false);
+            ButtonApply.setEnabled(false);
+        }
+    };
+
+    Button.OnClickListener ApplyClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent=new Intent(HummingFFTActivity.this,LoadingSheet.class);
+            finish();
+            startActivity(intent);
         }
     };
 
@@ -130,7 +131,7 @@ public class HummingFFTActivity extends AppCompatActivity {
             try {
 
                 // AudioRecord를 설정하고 사용한다.
-//                int bufferSize = AudioRecord.getMinBufferSize(frequency, channelConfiguration, audioEncoding);
+                //int bufferSize = AudioRecord.getMinBufferSize(frequency, channelConfiguration, audioEncoding);
 
                 AudioRecord audioRecord = new AudioRecord(
                         MediaRecorder.AudioSource.MIC, frequency, channelConfiguration, audioEncoding, blockSize);
@@ -176,11 +177,8 @@ public class HummingFFTActivity extends AppCompatActivity {
                 if(max < toTransform[0][i]){
                     max = (int)toTransform[0][i];
                     index = i;
-//                    int downy = (int) (100 - (toTransform[0][i] * 10));
-//                    Log.d("downy",Integer.toString(downy));
                 }
             }
-//            max = (max * 10);
             Log.d("frequency",Double.toString(index * 3.3));
             getNote(index * 3.3);
 
@@ -188,32 +186,34 @@ public class HummingFFTActivity extends AppCompatActivity {
     }
 
     private void getNote(double fre){
-
-        if(fre <= 270){
-            TextViewFFT.setText("C");
+        String Note = "";
+        if(260 <= fre && fre <= 270){
+            Note = "C";
         }else if(270 < fre && fre <= 290){
-            TextViewFFT.setText("C#");
+            Note = "C#";
         }else if(fre <= 305){
-            TextViewFFT.setText("D");
+            Note = "D";
         }else if(fre <= 325){
-            TextViewFFT.setText("D#");
+            Note = "D#";
         }else if(fre <= 340){
-            TextViewFFT.setText("E");
+            Note = "E";
         }else if(fre <= 360){
-            TextViewFFT.setText("F");
+            Note = "F";
         }else if(fre <= 385){
-            TextViewFFT.setText("F#");
+            Note = "F#";
         }else if(fre <= 405){
-            TextViewFFT.setText("G");
+            Note = "G";
         }else if(fre <= 420){
-            TextViewFFT.setText("G#");
+            Note = "G#";
         }else if(fre <= 450){
-            TextViewFFT.setText("A");
+            Note = "A";
         }else if(fre <= 470){
-            TextViewFFT.setText("A#");
+            Note = "A#";
         }else if(fre <= 500){
-            TextViewFFT.setText("B");
+            Note = "B";
         }
+        TextViewFFT.setText(Note);
+
     }
 
 }
