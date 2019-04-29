@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HummingActivity"
-    android:weightSum="12"
+    tools:context=".HummingFFTActivity"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/ImageViewFFT"
+    <TextView
+        android:id="@+id/TextViewFFT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:gravity="center"
+        android:text="음음음"
         android:layout_weight="10"/>
 
     <Button
@@ -38,5 +40,4 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
         android:text="Apply"/>
-
 </LinearLayout>

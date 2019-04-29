@@ -1,9 +1,23 @@
 package com.a7f.drawingsound;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import ca.uol.aig.fftpack.RealDoubleFFT;
 
 public class LoadingSheet extends AppCompatActivity {
     Intent intent;
@@ -16,10 +30,8 @@ public class LoadingSheet extends AppCompatActivity {
         setContentView(R.layout.activity_loading_sheet);
 
         intent = getIntent();
-
         outputName = intent.getStringExtra("outputName");
 
-        Log.d("outputName", outputName);
 
 
         t = new Thread() {
@@ -36,5 +48,7 @@ public class LoadingSheet extends AppCompatActivity {
         };
 
         t.start();
+
     }
+
 }

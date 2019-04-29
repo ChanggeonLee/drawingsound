@@ -58,7 +58,7 @@ public class SetActivity extends AppCompatActivity {
     Button.OnClickListener MakeClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(SetActivity.this,HummingActivity.class);
+            Intent intent = new Intent(SetActivity.this,HummingFFTActivity.class);
             startActivity(intent);
         }
     };

@@ -16,7 +16,6 @@
         <activity
             android:name=".splashActivity"
             android:theme="@style/SplashTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,6 +30,7 @@
         <activity android:name=".SetActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoadingSheet" />
+        <activity android:name=".HummingFFTActivity"></activity>
     </application>
 
 </manifest>
