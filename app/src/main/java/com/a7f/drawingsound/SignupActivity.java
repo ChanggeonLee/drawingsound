@@ -26,7 +26,7 @@ public class SignupActivity extends AppCompatActivity {
     EditText EditTextEmail;
     EditText EditTextName;
 
-    private static final String TAG = "EmailPassword";
+
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
@@ -38,11 +38,21 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        settingDB();
+        settingAuth();
+        settingHandler();
+    }
+
+    private void settingDB(){
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("user");
+        myRef = database.getReference();
+    }
 
+    private void settingAuth(){
         mAuth = FirebaseAuth.getInstance();
+    }
 
+    private void settingHandler(){
         ButtonSave = (Button)findViewById(R.id.ButtonSave);
         ButtonCancel = (Button)findViewById(R.id.ButtonCancel);
 
@@ -68,26 +78,26 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void createAccount(String email, String password) {
+        final String TAG = "EmailPassword";
         Log.d(TAG, "createAccount:" + email);
         Log.d(TAG, "createAccount:" + password);
 
-//        myRef.setValue(email);
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignupActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                        }
-
+            .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "createUserWithEmail:success");
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        Toast.makeText(SignupActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                     }
-                });
+
+                }
+        });
     }
 
 
@@ -95,16 +105,26 @@ public class SignupActivity extends AppCompatActivity {
     Button.OnClickListener SaveClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String email, passwd;
+            String email, passwd, name;
 
             email = EditTextEmail.getText().toString();
             passwd = EditTextPasswd.getText().toString();
+            name = EditTextName.getText().toString();
 
-            createAccount(email,passwd);
+            if(!email.isEmpty() && !passwd.isEmpty()){
+                createAccount(email,passwd);
 
+                Intent intent = new Intent(SignupActivity.this,MainActivity.class);
+                startActivity(intent);
 
-            Intent intent = new Intent(SignupActivity.this,MainActivity.class);
-            startActivity(intent);
+                try {
+                    User user = new User(name, email);
+                    Log.d("getuserid", mAuth.getUid());
+//                    myRef.child("users").child(mAuth.getUid()).setValue(user);
+                }catch (Exception e){
+                    //
+                }
+            }
         }
     };
 

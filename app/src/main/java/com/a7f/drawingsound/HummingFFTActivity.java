@@ -60,7 +60,7 @@ public class HummingFFTActivity extends AppCompatActivity {
 
     private RealDoubleFFT transformer;
 
-    int blockSize = 256;
+    int blockSize = 1200;
     boolean started = false;
     RecordAudio recordTask;
 
@@ -171,21 +171,23 @@ public class HummingFFTActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(double[]... toTransform) {
             int max = 0;
+            int index = 0;
             for(int i = 0; i < toTransform[0].length; i++){
                 if(max < toTransform[0][i]){
                     max = (int)toTransform[0][i];
+                    index = i;
 //                    int downy = (int) (100 - (toTransform[0][i] * 10));
 //                    Log.d("downy",Integer.toString(downy));
                 }
             }
-            max = (100 - (max * 10));
-            Log.d("frequency",Integer.toString(-max*2));
-            getNote(max);
+//            max = (max * 10);
+            Log.d("frequency",Double.toString(index * 3.3));
+            getNote(index * 3.3);
 
         }
     }
 
-    private void getNote(int fre){
+    private void getNote(double fre){
 
         if(fre <= 270){
             TextViewFFT.setText("C");
