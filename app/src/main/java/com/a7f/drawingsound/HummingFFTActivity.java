@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.actions.NoteIntents;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -53,6 +55,10 @@ public class HummingFFTActivity extends AppCompatActivity {
     boolean started = false;
     RecordAudio recordTask;
 
+    private int noteIndex = 0;
+
+    private String[] note;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +72,8 @@ public class HummingFFTActivity extends AppCompatActivity {
         // FFT setting
         transformer = new RealDoubleFFT(blockSize);
         TextViewFFT = (TextView)findViewById(R.id.TextViewFFT);
+
+        note = new String[10000];
     }
 
     private void setHandler(){
@@ -179,41 +187,57 @@ public class HummingFFTActivity extends AppCompatActivity {
                     index = i;
                 }
             }
-            Log.d("frequency",Double.toString(index * 3.3));
+            Log.d("frequency",Double.toString(index*3.3));
             getNote(index * 3.3);
 
         }
     }
 
     private void getNote(double fre){
-        String Note = "";
-        if(260 <= fre && fre <= 270){
-            Note = "C";
-        }else if(270 < fre && fre <= 290){
+        String Note ;
+        // 3.3 곱한거에서 +3 -3 범위
+        if(257 <= fre && fre <= 264){
+            // 261 C4
+            Note = "C4";
+        }else if(274 <= fre && fre <= 280){
+            // 277 C#
             Note = "C#";
-        }else if(fre <= 305){
+        }else if(290 <= fre && fre <= 296){
+            // 293 D
             Note = "D";
-        }else if(fre <= 325){
+        }else if(308 <= fre && fre <= 314){
+            // 311 D#
             Note = "D#";
-        }else if(fre <= 340){
+        }else if(326 <= fre && fre <= 331){
+            // 329 E
             Note = "E";
-        }else if(fre <= 360){
+        }else if(346 <= fre && fre <= 352){
+            // 349 F
             Note = "F";
-        }else if(fre <= 385){
+        }else if(366 <= fre && fre <= 372){
+            // 369 F#
             Note = "F#";
-        }else if(fre <= 405){
+        }else if(388 <= fre && fre <= 394){
+            // 391 G
             Note = "G";
-        }else if(fre <= 420){
+        }else if(412 <= fre && fre <= 418){
+            // 415 G#
             Note = "G#";
-        }else if(fre <= 450){
+        }else if(437 <= fre && fre <= 443){
+            // 440 A
             Note = "A";
-        }else if(fre <= 470){
+        }else if(463 <= fre && fre <= 469){
+            // 466 A#
             Note = "A#";
-        }else if(fre <= 500){
+        }else if(490 <= fre && fre <= 496){
+            // 493 B
             Note = "B";
+        }else{
+            Note = "X";
         }
+        note[noteIndex] = Note;
+        noteIndex++;
         TextViewFFT.setText(Note);
-
     }
 
 }
