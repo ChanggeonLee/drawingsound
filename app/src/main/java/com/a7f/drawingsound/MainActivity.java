@@ -1,8 +1,12 @@
 package com.a7f.drawingsound;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    public void PRecord(){
+    private void PRecord(){
         // 권한 부여 되어 있는지 확인
         int permissonCheck= ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO );
 
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void PRead(){
+    private void PRead(){
         // 권한 부여 되어 있는지 확인
         int permissonCheck= ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE );
 
@@ -84,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void PWrite(){
+    private void PWrite(){
         // 권한 부여 되어 있는지 확인
         int permissonCheck= ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE );
 
@@ -105,6 +109,39 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSON);
             }
         }
+    }
+
+    private void NetworkError(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+        alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();     //닫기
+            }
+        });
+        alert.setMessage("Network 연결 후 다시 시도해주세요");
+        alert.show();
+
+    }
+
+
+    private NetworkInfo getNetworkInfo(){
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo;
+    }
+
+    private boolean checkNetwork(){
+        try {
+            NetworkInfo networkInfo = getNetworkInfo();
+            if (networkInfo.isConnected()) {
+                return true;
+            }
+        } catch (NullPointerException ne){
+            NetworkError();
+        }
+        return false;
     }
 
     @Override
@@ -175,16 +212,18 @@ public class MainActivity extends AppCompatActivity {
 
             email = EditTextEmail.getText().toString();
             passwd = EditTextPasswd.getText().toString();
-
-            signIn(email,passwd);
+            if(checkNetwork()) {
+                signIn(email, passwd);
+            }
         }
     };
 
     Button.OnClickListener SignupClickListener = new View.OnClickListener() {
         public void onClick(View v){
             Intent intent = new Intent(MainActivity.this, SignupActivity.class);
-            startActivity(intent);
+            if(checkNetwork()) {
+                startActivity(intent);
+            }
         }
     };
-
 }
