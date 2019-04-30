@@ -26,6 +26,8 @@ public class SignupActivity extends AppCompatActivity {
     EditText EditTextEmail;
     EditText EditTextName;
 
+    private String email, passwd, name;
+
 
 
     private FirebaseAuth mAuth;
@@ -77,6 +79,22 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
+    private void saveUserInfo(FirebaseUser Fuser){
+        String uid;
+        uid = Fuser.getUid();
+        Log.d("getuserid", uid);
+        try {
+            User user = new User(name, email);
+            myRef.child("users").child(uid).setValue(user);
+            Intent intent = new Intent(SignupActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }catch (Exception e){
+            Log.d("auth error:",e.toString() );
+            //
+        }
+    }
+
     private void createAccount(String email, String password) {
         final String TAG = "EmailPassword";
         Log.d(TAG, "createAccount:" + email);
@@ -89,15 +107,20 @@ public class SignupActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Log.d("UserID",user.getUid());
+                        saveUserInfo(user);
                         Log.d(TAG, "createUserWithEmail:success");
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
                         Toast.makeText(SignupActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                     }
-
                 }
         });
+
+
+
     }
 
 
@@ -105,7 +128,6 @@ public class SignupActivity extends AppCompatActivity {
     Button.OnClickListener SaveClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String email, passwd, name;
 
             email = EditTextEmail.getText().toString();
             passwd = EditTextPasswd.getText().toString();
@@ -114,16 +136,7 @@ public class SignupActivity extends AppCompatActivity {
             if(!email.isEmpty() && !passwd.isEmpty()){
                 createAccount(email,passwd);
 
-                Intent intent = new Intent(SignupActivity.this,MainActivity.class);
-                startActivity(intent);
 
-                try {
-                    User user = new User(name, email);
-                    Log.d("getuserid", mAuth.getUid());
-                    myRef.child("users").child(mAuth.getUid()).setValue(user);
-                }catch (Exception e){
-                    //
-                }
             }
         }
     };
