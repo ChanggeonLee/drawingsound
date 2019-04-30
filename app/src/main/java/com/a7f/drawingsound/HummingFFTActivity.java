@@ -45,7 +45,7 @@ public class HummingFFTActivity extends AppCompatActivity {
     TextView TextViewFFT;
 
     // FFT setting
-    int frequency = 8000;
+    int frequency = 11025;
     int channelConfiguration = AudioFormat.CHANNEL_CONFIGURATION_MONO;
     int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
 
@@ -181,14 +181,15 @@ public class HummingFFTActivity extends AppCompatActivity {
         protected void onProgressUpdate(double[]... toTransform) {
             int max = 0;
             int index = 0;
+            Log.d("length",Integer.toString(toTransform[0].length));
             for(int i = 0; i < toTransform[0].length; i++){
                 if(max < toTransform[0][i]){
                     max = (int)toTransform[0][i];
                     index = i;
                 }
             }
-            Log.d("frequency",Double.toString(index*3.3));
-            getNote(index * 3.3);
+            Log.d("frequency",Double.toString(index*4.6));
+            getNote(index*4.6);
 
         }
     }
@@ -196,40 +197,40 @@ public class HummingFFTActivity extends AppCompatActivity {
     private void getNote(double fre){
         String Note ;
         // 3.3 곱한거에서 +3 -3 범위
-        if(257 <= fre && fre <= 264){
+        if(250 <= fre && fre <= 269){
             // 261 C4
             Note = "C4";
-        }else if(274 <= fre && fre <= 280){
+        }else if(269 < fre && fre <= 285){
             // 277 C#
             Note = "C#";
-        }else if(290 <= fre && fre <= 296){
+        }else if(285 < fre && fre <= 301){
             // 293 D
             Note = "D";
-        }else if(308 <= fre && fre <= 314){
+        }else if(301 < fre && fre <= 319){
             // 311 D#
             Note = "D#";
-        }else if(326 <= fre && fre <= 331){
+        }else if(319 < fre && fre <= 337){
             // 329 E
             Note = "E";
-        }else if(346 <= fre && fre <= 352){
+        }else if(337 < fre && fre <= 357){
             // 349 F
             Note = "F";
-        }else if(366 <= fre && fre <= 372){
+        }else if(357 < fre && fre <= 377){
             // 369 F#
             Note = "F#";
-        }else if(388 <= fre && fre <= 394){
+        }else if(377 < fre && fre <= 399){
             // 391 G
             Note = "G";
-        }else if(412 <= fre && fre <= 418){
+        }else if(399 < fre && fre <= 423){
             // 415 G#
             Note = "G#";
-        }else if(437 <= fre && fre <= 443){
+        }else if(423 < fre && fre <= 448){
             // 440 A
             Note = "A";
-        }else if(463 <= fre && fre <= 469){
+        }else if(448 < fre && fre <= 474){
             // 466 A#
             Note = "A#";
-        }else if(490 <= fre && fre <= 496){
+        }else if(474 < fre && fre <= 501){
             // 493 B
             Note = "B";
         }else{
@@ -237,7 +238,9 @@ public class HummingFFTActivity extends AppCompatActivity {
         }
         note[noteIndex] = Note;
         noteIndex++;
+        Log.d("index",Integer.toString(noteIndex));
         TextViewFFT.setText(Note);
+
     }
 
 }
