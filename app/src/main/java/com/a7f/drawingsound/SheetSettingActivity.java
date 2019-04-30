@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -20,6 +22,7 @@ public class SheetSettingActivity extends AppCompatActivity {
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,7 @@ public class SheetSettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sheet_setting);
         settingDB();
         settingHandler();
-
+        settingAuth();
     }
 
     private void settingDB(){
@@ -43,6 +46,10 @@ public class SheetSettingActivity extends AppCompatActivity {
 
         ButtonPrev.setOnClickListener(Prevonclick);
         ButtonSet.setOnClickListener(Setclick);
+    }
+
+    private void settingAuth(){
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     Button.OnClickListener Prevonclick = new View.OnClickListener() {
@@ -66,8 +73,7 @@ public class SheetSettingActivity extends AppCompatActivity {
 
                 try {
                     Sheet sheet = new Sheet(title, composer);
-                    myRef.child("sheets").child(title).setValue(sheet);
-                    myRef.child("sheets").child(composer).setValue(sheet);
+                    myRef.child("sheets").child(currentUser.getUid()).setValue(sheet);
                 }catch (Exception e){
                     //
                 }
