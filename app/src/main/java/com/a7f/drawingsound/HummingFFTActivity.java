@@ -58,6 +58,7 @@ public class HummingFFTActivity extends AppCompatActivity {
     private int noteIndex = 0;
 
     private String[] note;
+    private String[] optimize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class HummingFFTActivity extends AppCompatActivity {
         TextViewFFT = (TextView)findViewById(R.id.TextViewFFT);
 
         note = new String[10000];
+        optimize = new String[1000];
     }
 
     private void setHandler(){
@@ -84,7 +86,7 @@ public class HummingFFTActivity extends AppCompatActivity {
 
         ButtonStart.setOnClickListener(StartClickListener);
         ButtonReset.setOnClickListener(ResetClickListener);
-//        ButtonPlay.setOnClickListener(PlayClickListener);
+        //ButtonPlay.setOnClickListener(PlayClickListener);
         ButtonApply.setOnClickListener(ApplyClickListener);
 
         ButtonReset.setEnabled(false);
@@ -122,9 +124,11 @@ public class HummingFFTActivity extends AppCompatActivity {
         }
     };
 
+
     Button.OnClickListener ApplyClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            // 배열 전처리
             Intent intent=new Intent(HummingFFTActivity.this,LoadingSheet.class);
             finish();
             startActivity(intent);
@@ -240,7 +244,6 @@ public class HummingFFTActivity extends AppCompatActivity {
         noteIndex++;
         Log.d("index",Integer.toString(noteIndex));
         TextViewFFT.setText(Note);
-
     }
 
 }
