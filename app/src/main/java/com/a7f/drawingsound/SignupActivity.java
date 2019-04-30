@@ -120,7 +120,7 @@ public class SignupActivity extends AppCompatActivity {
                 try {
                     User user = new User(name, email);
                     Log.d("getuserid", mAuth.getUid());
-//                    myRef.child("users").child(mAuth.getUid()).setValue(user);
+                    myRef.child("users").child(mAuth.getUid()).setValue(user);
                 }catch (Exception e){
                     //
                 }
