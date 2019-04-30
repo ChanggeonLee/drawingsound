@@ -12,15 +12,7 @@
     <TextView
         android:id="@+id/TextViewMain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sheet"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:layout_weight="11"/>
-    <Button
-        android:id="@+id/ButtonApply"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Apply"
-        android:layout_weight="0.5"/>
-
+        android:text="Sheet" />
 </LinearLayout>
