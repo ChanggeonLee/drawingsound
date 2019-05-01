@@ -1,38 +1,18 @@
 package com.a7f.drawingsound;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
-import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.actions.NoteIntents;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Random;
-
-import ca.uol.aig.fftpack.Complex1D;
-import ca.uol.aig.fftpack.ComplexDoubleFFT;
 import ca.uol.aig.fftpack.RealDoubleFFT;
-import ca.uol.aig.fftpack.RealDoubleFFT_Even;
-import ca.uol.aig.fftpack.RealDoubleFFT_Even_Odd;
-import ca.uol.aig.fftpack.RealDoubleFFT_Odd_Odd;
 
 public class HummingFFTActivity extends AppCompatActivity {
     // layout element
@@ -129,7 +109,7 @@ public class HummingFFTActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             // 배열 전처리
-            Intent intent=new Intent(HummingFFTActivity.this,LoadingSheet.class);
+            Intent intent=new Intent(HummingFFTActivity.this, LoadingSheetActivity.class);
             finish();
             startActivity(intent);
         }

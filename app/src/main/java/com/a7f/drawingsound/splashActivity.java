@@ -19,7 +19,7 @@ public class splashActivity extends AppCompatActivity {
             public void run() {
                 try{
                     sleep(1000);
-                    intent = new Intent(splashActivity.this, MainActivity.class);
+                    intent = new Intent(splashActivity.this, SigninActivity.class);
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e){
@@ -39,7 +39,7 @@ public class splashActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                intent = new Intent(splashActivity.this, MainActivity.class);
+                intent = new Intent(splashActivity.this, SigninActivity.class);
 
 //                startActivity(intent);
 //                finish();

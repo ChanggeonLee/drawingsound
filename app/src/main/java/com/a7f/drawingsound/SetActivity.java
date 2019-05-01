@@ -41,7 +41,7 @@ public class SetActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             signOut();
-            Intent intent = new Intent(SetActivity.this,MainActivity.class);
+            Intent intent = new Intent(SetActivity.this, SigninActivity.class);
             startActivity(intent);
             finish();
         }

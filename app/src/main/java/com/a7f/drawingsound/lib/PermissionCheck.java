@@ -1,4 +1,4 @@
-package com.a7f.drawingsound;
+package com.a7f.drawingsound.lib;
 
 import android.Manifest;
 import android.app.Activity;

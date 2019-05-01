@@ -17,13 +17,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.Random;
 
 import ca.uol.aig.fftpack.RealDoubleFFT;
@@ -189,7 +187,7 @@ public class HummingActivity extends AppCompatActivity {
 
     Button.OnClickListener ApplyClickListener = new View.OnClickListener() {
         public void onClick(View v) {
-            Intent intent=new Intent(HummingActivity.this,LoadingSheet.class);
+            Intent intent=new Intent(HummingActivity.this, LoadingSheetActivity.class);
             intent.putExtra("outputName",outputFile);
             startActivity(intent);
         }

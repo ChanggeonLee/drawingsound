@@ -1,4 +1,4 @@
-package com.a7f.drawingsound;
+package com.a7f.drawingsound.lib;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,7 +12,7 @@ public class NetworkCheck {
 
     private Activity activity;
 
-    NetworkCheck(Activity activity){
+    public NetworkCheck(Activity activity){
         this.activity = activity;
     }
 

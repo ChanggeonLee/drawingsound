@@ -9,14 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.a7f.drawingsound.R;
-import com.a7f.drawingsound.model.Sheet;
+import com.a7f.drawingsound.model.SheetT;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> {
 
-    private ArrayList<Sheet> items = new ArrayList<>();
+    private ArrayList<SheetT> items = new ArrayList<>();
 
     @NonNull
     @Override
@@ -31,7 +31,7 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull SheetAdapter.ViewHolder viewHolder, int position) {
 
-        Sheet item = items.get(position);
+        SheetT item = items.get(position);
 
         Glide.with(viewHolder.itemView.getContext())
                 .load(item.getUrl())
@@ -48,7 +48,7 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
         return items.size();
     }
 
-    public void setItems(ArrayList<Sheet> items) {
+    public void setItems(ArrayList<SheetT> items) {
         this.items = items;
     }
 

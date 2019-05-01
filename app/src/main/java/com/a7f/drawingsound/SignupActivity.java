@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.a7f.drawingsound.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -86,7 +87,7 @@ public class SignupActivity extends AppCompatActivity {
         try {
             User user = new User(name, email);
             myRef.child("users").child(uid).setValue(user);
-            Intent intent = new Intent(SignupActivity.this,MainActivity.class);
+            Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
             startActivity(intent);
             finish();
         }catch (Exception e){
@@ -144,7 +145,7 @@ public class SignupActivity extends AppCompatActivity {
     Button.OnClickListener CancelClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(SignupActivity.this,MainActivity.class);
+            Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
             startActivity(intent);
         }
     };
