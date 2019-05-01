@@ -9,17 +9,11 @@
     android:orientation="vertical"
     android:weightSum="4">
 
-    <ImageView
-        android:id="@+id/ImageViewFFT"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"/>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_weight="1"
+        android:layout_weight="4"
         android:textSize="40dp"
         android:text="악보 생성중"/>
 

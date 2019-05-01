@@ -21,6 +21,10 @@ public class SetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
 
+        setHandler();
+    }
+
+    private void setHandler() {
         mAuth = FirebaseAuth.getInstance();
 
         ButtonList = (Button)findViewById(R.id.ButtonList);

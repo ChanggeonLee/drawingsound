@@ -30,23 +30,4 @@ public class splashActivity extends AppCompatActivity {
 
         t.start();
     }
-
-    public void splashScreen (final int x) {
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(x);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                intent = new Intent(splashActivity.this, SigninActivity.class);
-
-//                startActivity(intent);
-//                finish();
-//
-                startActivity(intent);
-                finish();
-            }
-        }).run();
-    }
 }

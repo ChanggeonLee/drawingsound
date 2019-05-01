@@ -29,8 +29,6 @@ public class SignupActivity extends AppCompatActivity {
 
     private String email, passwd, name;
 
-
-
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
@@ -129,15 +127,12 @@ public class SignupActivity extends AppCompatActivity {
     Button.OnClickListener SaveClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
             email = EditTextEmail.getText().toString();
             passwd = EditTextPasswd.getText().toString();
             name = EditTextName.getText().toString();
 
             if(!email.isEmpty() && !passwd.isEmpty()){
                 createAccount(email,passwd);
-
-
             }
         }
     };

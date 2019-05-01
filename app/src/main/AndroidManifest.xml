@@ -25,7 +25,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".SigninActivity" />
-        <activity android:name=".HummingActivity" />
         <activity android:name=".SheetActivity" />
         <activity android:name=".SheetSettingActivity" />
         <activity android:name=".SheetListActivity" />
