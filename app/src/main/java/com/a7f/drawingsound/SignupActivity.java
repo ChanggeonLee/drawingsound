@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.a7f.drawingsound.model.User;
@@ -16,6 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -110,10 +114,25 @@ public class SignupActivity extends AppCompatActivity {
                         Log.d("UserID",user.getUid());
                         saveUserInfo(user);
                         Log.d(TAG, "createUserWithEmail:success");
-                    } else {
+                    } else{
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(SignupActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        try {
+                            throw task.getException();
+                        } catch(FirebaseAuthWeakPasswordException e) {
+                            TextView mTxtPassword = null;
+                            Toast.makeText(SignupActivity.this, "비밀번호 6자리 입력해주세요",
+                                    Toast.LENGTH_SHORT).show();
+                        } catch(FirebaseAuthInvalidCredentialsException e) {
+                            Toast.makeText(SignupActivity.this, "존재하지 않는 이메일입니다",
+                                    Toast.LENGTH_SHORT).show();
+                        } catch(FirebaseAuthUserCollisionException e) {
+                            Toast.makeText(SignupActivity.this, "이미 있는 계정입니다",
+                                    Toast.LENGTH_SHORT).show();
+                        } catch(Exception e) {
+                            Log.e(TAG, e.getMessage());
+                        }
+
+
                     }
                 }
         });
@@ -131,8 +150,17 @@ public class SignupActivity extends AppCompatActivity {
             passwd = EditTextPasswd.getText().toString();
             name = EditTextName.getText().toString();
 
-            if(!email.isEmpty() && !passwd.isEmpty()){
+            if(!email.isEmpty() && !passwd.isEmpty() && !name.isEmpty()){
                 createAccount(email,passwd);
+            }else if(email.isEmpty()){
+                Toast.makeText(SignupActivity.this, "이메일을 입력하세요",
+                        Toast.LENGTH_SHORT).show();
+            }else if(passwd.isEmpty()){
+                Toast.makeText(SignupActivity.this, "비밀번호를 입력하세요",
+                        Toast.LENGTH_SHORT).show();
+            }else if(name.isEmpty()){
+                Toast.makeText(SignupActivity.this, "이름을 입력하세요",
+                        Toast.LENGTH_SHORT).show();
             }
         }
     };
