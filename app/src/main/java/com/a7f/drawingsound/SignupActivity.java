@@ -114,21 +114,21 @@ public class SignupActivity extends AppCompatActivity {
                         Log.d("UserID",user.getUid());
                         saveUserInfo(user);
                         Log.d(TAG, "createUserWithEmail:success");
-                    } else{
+                    } else {
                         // If sign in fails, display a message to the user.
                         try {
                             throw task.getException();
-                        } catch(FirebaseAuthWeakPasswordException e) {
+                        } catch (FirebaseAuthWeakPasswordException e) {
                             TextView mTxtPassword = null;
                             Toast.makeText(SignupActivity.this, "비밀번호 6자리 입력해주세요",
                                     Toast.LENGTH_SHORT).show();
-                        } catch(FirebaseAuthInvalidCredentialsException e) {
+                        } catch (FirebaseAuthInvalidCredentialsException e) {
                             Toast.makeText(SignupActivity.this, "존재하지 않는 이메일입니다",
                                     Toast.LENGTH_SHORT).show();
-                        } catch(FirebaseAuthUserCollisionException e) {
+                        } catch (FirebaseAuthUserCollisionException e) {
                             Toast.makeText(SignupActivity.this, "이미 있는 계정입니다",
                                     Toast.LENGTH_SHORT).show();
-                        } catch(Exception e) {
+                        } catch (Exception e) {
                             Log.e(TAG, e.getMessage());
                         }
 
