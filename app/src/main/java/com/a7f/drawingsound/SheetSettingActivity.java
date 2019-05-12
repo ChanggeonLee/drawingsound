@@ -73,7 +73,7 @@ public class SheetSettingActivity extends AppCompatActivity {
 
                 try {
                     Sheet sheet = new Sheet(title, composer);
-                    myRef.child("sheets").child(currentUser.getUid()).setValue(sheet);
+                    myRef.child("sheets").child(currentUser.getUid()).push().setValue(sheet);
                 }catch (Exception e){
                     //
                 }
