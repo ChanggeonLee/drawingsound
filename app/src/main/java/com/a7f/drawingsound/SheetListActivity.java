@@ -9,7 +9,6 @@ import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.a7f.drawingsound.adapter.SheetAdapter;
-import com.a7f.drawingsound.data.SampleData;
 import com.a7f.drawingsound.data.SheetsData;
 import com.a7f.drawingsound.model.Sheet;
 import com.google.firebase.auth.FirebaseAuth;
