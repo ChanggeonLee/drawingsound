@@ -1,11 +1,13 @@
 package com.a7f.drawingsound;
 
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.a7f.drawingsound.model.Sheet;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +25,10 @@ public class SheetSettingActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private FirebaseUser currentUser;
+
+    private final long FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,4 +89,29 @@ public class SheetSettingActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
+//    @Override
+//    public void onBackPressed() {
+//        long tempTime = System.currentTimeMillis();
+//        long intervalTime = tempTime - backPressedTime;
+//
+//        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime)
+//        {
+////            super.onBackPressed();
+//            ActivityCompat.finishAffinity(this);
+//            System.runFinalizersOnExit(true);
+//            System.exit(0);
+//        }
+//        else
+//        {
+//            backPressedTime = tempTime;
+//            Toast.makeText(getApplicationContext(), "한번 더 뒤로가기 누르면 꺼버린다.", Toast.LENGTH_SHORT).show();
+//
+//        }
+//    }
+
 }

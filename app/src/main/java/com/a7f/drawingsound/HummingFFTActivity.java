@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.a7f.drawingsound.lib.RecordAudio;
 
@@ -18,6 +19,8 @@ public class HummingFFTActivity extends AppCompatActivity {
     Button ButtonApply;
 
     RecordAudio recordTask;
+
+    boolean backFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class HummingFFTActivity extends AppCompatActivity {
         ButtonReset.setEnabled(false);
         ButtonPlay.setEnabled(false);
         ButtonApply.setEnabled(false);
+
+        backFlag = true;
     }
 
     Button.OnClickListener StartClickListener = new View.OnClickListener() {
@@ -58,11 +63,13 @@ public class HummingFFTActivity extends AppCompatActivity {
                 ButtonStart.setEnabled(false);
                 ButtonReset.setEnabled(true);
                 ButtonApply.setEnabled(true);
+                backFlag = true;
 
             }else{
                 recordTask.setStarted(true);
                 ButtonStart.setText("Stop");
                 recordTask.execute();
+                backFlag = false;
             }
         }
     };
@@ -86,4 +93,14 @@ public class HummingFFTActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onBackPressed() {
+        if(backFlag){
+            super.onBackPressed();
+        }else{
+            //
+            Toast.makeText(getApplicationContext(),"녹음 중 입니다. 종료 후 다시 시도해주세요.",Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }
