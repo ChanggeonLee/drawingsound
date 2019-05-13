@@ -5,10 +5,9 @@ public class Sheet {
     public String composer;
     public String url;
 
-    public Sheet(String title, String composer){
+    public Sheet(String title, String composer, String url){
         this.title = title;
         this.composer = composer;
-        this.url = "null";
-
+        this.url = url;
     }
 }

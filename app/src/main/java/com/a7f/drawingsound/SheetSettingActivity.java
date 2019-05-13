@@ -70,15 +70,17 @@ public class SheetSettingActivity extends AppCompatActivity {
     Button.OnClickListener Setclick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String title, composer;
+            String title, composer, url;
 
             title = EditTextTitle.getText().toString();
             composer = EditTextComposer.getText().toString();
+            url = "https://firebasestorage.googleapis.com/v0/b/drawingsound-1d381.appspot.com/o/sheet.PNG?alt=media&token=f0fbfc88-f562-44bd-a5c9-abf5c66e8bdb";
+
 
             if(!title.isEmpty() && !composer.isEmpty()){
 
                 try {
-                    Sheet sheet = new Sheet(title, composer);
+                    Sheet sheet = new Sheet(title, composer, url);
                     myRef.child("sheets").child(currentUser.getUid()).push().setValue(sheet);
                 }catch (Exception e){
                     //
@@ -86,6 +88,7 @@ public class SheetSettingActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(SheetSettingActivity.this,SheetListActivity.class);
                 startActivity(intent);
+                finish();
             }
         }
     };
