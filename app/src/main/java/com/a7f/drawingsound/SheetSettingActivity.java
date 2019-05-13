@@ -26,8 +26,8 @@ public class SheetSettingActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseUser currentUser;
 
-    private final long FINISH_INTERVAL_TIME = 2000;
-    private long backPressedTime = 0;
+//    private final long FINISH_INTERVAL_TIME = 2000;
+//    private long backPressedTime = 0;
 
 
     @Override
