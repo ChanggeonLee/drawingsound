@@ -77,10 +77,12 @@ public class HummingFFTActivity extends AppCompatActivity {
     Button.OnClickListener ResetClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            recordTask = null;
             ButtonStart.setEnabled(true);
             ButtonReset.setEnabled(false);
             ButtonPlay.setEnabled(false);
             ButtonApply.setEnabled(false);
+            recordTask = new RecordAudio((TextView)findViewById(R.id.TextViewFFT));
         }
     };
 
