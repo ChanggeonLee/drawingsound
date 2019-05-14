@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,9 +82,11 @@ public class SheetSettingActivity extends AppCompatActivity {
 
                 try {
                     Sheet sheet = new Sheet(title, composer, url);
+
                     myRef.child("sheets").child(currentUser.getUid()).push().setValue(sheet);
                 }catch (Exception e){
                     //
+                    Log.e("firebasesaveerror",e.getMessage());
                 }
 
                 Intent intent = new Intent(SheetSettingActivity.this,SheetListActivity.class);
