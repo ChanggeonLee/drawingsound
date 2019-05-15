@@ -22,6 +22,8 @@ public class HummingFFTActivity extends AppCompatActivity {
 
     boolean backFlag;
 
+    String note;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +65,18 @@ public class HummingFFTActivity extends AppCompatActivity {
                 ButtonStart.setEnabled(false);
                 ButtonReset.setEnabled(true);
                 ButtonApply.setEnabled(true);
-                backFlag = true;
 
+                note = recordTask.getNoteData();
+
+                backFlag = true;
             }else{
                 recordTask.setStarted(true);
                 ButtonStart.setText("Stop");
-                recordTask.execute();
+                try{
+                    recordTask.execute();
+                }catch(Exception e){
+                    //
+                }
                 backFlag = false;
             }
         }
@@ -87,11 +95,15 @@ public class HummingFFTActivity extends AppCompatActivity {
     };
 
     Button.OnClickListener ApplyClickListener = new View.OnClickListener() {
+
+
         @Override
         public void onClick(View v) {
-            Intent intent=new Intent(HummingFFTActivity.this, LoadingSheetActivity.class);
-            finish();
+            Intent intent = new Intent(HummingFFTActivity.this, LoadingSheetActivity.class);
+            intent.putExtra("Note",note);
+            Log.e("Note",note);
             startActivity(intent);
+            finish();
         }
     };
 
@@ -105,4 +117,6 @@ public class HummingFFTActivity extends AppCompatActivity {
         }
 
     }
+
+
 }

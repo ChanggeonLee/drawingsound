@@ -81,7 +81,10 @@ public class SheetSettingActivity extends AppCompatActivity {
             if(!title.isEmpty() && !composer.isEmpty()){
 
                 try {
-                    Sheet sheet = new Sheet(title, composer, url);
+                    Intent intent = getIntent();
+                    String sheetdata = intent.getExtras().getString("Sheet");
+                    Log.e("sheetdata",sheetdata);
+                    Sheet sheet = new Sheet(title, composer, url, sheetdata);
 
                     myRef.child("sheets").child(currentUser.getUid()).push().setValue(sheet);
                 }catch (Exception e){

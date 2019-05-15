@@ -21,13 +21,13 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
     private boolean started = false;
 
     private int noteIndex = 0;
-    private String[] note;
+    private String note;
     private TextView TextViewFFT;
 
     public RecordAudio( TextView TextViewFFT){
         transformer = new RealDoubleFFT(blockSize);
         this.TextViewFFT = TextViewFFT;
-        note = new String[10000];
+        note = "";
     }
 
     public boolean getStarted(){
@@ -61,6 +61,7 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
             Log.e("AudioRecord", "Recording Failed");
         }
         return null;
+//        return note.toString();
     }
 
     @Override
@@ -90,46 +91,53 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
         // 3.3 곱한거에서 +3 -3 범위
         if(250 <= fre && fre <= 269){
             // 261 C4
-            Note = "C4";
+            Note = "C";
         }else if(269 < fre && fre <= 285){
             // 277 C#
-            Note = "C#4";
+            Note = "C#";
         }else if(285 < fre && fre <= 301){
             // 293 D
-            Note = "D4";
+            Note = "D";
         }else if(301 < fre && fre <= 319){
             // 311 D#
-            Note = "D#4";
+            Note = "D#";
         }else if(319 < fre && fre <= 337){
             // 329 E
-            Note = "E4";
+            Note = "E";
         }else if(337 < fre && fre <= 357){
             // 349 F
-            Note = "F4";
+            Note = "F";
         }else if(357 < fre && fre <= 377){
             // 369 F#
-            Note = "F#4";
+            Note = "F#";
         }else if(377 < fre && fre <= 399){
             // 391 G
-            Note = "G4";
+            Note = "G";
         }else if(399 < fre && fre <= 423){
             // 415 G#
-            Note = "G#4";
+            Note = "G#";
         }else if(423 < fre && fre <= 448){
             // 440 A
-            Note = "A4";
+            Note = "A";
         }else if(448 < fre && fre <= 474){
             // 466 A#
-            Note = "A#4";
+            Note = "A#";
         }else if(474 < fre && fre <= 501){
             // 493 B
-            Note = "B4";
+            Note = "B";
         }else{
             Note = "X";
         }
-        note[noteIndex] = Note;
-        noteIndex++;
-        Log.d("index",Integer.toString(noteIndex));
+        note += Note;
+        //        noteIndex++;
+        //        Log.d("index",Integer.toString(noteIndex));
         TextViewFFT.setText(Note);
+    }
+
+    public String getNoteData(){
+//        String str = String.join(",", note);
+        Log.e("inRecordNote",note);
+        return note;
+
     }
 }
