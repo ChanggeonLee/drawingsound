@@ -21,13 +21,13 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
     private boolean started = false;
 
     private int noteIndex = 0;
-    private String[] note;
+    private String note;
     private TextView TextViewFFT;
 
     public RecordAudio( TextView TextViewFFT){
         transformer = new RealDoubleFFT(blockSize);
         this.TextViewFFT = TextViewFFT;
-        note = new String[10000];
+        note = "";
     }
 
     public boolean getStarted(){
@@ -61,6 +61,7 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
             Log.e("AudioRecord", "Recording Failed");
         }
         return null;
+//        return note.toString();
     }
 
     @Override
@@ -80,11 +81,17 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
     }
 
     private void getNote(double fre){
+        String[] AllNote = {"C3","C#3","D3","D#3","E3","F3","F#3","G3","G#3","A3","A#3","B3",
+                            "C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4","A4","A#4","B4",
+                            "C5","C#5","D5","D#5","E5","F5","F#5","G5","G#5","A5","A#5","B5"};
         String Note ;
+
+        fre = (int)fre;
+
         // 3.3 곱한거에서 +3 -3 범위
         if(250 <= fre && fre <= 269){
             // 261 C4
-            Note = "C4";
+            Note = "C";
         }else if(269 < fre && fre <= 285){
             // 277 C#
             Note = "C#";
@@ -121,9 +128,16 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
         }else{
             Note = "X";
         }
-        note[noteIndex] = Note;
-        noteIndex++;
-        Log.d("index",Integer.toString(noteIndex));
+        note += Note;
+        //        noteIndex++;
+        //        Log.d("index",Integer.toString(noteIndex));
         TextViewFFT.setText(Note);
+    }
+
+    public String getNoteData(){
+//        String str = String.join(",", note);
+        Log.e("inRecordNote",note);
+        return note;
+
     }
 }

@@ -13,8 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_weight="4"
+        android:layout_weight="1"
         android:textSize="40dp"
         android:text="악보 생성중"/>
+
+    <TextView
+        android:id="@+id/TextViewNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="3"
+        android:textSize="20dp"
+        android:text=""/>
 
 </LinearLayout>

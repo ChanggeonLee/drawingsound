@@ -9,20 +9,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.a7f.drawingsound.R;
-import com.a7f.drawingsound.model.SheetT;
+import com.a7f.drawingsound.model.Sheet;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> {
 
-    private ArrayList<SheetT> items = new ArrayList<>();
+    private ArrayList<Sheet> items = new ArrayList<>();
 
     @NonNull
     @Override
     public SheetAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sheet, parent, false);
         ViewHolder viewHolder = new ViewHolder(itemView);
 
         return viewHolder;
@@ -31,16 +31,14 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull SheetAdapter.ViewHolder viewHolder, int position) {
 
-        SheetT item = items.get(position);
+        Sheet item = items.get(position);
 
         Glide.with(viewHolder.itemView.getContext())
                 .load(item.getUrl())
-                .into(viewHolder.ivMovie);
+                .into(viewHolder.ImageViewSheet);
 
-        viewHolder.tvTitle.setText(item.getTitle());
-        viewHolder.tvContent.setText(item.getContent());
-        viewHolder.tvGenre.setText(item.getGenre());
-
+        viewHolder.TextViewTitle.setText(item.getTitle());
+        viewHolder.TextViewComposer.setText(item.getComposer());
     }
 
     @Override
@@ -48,23 +46,24 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
         return items.size();
     }
 
-    public void setItems(ArrayList<SheetT> items) {
+    public void setItems(ArrayList<Sheet> items) {
         this.items = items;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView ivMovie;
-        TextView tvTitle, tvContent, tvGenre;
+        ImageView ImageViewSheet;
+
+        TextView TextViewTitle, TextViewComposer;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            ivMovie = itemView.findViewById(R.id.iv_item_movie);
+            ImageViewSheet = itemView.findViewById(R.id.ImageViewSheet);
 
-            tvTitle = itemView.findViewById(R.id.tv_item_movie_title);
-            tvContent = itemView.findViewById(R.id.tv_item_movie_content);
-            tvGenre = itemView.findViewById(R.id.tv_item_movie_genre);
+            TextViewTitle = itemView.findViewById(R.id.TextViewTitle);
+            TextViewComposer = itemView.findViewById(R.id.TextViewComposer);
+
         }
     }
 }
