@@ -26,6 +26,14 @@
         android:textSize="40sp"/>
 
     <Button
+        android:id="@+id/ButtonTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Text"
+        android:layout_weight="0.5"/>
+
+    <Button
         android:id="@+id/ButtonSignout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

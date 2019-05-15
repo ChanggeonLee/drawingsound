@@ -13,6 +13,7 @@ public class SetActivity extends AppCompatActivity {
     Button ButtonList;
     Button ButtonMake;
     Button ButtonSignout;
+    Button ButtonTest;
 
     private FirebaseAuth mAuth;
 
@@ -35,11 +36,24 @@ public class SetActivity extends AppCompatActivity {
 
         ButtonList.setOnClickListener(ListClick);
         ButtonMake.setOnClickListener(MakeClick);
+
+        ButtonTest = (Button)findViewById(R.id.ButtonTest);
+        ButtonTest.setOnClickListener(TestClick);
     }
 
     private void signOut() {
         mAuth.signOut();
     }
+
+    Button.OnClickListener TestClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(SetActivity.this, ViewScore.class);
+            startActivity(intent);
+            finish();
+        }
+    };
+
 
     Button.OnClickListener SignoutClick = new View.OnClickListener() {
         @Override
