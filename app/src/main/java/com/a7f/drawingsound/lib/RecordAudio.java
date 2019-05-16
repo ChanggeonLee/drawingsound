@@ -88,7 +88,7 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
 
         fre = (int)fre;
 
-        // 3.3 곱한거에서 +3 -3 범위
+
         if(250 <= fre && fre <= 269){
             // 261 C4
             Note = "C";
