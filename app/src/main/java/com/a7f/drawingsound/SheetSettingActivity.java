@@ -16,12 +16,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class SheetSettingActivity extends AppCompatActivity {
 
     Button ButtonPrev;
     Button ButtonSet;
     EditText EditTextTitle;
     EditText EditTextComposer;
+    EditText EditTextDate;
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;
@@ -50,7 +54,7 @@ public class SheetSettingActivity extends AppCompatActivity {
         ButtonSet = (Button)findViewById(R.id.ButtonSet);
         EditTextTitle = (EditText)findViewById(R.id.EditTextTitle);
         EditTextComposer = (EditText)findViewById(R.id.EditTextComposer);
-
+        //EditTextDate = (EditText)findViewById(R.id.EditTextDate);
         ButtonPrev.setOnClickListener(Prevonclick);
         ButtonSet.setOnClickListener(Setclick);
     }
@@ -71,12 +75,16 @@ public class SheetSettingActivity extends AppCompatActivity {
     Button.OnClickListener Setclick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String title, composer, url;
+            String title, composer, url, date;
 
             title = EditTextTitle.getText().toString();
             composer = EditTextComposer.getText().toString();
             url = "https://firebasestorage.googleapis.com/v0/b/drawingsound-1d381.appspot.com/o/sheet.PNG?alt=media&token=f0fbfc88-f562-44bd-a5c9-abf5c66e8bdb";
-
+            long now = System.currentTimeMillis();
+            Date formatDate = new Date(now);
+            SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd");
+            date = sdfNow.format(formatDate);
+            // date = EditTextDate.getText().toString();
 
             if(!title.isEmpty() && !composer.isEmpty()){
 
@@ -84,7 +92,7 @@ public class SheetSettingActivity extends AppCompatActivity {
                     Intent intent = getIntent();
                     String sheetdata = intent.getExtras().getString("Sheet");
                     Log.e("sheetdata",sheetdata);
-                    Sheet sheet = new Sheet(title, composer, url, sheetdata);
+                    Sheet sheet = new Sheet(title, composer, url, date, sheetdata);
 
                     myRef.child("sheets").child(currentUser.getUid()).push().setValue(sheet);
                 }catch (Exception e){

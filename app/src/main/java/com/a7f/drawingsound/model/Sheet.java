@@ -1,5 +1,8 @@
 package com.a7f.drawingsound.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Sheet {
     private String url;
 
@@ -9,6 +12,8 @@ public class Sheet {
     private String title;
     private String composer;
     private String str;
+    private String date;
+
     private String[] note;
     //    private String source;
     //    private String meternome;
@@ -20,7 +25,9 @@ public class Sheet {
 
     public Sheet(){}
 
-    public Sheet(String title, String composer, String url, String sheet){
+
+
+    public Sheet(String title, String composer, String url, String date, String sheet){
         // this.x = "1";
         this.title = title;
         this.composer = composer;
@@ -38,6 +45,7 @@ public class Sheet {
         //                "\"G\"g2ab3|\"Em\"gfeg2e|\"D\"fedB2A|\"Em\"e2e gfe|\\\n" +
         //                "\"G\"g2ab3|\"Em\"gfe\"D\"f2d|\"Em\"e3-e3:|";
         this.url = url;
+        this.date = date;
         this.str =  "X: 1" +
                     "\nT: " + title +
                     "\nC: " + composer +
@@ -64,6 +72,8 @@ public class Sheet {
     public String getUrl(){
         return url;
     }
+
+    public String getDate() { return date; }
 
     public String getStr() {
         return str;
@@ -116,6 +126,9 @@ public class Sheet {
     public void setStr(String str) {
         this.str = str;
     }
+
+
+    public void setDate(String date) { this.date = date; }
 
     //    public void setX(String x) {
 //        this.x = x;
