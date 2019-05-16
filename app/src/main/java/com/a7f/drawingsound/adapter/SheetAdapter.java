@@ -12,6 +12,7 @@ import com.a7f.drawingsound.R;
 import com.a7f.drawingsound.model.Sheet;
 import com.bumptech.glide.Glide;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 
 public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> {
@@ -39,6 +40,8 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
 
         viewHolder.TextViewTitle.setText(item.getTitle());
         viewHolder.TextViewComposer.setText(item.getComposer());
+        viewHolder.TextViewDate.setText(item.getDate());
+        viewHolder.TextViewMood.setText(item.getMood());
     }
 
     @Override
@@ -52,9 +55,10 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+
         ImageView ImageViewSheet;
 
-        TextView TextViewTitle, TextViewComposer;
+        TextView TextViewTitle, TextViewComposer, TextViewDate, TextViewMood;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -63,7 +67,9 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
 
             TextViewTitle = itemView.findViewById(R.id.TextViewTitle);
             TextViewComposer = itemView.findViewById(R.id.TextViewComposer);
-
+            TextViewDate = itemView.findViewById(R.id.TextViewDate);
+            TextViewMood = itemView.findViewById(R.id.TextViewMood);
+            //TextViewDate.setText(date);
         }
     }
 }

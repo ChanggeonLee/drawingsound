@@ -88,7 +88,7 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
 
         fre = (int)fre;
 
-        // 3.3 곱한거에서 +3 -3 범위
+
         if(250 <= fre && fre <= 269){
             // 261 C4
             Note = "C";
@@ -125,9 +125,46 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
         }else if(474 < fre && fre <= 501){
             // 493 B
             Note = "B";
-        }else{
+        } else if(501 < fre && fre <= 538){
+            // 523 C
+            Note = "c";
+        }else if(538 < fre && fre <= 570){
+            // 554 C#
+            Note = "c#";
+        }else if(570 < fre && fre <= 609){
+            // 587 D
+            Note = "d";
+        }else if(609 < fre && fre <= 640){
+            // 622 D#
+            Note = "d#";
+        }else if(640 < fre && fre <= 677){
+            // 659 E
+            Note = "e";
+        }else if(677 < fre && fre <= 720){
+            // 698 F
+            Note = "f";
+        }else if(720 < fre && fre <= 762){
+            // 740 F#
+            Note = "f#";
+        }else if(762 < fre && fre <= 807){
+            // 784 G
+            Note = "g";
+        }else if(807 < fre && fre <= 856){
+            // 831 G#
+            Note = "g#";
+        }else if(856 < fre && fre <= 906){
+            // 880 A
+            Note = "a";
+        }else if(906 < fre && fre <= 960){
+            // 932 A#
+            Note = "a#";
+        }else if(960 < fre && fre <= 1018){
+            // 988 B
+            Note = "b";
+        } else{
             Note = "X";
         }
+
         note += Note;
         //        noteIndex++;
         //        Log.d("index",Integer.toString(noteIndex));
