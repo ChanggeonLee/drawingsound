@@ -27,33 +27,53 @@ public class LoadingSheetActivity extends AppCompatActivity {
         TextViewNote.setText(note);
 
         char temp = ' ';
-        int count = 0;
+        int count = 0; // 마디세기
+        int start = 0; // 처음 음표 받아오기
+        int input = 0; // 입력 음표 세기
 
-        sheet = "|";
+        sheet = "|:";
 
-        for (int i = 0 ; i < note.length() ; i++){
-
-            if(count != 8 && note.charAt(i) != 'X'){
-                sheet += note.charAt(i);
-                count++;
-            }else if(note.charAt(i) != 'X'){
-                sheet += "|";
-                sheet += note.charAt(i);
-                count = 0;
+        //녹음 시작 후 첫 공백 날리기
+        for(int j = 0 ; j <note.length() ; j++){
+            if (note.charAt(j) == 'X'){
+                start++;
+            }else{
+                break;
             }
 
-//            if(temp == ' '){
-//                temp = note.charAt(i);
-//            } else if(temp == note.charAt(i)) {
-//                count++;
-//            } else if(temp == note.charAt(i) && count == 3){
-//
-//            }
         }
 
-        sheet += ":|";
 
-//      sheet => "| CC A B C |\n|CAD |"
+        //한 마디가 10
+        for(int i = start ; i < note.length() ; i++) {
+            if (count != 10 && note.charAt(i) != 'z') {
+                if (note.charAt(i) == 'X') {
+                    sheet += "z";
+                    sheet += temp;
+                    count++;
+                } else{
+                    sheet += note.charAt(i);
+                    count++;
+                    sheet +=temp;
+                }
+            }else if (count == 10) {
+                if (note.charAt(i) == 'X') {
+                    sheet += "|";
+                    sheet += "z";
+                    sheet += temp;
+                    count = 0;
+                } else {
+                    sheet += "|";
+                    sheet += note.charAt(i);
+                    sheet += temp;
+                    count = 0;
+                }
+            }
+        }
+
+
+
+        sheet += ":|";
 
         TextViewNote.setText(sheet);
 

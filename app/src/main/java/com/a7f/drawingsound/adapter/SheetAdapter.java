@@ -41,6 +41,7 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
         viewHolder.TextViewTitle.setText(item.getTitle());
         viewHolder.TextViewComposer.setText(item.getComposer());
         viewHolder.TextViewDate.setText(item.getDate());
+        viewHolder.TextViewMood.setText(item.getMood());
     }
 
     @Override
@@ -57,7 +58,7 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
 
         ImageView ImageViewSheet;
 
-        TextView TextViewTitle, TextViewComposer, TextViewDate;
+        TextView TextViewTitle, TextViewComposer, TextViewDate, TextViewMood;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -67,6 +68,7 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
             TextViewTitle = itemView.findViewById(R.id.TextViewTitle);
             TextViewComposer = itemView.findViewById(R.id.TextViewComposer);
             TextViewDate = itemView.findViewById(R.id.TextViewDate);
+            TextViewMood = itemView.findViewById(R.id.TextViewMood);
             //TextViewDate.setText(date);
         }
     }

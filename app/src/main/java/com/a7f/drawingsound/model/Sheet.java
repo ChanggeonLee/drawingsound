@@ -13,6 +13,7 @@ public class Sheet {
     private String composer;
     private String str;
     private String date;
+    private String mood;
 
     private String[] note;
     //    private String source;
@@ -27,7 +28,8 @@ public class Sheet {
 
 
 
-    public Sheet(String title, String composer, String url, String date, String sheet){
+
+    public Sheet(String title, String composer, String url, String date, String mood, String sheet){
         // this.x = "1";
         this.title = title;
         this.composer = composer;
@@ -46,6 +48,7 @@ public class Sheet {
         //                "\"G\"g2ab3|\"Em\"gfe\"D\"f2d|\"Em\"e3-e3:|";
         this.url = url;
         this.date = date;
+        this.mood = mood;
         this.str =  "X: 1" +
                     "\nT: " + title +
                     "\nC: " + composer +
@@ -55,7 +58,7 @@ public class Sheet {
                     "\nR: reel" +
                     "\nK: Amin" +
                     "\n" + sheet;
-//                    "\nD2|\"Em\"EB{c}BA B2 EB|~B2 AB dBAG|\"D\"FDAD BDAD|FDAD dAFD|" +
+//                   + "\nD2|\"Em\"EB{c}BA z EB|~B2 AB dBAG|\"D\"FDAD BDAD|FDAD dAFD|" +
 //                    "\n\"Em\"EBBA B2 EB|B2 AB defg|\"D\"afe^c dBAF|1\"Em\"DEFD E2 D2:|2\"Em\"DEFD E2 gf||" +
 //                    "\n|:\"Em\"eB B2 efge|eB B2 gedB|\"D\"A2 FA DAFA|A2 FA defg|" +
 //                    "\n\"Em\"eB B2 eBgB|eB B2 defg|\"D\"afe^c dBAF|1\"Em\"DEFD E2 gf:|2\"Em\"DEFD E4|]";
@@ -130,6 +133,13 @@ public class Sheet {
 
     public void setDate(String date) { this.date = date; }
 
+    public String getMood() {
+        return mood;
+    }
+
+    public void setMood(String mood) {
+        this.mood = mood;
+    }
     //    public void setX(String x) {
 //        this.x = x;
 //    }
