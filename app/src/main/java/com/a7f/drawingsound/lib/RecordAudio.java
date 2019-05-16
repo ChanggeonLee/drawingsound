@@ -162,7 +162,7 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
             // 988 B
             Note = "b";
         } else{
-            Note = "z";
+            Note = "X";
         }
 
         note += Note;
