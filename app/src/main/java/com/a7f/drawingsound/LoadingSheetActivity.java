@@ -33,14 +33,23 @@ public class LoadingSheetActivity extends AppCompatActivity {
 
         for (int i = 0 ; i < note.length() ; i++){
 
-            if(count != 8 && note.charAt(i) != 'X'){
+            if(count != 8 && note.charAt(i) != 'z'){
                 sheet += note.charAt(i);
                 count++;
-            }else if(note.charAt(i) != 'X'){
+            }else if(note.charAt(i) != 'z'){
                 sheet += "|";
                 sheet += note.charAt(i);
                 count = 0;
             }
+
+//            if(count != 8){
+//                sheet += note.charAt(i);
+//                count++;
+//            }else if(note.charAt(i) != 'z'){
+//                sheet += "|";
+//                sheet += note.charAt(i);
+//                count = 0;
+//            }
 
 //            if(temp == ' '){
 //                temp = note.charAt(i);
