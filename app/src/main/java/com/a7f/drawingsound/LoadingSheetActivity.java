@@ -29,7 +29,7 @@ public class LoadingSheetActivity extends AppCompatActivity {
         char temp = ' ';
         int count = 0; // 마디세기
         int start = 0; // 처음 음표 받아오기
-        int input = 0;
+        int input = 0; // 입력 음표 세기
 
         sheet = "|:";
 
@@ -40,52 +40,36 @@ public class LoadingSheetActivity extends AppCompatActivity {
             }else{
                 break;
             }
-        }
-        //한 마디가 12
 
+        }
+
+
+        //한 마디가 10
         for(int i = start ; i < note.length() ; i++) {
             if (count != 10 && note.charAt(i) != 'z') {
                 if (note.charAt(i) == 'X') {
                     sheet += "z";
+                    sheet += temp;
                     count++;
-                } else {
+                } else{
                     sheet += note.charAt(i);
                     count++;
+                    sheet +=temp;
                 }
             }else if (count == 10) {
                 if (note.charAt(i) == 'X') {
                     sheet += "|";
                     sheet += "z";
+                    sheet += temp;
                     count = 0;
                 } else {
                     sheet += "|";
                     sheet += note.charAt(i);
+                    sheet += temp;
                     count = 0;
                 }
             }
         }
-
-              /* for (int i = 0 ; i < note.length() ; i++) {
-                count++;
-                if (count == 3) {
-                    temp = note.charAt(i);
-                    sheet += temp;
-                }
-                */
-
-
-          //  }else if(note.charAt(i)==note.charAt(i+2)) {
-
-
-
-//AAABCBB -> AB 도출
-//            if(count != 8 && note.charAt(i) != 'X'){
- //               sheet += note.charAt(i);
-   //             count++;
-     //       }else if(note.charAt(i) != 'X'){
-       //         sheet += "|";
-         //       sheet += note.charAt(i);
-           //     count = 0;
 
 
 
