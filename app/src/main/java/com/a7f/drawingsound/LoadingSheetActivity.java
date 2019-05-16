@@ -53,6 +53,8 @@ public class LoadingSheetActivity extends AppCompatActivity {
 
         sheet += ":|";
 
+//      sheet => "| CC A B C |\n|CAD |"
+
         TextViewNote.setText(sheet);
 
         t = new Thread() {
