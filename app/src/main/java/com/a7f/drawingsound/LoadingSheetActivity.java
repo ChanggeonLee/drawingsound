@@ -26,7 +26,7 @@ public class LoadingSheetActivity extends AppCompatActivity {
 
         TextViewNote.setText(note);
 
-        char temp = ' ';
+        char space = ' ';
         int count = 0; // 마디세기
         int start = 0; // 처음 음표 받아오기
         int input = 0; // 입력 음표 세기
@@ -46,28 +46,93 @@ public class LoadingSheetActivity extends AppCompatActivity {
 
         //한 마디가 10
         for(int i = start ; i < note.length() ; i++) {
-            if (count != 10 && note.charAt(i) != 'z') {
-                if (note.charAt(i) == 'X') {
-                    sheet += "z";
-                    sheet += temp;
-                    count++;
-                } else{
-                    sheet += note.charAt(i);
-                    count++;
-                    sheet +=temp;
+            if (count != 10) { //마디가 끝나지 않은 경우
+                if (note.charAt(i) == 'X' && input == 1) {
+                    if(note.charAt(i) == note.charAt(i-1)){
+                        input = 0;
+                        sheet += "z";
+                        sheet += space;
+                        count++;
+                    }else{
+                        input = 0;
+                        //pass
+                    }
+                } else if (note.charAt(i) == 'X' && input < 1){
+                    if(note.charAt(i) == note.charAt(i-1)) {
+                        //sheet += "z";
+                        //sheet += space;
+                        input++;
+                        //count++;
+                    }else {
+                        //pass
+                    }
+
+                } else if (note.charAt(i) != 'X' && input  == 1){
+                    if (note.charAt(i) == note.charAt(i-1)){
+                        input = 0;
+                        sheet += note.charAt(i);
+                        sheet += space;
+                        count++;
+                    }else{
+                        input = 0;
+                        //pass
+                    }
+                } else if (note.charAt(i) != 'X' && input < 1){
+                    if(i==start){
+                       // input++; //pass
+                    }else if(note.charAt(i) == note.charAt(i-1)) {
+                        input++;
+                        //sheet += note.charAt(i);
+                        //sheet += space;
+                        //count++;
+                    }else if(note.charAt(i) != note.charAt(i-1)){
+                        //pass
+                    }
                 }
-            }else if (count == 10) {
-                if (note.charAt(i) == 'X') {
-                    sheet += "|";
-                    sheet += "z";
-                    sheet += temp;
-                    count = 0;
-                } else {
-                    sheet += "|";
-                    sheet += note.charAt(i);
-                    sheet += temp;
-                    count = 0;
+            }else if (count == 10) { //마디가 끝난 경우
+                if (note.charAt(i) == 'X' && input == 1) {
+                    if(note.charAt(i) == note.charAt(i-1)){
+                        input = 0;
+                        sheet += "|";
+                        sheet += "z";
+                        sheet += space;
+                        count = 0;
+                    }else{
+                        input = 0;
+                        //pass
+                    }
+                } else if (note.charAt(i) == 'X' && input < 1){
+                    if(note.charAt(i) == note.charAt(i-1)) {
+                        input++;
+                       // sheet += "|";
+                        //sheet += "z";
+                        //sheet += space;
+                        //count = 0;
+                    }else{
+                        //pass
+                    }
+                } else if (note.charAt(i) != 'X' && input  == 1){
+                    if (note.charAt(i) == note.charAt(i-1)){
+                        input = 0;
+                        sheet += "|";
+                        sheet += note.charAt(i);
+                        sheet += space;
+                        count = 0;
+                    }else{
+                        input = 0;
+                        //pass
+                    }
+                }else if (note.charAt(i) != 'X' && input < 1){
+                    if (note.charAt(i) == note.charAt(i-1)) {
+                        input++;
+                        //sheet += note.charAt(i);
+                        //sheet += space;
+                        //count++;
+                    }else{
+                        //pass;
+                    }
                 }
+
             }
         }
 
