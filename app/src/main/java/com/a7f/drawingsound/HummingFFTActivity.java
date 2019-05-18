@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import com.a7f.drawingsound.lib.RecordAudio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HummingFFTActivity extends AppCompatActivity {
     // layout element
     Button ButtonStart;
@@ -22,7 +25,7 @@ public class HummingFFTActivity extends AppCompatActivity {
 
     boolean backFlag;
 
-    String note;
+    private List<String> note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +103,7 @@ public class HummingFFTActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(HummingFFTActivity.this, LoadingSheetActivity.class);
-            intent.putExtra("Note",note);
-            Log.e("Note",note);
+            intent.putStringArrayListExtra("Note",(ArrayList<String>)note);
             startActivity(intent);
             finish();
         }

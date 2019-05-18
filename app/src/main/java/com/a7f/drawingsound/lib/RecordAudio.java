@@ -7,6 +7,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ca.uol.aig.fftpack.RealDoubleFFT;
 
 public class RecordAudio extends AsyncTask<Void, double[], Void> {
@@ -21,13 +24,14 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
     private boolean started = false;
 
     private int noteIndex = 0;
-    private String note;
+//    private String note;
+    private List<String> note;
     private TextView TextViewFFT;
 
     public RecordAudio( TextView TextViewFFT){
         transformer = new RealDoubleFFT(blockSize);
         this.TextViewFFT = TextViewFFT;
-        note = "";
+        note = new ArrayList<String>();
     }
 
     public boolean getStarted(){
@@ -94,13 +98,13 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
             Note = "C";
         }else if(269 < fre && fre <= 285){
             // 277 C#
-            Note = "C#";
+            Note = "^C";
         }else if(285 < fre && fre <= 301){
             // 293 D
             Note = "D";
         }else if(301 < fre && fre <= 319){
             // 311 D#
-            Note = "D#";
+            Note = "^D";
         }else if(319 < fre && fre <= 337){
             // 329 E
             Note = "E";
@@ -109,19 +113,19 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
             Note = "F";
         }else if(357 < fre && fre <= 377){
             // 369 F#
-            Note = "F#";
+            Note = "^F";
         }else if(377 < fre && fre <= 399){
             // 391 G
             Note = "G";
         }else if(399 < fre && fre <= 423){
             // 415 G#
-            Note = "G#";
+            Note = "^G";
         }else if(423 < fre && fre <= 448){
             // 440 A
             Note = "A";
         }else if(448 < fre && fre <= 474){
             // 466 A#
-            Note = "A#";
+            Note = "^A";
         }else if(474 < fre && fre <= 501){
             // 493 B
             Note = "B";
@@ -130,13 +134,13 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
             Note = "c";
         }else if(538 < fre && fre <= 570){
             // 554 C#
-            Note = "c#";
+            Note = "^c";
         }else if(570 < fre && fre <= 609){
             // 587 D
             Note = "d";
         }else if(609 < fre && fre <= 640){
             // 622 D#
-            Note = "d#";
+            Note = "^d";
         }else if(640 < fre && fre <= 677){
             // 659 E
             Note = "e";
@@ -145,35 +149,36 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
             Note = "f";
         }else if(720 < fre && fre <= 762){
             // 740 F#
-            Note = "f#";
+            Note = "^f";
         }else if(762 < fre && fre <= 807){
             // 784 G
             Note = "g";
         }else if(807 < fre && fre <= 856){
             // 831 G#
-            Note = "g#";
+            Note = "^g";
         }else if(856 < fre && fre <= 906){
             // 880 A
             Note = "a";
         }else if(906 < fre && fre <= 960){
             // 932 A#
-            Note = "a#";
+            Note = "^a";
         }else if(960 < fre && fre <= 1018){
             // 988 B
             Note = "b";
         } else{
-            Note = "X";
+            Note = "z";
         }
 
-        note += Note;
+        //        note += Note;
+        note.add(Note);
         //        noteIndex++;
         //        Log.d("index",Integer.toString(noteIndex));
         TextViewFFT.setText(Note);
     }
 
-    public String getNoteData(){
+    public List<String> getNoteData(){
 //        String str = String.join(",", note);
-        Log.e("inRecordNote",note);
+//        Log.e("inRecordNote",note);
         return note;
 
     }
