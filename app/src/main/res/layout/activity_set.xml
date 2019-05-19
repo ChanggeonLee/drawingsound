@@ -109,7 +109,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Text"
-                android:textSize="20dp" />
+                android:textSize="15dp" />
 
             <Button
                 android:id="@+id/ButtonSignout"
@@ -117,7 +117,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="로그아웃"
-                android:textSize="20dp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
     </LinearLayout>
