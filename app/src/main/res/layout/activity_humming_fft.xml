@@ -26,6 +26,7 @@
             android:layout_height="0dp"
             android:layout_weight="2"
             android:gravity="center"
+            android:textColor="@color/indigoBlueDark"
             android:text="허밍 시작하기 버튼을 누른 뒤\n허밍을 시작해주세요!"
             android:textSize="20sp" />
 

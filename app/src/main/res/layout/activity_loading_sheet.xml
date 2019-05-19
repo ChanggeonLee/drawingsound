@@ -7,30 +7,42 @@
     android:layout_height="match_parent"
     tools:context=".LoadingSheetActivity"
     android:orientation="vertical"
-    android:weightSum="4">
+    android:weightSum="10">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        app:srcCompat="@drawable/ic_loading_sheet" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:gravity="center"
-        android:layout_weight="1"
-        android:textSize="40dp"
-        android:text="악보 생성중"/>
+        android:textColor="@color/indigoBlueDark"
+        android:text="음을 그리는 중 …"
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/TextViewNote"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:gravity="center"
-        android:layout_weight="3"
+        android:layout_weight="1"
         android:textSize="20dp"
         android:text=""/>
+
 
 </LinearLayout>

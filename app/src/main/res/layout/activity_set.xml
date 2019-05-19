@@ -47,7 +47,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:background="@color/white"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/indigoBlueDark"
             android:text="환영합니다!\n허밍으로 나만의 악보를 만들어 볼까요?" />
 
         <LinearLayout
