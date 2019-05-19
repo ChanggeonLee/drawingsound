@@ -10,8 +10,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_launcher_foreground"
-        android:background="@drawable/ic_launcher_background"
+        android:src="@drawable/splash_foreground"
+        android:background="@drawable/splash_background"
         />
 
 </LinearLayout>
