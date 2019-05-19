@@ -5,13 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoadingSheetActivity extends AppCompatActivity {
     private Intent intent;
-    private List<String> note;
+//    private List<String> note;
     private String sheet;
     private Thread t;
     private TextView TextViewNote;
@@ -20,6 +21,8 @@ public class LoadingSheetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_sheet);
+
+        List<String> note;
 
         TextViewNote = (TextView)findViewById(R.id.TextViewNote);
 
@@ -33,10 +36,26 @@ public class LoadingSheetActivity extends AppCompatActivity {
 
         TextViewNote.setText(sheet);
 
-        intent = new Intent(LoadingSheetActivity.this,SheetSettingActivity.class);
-        intent.putExtra("Sheet",sheet);
-        startActivity(intent);
-        finish();
+        if(sheet != null){
+            intent = new Intent(LoadingSheetActivity.this,SheetSettingActivity.class);
+            intent.putExtra("Sheet",sheet);
+            startActivity(intent);
+            finish();
+        }else{
+            Toast.makeText(getApplicationContext(),"인식된 음이 없습니다. 다시 시도하세요",Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+    }
+
+    private boolean NullNote(List<String> note){
+        if(note.isEmpty()){
+            //  Toast.makeText(HummingFFTActivity.class,"다시 시도해 주세요",Toast.LENGTH_SHORT).show();
+            Log.e("empty note",note.toString());
+            finish();
+            return false;
+        }
+        return true;
     }
 
     // 첫 시작 공백 지우기
@@ -44,6 +63,10 @@ public class LoadingSheetActivity extends AppCompatActivity {
 
         List<String> eraseBlank = new ArrayList<String>();
         int i = 0;
+
+        if(!NullNote(note)){
+            return eraseBlank;
+        }
 
         //녹음 시작 후 첫 공백 날리기
         for(i = 0 ; i < note.size() ; i++){
@@ -68,6 +91,10 @@ public class LoadingSheetActivity extends AppCompatActivity {
         String currentNote = "";
         // char space = ' ';
         int count = 0; // 마디세기
+
+        if(!NullNote(note)){
+            return makeNote;
+        }
 
         currentNote = note.get(0);
         for(int i = 1 ; i < note.size() ; i++){
@@ -106,6 +133,9 @@ public class LoadingSheetActivity extends AppCompatActivity {
         int line = 0;
         int sum = 0;
 
+        if(!NullNote(note)){
+            return null;
+        }
 
         // 한마디에 sum 8
         for(int i = 0 ; i < note.size() ; i++){
