@@ -84,7 +84,8 @@ public class SheetListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(SheetListActivity.this, SetActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(SheetListActivity.this, SetActivity.class);
+        finish();
+//        startActivity(intent);
     }
 }

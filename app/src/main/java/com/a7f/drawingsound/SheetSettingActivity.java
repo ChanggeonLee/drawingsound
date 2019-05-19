@@ -103,10 +103,6 @@ public class SheetSettingActivity extends AppCompatActivity {
                 try {
                     Intent intent = getIntent();
                     String sheetdata = intent.getExtras().getString("Sheet");
-//                    String sheetdata =   "\nD2|\"Em\"EB{c}BA B2 EB|~B2 AB dBAG|\"D\"FDAD BDAD|FDAD dAFD|" +
-//                            "\n\"Em\"EBBA B2 EB|B2 AB defg|\"D\"afe^c dBAF|1\"Em\"DEFD E2 D2:|2\"Em\"DEFD E2 gf||" +
-//                            "\n|:\"Em\"eB B2 efge|eB B2 gedB|\"D\"A2 FA DAFA|A2 FA defg|" +
-//                            "\n\"Em\"eB B2 eBgB|eB B2 defg|\"D\"afe^c dBAF|1\"Em\"DEFD E2 gf:|2\"Em\"DEFD E4|]";
                     Log.e("sheetdata",sheetdata);
                     Sheet sheet = new Sheet(title, composer, url, date, mood, sheetdata);
 
@@ -127,24 +123,5 @@ public class SheetSettingActivity extends AppCompatActivity {
     public void onBackPressed() {
         //super.onBackPressed();
     }
-//    @Override
-//    public void onBackPressed() {
-//        long tempTime = System.currentTimeMillis();
-//        long intervalTime = tempTime - backPressedTime;
-//
-//        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime)
-//        {
-////            super.onBackPressed();
-//            ActivityCompat.finishAffinity(this);
-//            System.runFinalizersOnExit(true);
-//            System.exit(0);
-//        }
-//        else
-//        {
-//            backPressedTime = tempTime;
-//            Toast.makeText(getApplicationContext(), "한번 더 뒤로가기 누르면 꺼버린다.", Toast.LENGTH_SHORT).show();
-//
-//        }
-//    }
 
 }
