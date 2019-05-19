@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +19,10 @@ public class HummingFFTActivity extends AppCompatActivity {
     // layout element
     Button ButtonStart;
     Button ButtonReset;
-    Button ButtonPlay;
+    //Button ButtonPlay;
     Button ButtonApply;
+    TextView TextViewHumDescription;
+    ImageView ImageViewHumIcon;
 
     RecordAudio recordTask;
 
@@ -40,8 +43,10 @@ public class HummingFFTActivity extends AppCompatActivity {
     private void setHandler(){
         ButtonStart = (Button)findViewById(R.id.ButtonStart);
         ButtonReset = (Button)findViewById(R.id.ButtonReset);
-        ButtonPlay = (Button)findViewById(R.id.ButtonPlay);
+        //ButtonPlay = (Button)findViewById(R.id.ButtonPlay);
         ButtonApply = (Button)findViewById(R.id.ButtonApply);
+        TextViewHumDescription = (TextView)findViewById(R.id.TextViewHumDescription);
+        ImageViewHumIcon = (ImageView)findViewById(R.id.ImageViewHumIcon);
 
         ButtonStart.setOnClickListener(StartClickListener);
         ButtonReset.setOnClickListener(ResetClickListener);
@@ -49,8 +54,12 @@ public class HummingFFTActivity extends AppCompatActivity {
         ButtonApply.setOnClickListener(ApplyClickListener);
 
         ButtonReset.setEnabled(false);
-        ButtonPlay.setEnabled(false);
+       // ButtonPlay.setEnabled(false);
         ButtonApply.setEnabled(false);
+
+        ButtonStart.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueDark));
+        ButtonReset.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueLight));
+        ButtonApply.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoPinkLight));
 
         backFlag = true;
     }
@@ -62,19 +71,28 @@ public class HummingFFTActivity extends AppCompatActivity {
             if(recordTask.getStarted()){
                 Log.d("Buttonstop", "click success");
                 recordTask.setStarted(false);
-                ButtonStart.setText("Start");
+                ButtonStart.setText("허밍 시작하기");
+                TextViewHumDescription.setText("허밍이 성공적으로 종료되었습니다!\n악보를 생성해 볼까요?");
+                ImageViewHumIcon.setImageResource(R.drawable.ic_humming_start);
+
                 recordTask.cancel(true);
 
                 ButtonStart.setEnabled(false);
                 ButtonReset.setEnabled(true);
                 ButtonApply.setEnabled(true);
 
+                ButtonStart.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueLight));
+                ButtonReset.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueDark));
+                ButtonApply.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoPinkDark));
+
                 note = recordTask.getNoteData();
 
                 backFlag = true;
             }else{
                 recordTask.setStarted(true);
-                ButtonStart.setText("Stop");
+                ButtonStart.setText("허밍 종료하기");
+                TextViewHumDescription.setText("입술을 다문채로\n음을 흥얼거려주세요!");
+                ImageViewHumIcon.setImageResource(R.drawable.ic_humming_ing);
                 try{
                     recordTask.execute();
                 }catch(Exception e){
@@ -91,8 +109,16 @@ public class HummingFFTActivity extends AppCompatActivity {
             recordTask = null;
             ButtonStart.setEnabled(true);
             ButtonReset.setEnabled(false);
-            ButtonPlay.setEnabled(false);
+            //ButtonPlay.setEnabled(false);
             ButtonApply.setEnabled(false);
+
+            TextViewHumDescription.setText("허밍 시작하기 버튼을 누른 뒤\n허밍을 시작해주세요!");
+            ImageViewHumIcon.setImageResource(R.drawable.ic_humming_start);
+
+            ButtonStart.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueDark));
+            ButtonReset.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueLight));
+            ButtonApply.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoPinkLight));
+
             recordTask = new RecordAudio((TextView)findViewById(R.id.TextViewFFT));
         }
     };
