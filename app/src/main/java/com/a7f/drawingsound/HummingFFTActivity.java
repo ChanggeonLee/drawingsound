@@ -128,10 +128,14 @@ public class HummingFFTActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(HummingFFTActivity.this, LoadingSheetActivity.class);
-            intent.putStringArrayListExtra("Note",(ArrayList<String>)note);
-            startActivity(intent);
-            finish();
+            if(!note.isEmpty()) {
+                Intent intent = new Intent(HummingFFTActivity.this, LoadingSheetActivity.class);
+                intent.putStringArrayListExtra("Note", (ArrayList<String>) note);
+                startActivity(intent);
+                finish();
+            }else{
+                Toast.makeText(getApplicationContext(),"인식된 음이 없습니다. 다시 시도하세요",Toast.LENGTH_SHORT).show();
+            }
         }
     };
 
