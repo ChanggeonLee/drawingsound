@@ -56,15 +56,4 @@ public class MoodListActivity extends AppCompatActivity {
         });
     }
 
-//    class ImageClickListener implements View.OnClickListener{
-//
-//
-//        @Override
-//        public void onClick(View v) {
-//            Intent intent = new Intent(MoodListActivity.this,SheetListActivity.class);
-//            startActivity(intent);
-//        }
-//    }
-
-
 }
