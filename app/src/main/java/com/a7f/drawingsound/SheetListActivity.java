@@ -7,9 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
-import com.a7f.drawingsound.adapter.MoodAdapter;
 import com.a7f.drawingsound.adapter.SheetAdapter;
 import com.a7f.drawingsound.data.SheetsData;
 import com.a7f.drawingsound.model.Sheet;
