@@ -153,13 +153,13 @@
                             android:id="@+id/radio2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="어두움" />
+                            android:text="잔잔함" />
 
                         <RadioButton
                             android:id="@+id/radio3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="기타" />
+                            android:text="어두움" />
                     </RadioGroup>
 
                     <Space

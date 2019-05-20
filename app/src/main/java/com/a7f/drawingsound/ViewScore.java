@@ -1,5 +1,6 @@
 package com.a7f.drawingsound;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebSettings;
@@ -16,10 +17,6 @@ public class ViewScore extends AppCompatActivity {
     private WebSettings WebSettinsScore;
     private String uri;
 
-    private FirebaseDatabase database;
-    private DatabaseReference myRef;
-    private FirebaseUser currentUser;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +27,22 @@ public class ViewScore extends AppCompatActivity {
         WebSettinsScore = WebViewScore.getSettings();
         WebSettinsScore.setJavaScriptEnabled(true);
 
-//        database = FirebaseDatabase.getInstance();
-//        myRef = database.getReference().child("sheets");
+        uri = sheetUri();
 
-        String uid = FirebaseAuth.getInstance().getUid();
-        String key = "-LfIunUroLqPGFakqFSZ";
+        WebViewScore.loadUrl(uri);
+    }
+
+    private String sheetUri(){
+        String uri;
+        String key;
+        String uid;
+
+        Intent intent = getIntent();
+        key = intent.getStringExtra("sheetKey");
+        uid = FirebaseAuth.getInstance().getUid();
 
         uri = "http://drawingsound.com:8888/sheet/msheet?key=" + key + "&uid=" + uid;
 
-        WebViewScore.loadUrl(uri);
+        return uri;
     }
 }

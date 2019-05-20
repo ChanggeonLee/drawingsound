@@ -6,8 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.View;
 
 import com.a7f.drawingsound.adapter.SheetAdapter;
 import com.a7f.drawingsound.data.SheetsData;
@@ -53,6 +52,19 @@ public class SheetListActivity extends AppCompatActivity {
         adapter.setItems(sheetsData.getItems());
         //recyclerView.setAdapter(adapter);
         //adapter.setItems(new SampleData().getItems());
+        adapter.setOnItemClickListener(new SheetAdapter.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(SheetAdapter.ViewHolder holder, View view, int position) {
+//                long data = adapter.getItemId(position);
+                String key = adapter.getkey(position);
+                Log.e("adapter key",key);
+                Intent intent = new Intent(SheetListActivity.this, ViewScore.class);
+                intent.putExtra("sheetKey",key);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -62,11 +74,19 @@ public class SheetListActivity extends AppCompatActivity {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             sheetsData = new SheetsData();
+
+            Intent intent = getIntent();
+            String mood = intent.getStringExtra("Mood");
+//            Log.e("get mood",mood);
+
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                 sheet = snapshot.getValue(Sheet.class);
-                sheetsData.setItems(sheet);
-                //sheet.getMood();
-                Log.d("SheetListActivity","mood value : " + sheet.getMood());
+//                Log.e("mood",sheet.getMood());
+                if(mood.equals(sheet.getMood())){
+                    sheet.setKey(snapshot.getKey());
+//                    Log.e("Database",sheet.getMood());
+                    sheetsData.setItems(sheet);
+                }
             }
             onSetRecyclerView(sheetsData);
             Log.d("SheetListActivity", "Single ValueEventListener : " + sheetsData);
