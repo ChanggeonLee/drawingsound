@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.a7f.drawingsound.adapter.SheetAdapter;
 import com.a7f.drawingsound.data.SheetsData;
@@ -64,6 +65,8 @@ public class SheetListActivity extends AppCompatActivity {
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                 sheet = snapshot.getValue(Sheet.class);
                 sheetsData.setItems(sheet);
+                //sheet.getMood();
+                Log.d("SheetListActivity","mood value : " + sheet.getMood());
             }
             onSetRecyclerView(sheetsData);
             Log.d("SheetListActivity", "Single ValueEventListener : " + sheetsData);

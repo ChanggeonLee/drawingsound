@@ -46,7 +46,9 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:background="@drawable/edt_underline"
-                android:hint="  email@email.com"/>
+                android:hint="  email@email.com"
+                android:singleLine="true"
+                android:lines="1"/>
 
             <Space
                 android:layout_width="0dp"
@@ -75,6 +77,8 @@
                 android:textColorHint="@color/white"
                 android:background="@drawable/edt_underline"
                 android:hint="  Password"
+                android:singleLine="true"
+                android:lines="1"
                 />
 
             <Space
