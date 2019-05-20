@@ -95,11 +95,10 @@ public class SheetSettingActivity extends AppCompatActivity {
             final RadioGroup rg = (RadioGroup)findViewById(R.id.radiogroup);
             int id = rg.getCheckedRadioButtonId();
             RadioButton rb = (RadioButton)findViewById(id);
-            mood = rb.getText().toString();
 
 
-            if(!title.isEmpty() && !composer.isEmpty()){
-
+            if(!title.isEmpty() && !composer.isEmpty() && rb != null){
+                mood = rb.getText().toString();
                 try {
                     Intent intent = getIntent();
                     String sheetdata = intent.getExtras().getString("Sheet");
@@ -117,6 +116,8 @@ public class SheetSettingActivity extends AppCompatActivity {
                 Intent intent = new Intent(SheetSettingActivity.this,SheetListActivity.class);
                 startActivity(intent);
                 finish();
+            }else{
+                Toast.makeText(getApplicationContext(), "정보를 입력해주세요.",Toast.LENGTH_SHORT).show();
             }
         }
     };
