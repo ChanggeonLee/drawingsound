@@ -12,7 +12,7 @@ import java.util.List;
 
 public class LoadingSheetActivity extends AppCompatActivity {
     private Intent intent;
-//    private List<String> note;
+    // private List<String> note;
     private String sheet;
     private Thread t;
     private TextView TextViewNote;
@@ -31,7 +31,7 @@ public class LoadingSheetActivity extends AppCompatActivity {
         note = intent.getStringArrayListExtra("Note");
 
         note = eraseBlank(note);
-        note = makeNote(note);
+        note = makeNote(note,2);
         sheet = divisionNode(note);
 
         TextViewNote.setText(sheet);
@@ -86,7 +86,7 @@ public class LoadingSheetActivity extends AppCompatActivity {
     }
 
     // 음표와 쉼표 만들기
-    private List<String> makeNote(List<String> note){
+    private List<String> makeNote(List<String> note, int beat){
         List<String> makeNote = new ArrayList<String>();
         String currentNote = "";
         // char space = ' ';
@@ -104,8 +104,8 @@ public class LoadingSheetActivity extends AppCompatActivity {
                 // 앞에 3개 확인하기
                 if( i+2 < note.size() && !currentNote.equals(note.get(i)) && !currentNote.equals(note.get(i+1)) && !currentNote.equals(note.get(i+2)) ){
                     // 음표 만들기
-                    if( 3 <= count && count <= 24){
-                        makeNote.add(currentNote + String.valueOf(count/3));
+                    if( beat <= count && count <= (beat*8) ){
+                        makeNote.add(currentNote + String.valueOf(count/beat));
                     }
                     count = 0;
                     currentNote = note.get(i);

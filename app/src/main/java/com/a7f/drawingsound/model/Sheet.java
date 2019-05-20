@@ -11,7 +11,7 @@ public class Sheet {
     private String date;
     private String mood;
 
-    private String[] note;
+    //    private String[] note;
     //    private String source;
     //    private String meternome;
     //    private String l;
@@ -115,6 +115,7 @@ public class Sheet {
     public void setMood(String mood) {
         this.mood = mood;
     }
+
     //    public void setX(String x) {
 //        this.x = x;
 //    }

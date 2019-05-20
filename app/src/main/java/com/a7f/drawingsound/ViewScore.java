@@ -7,11 +7,18 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ViewScore extends AppCompatActivity {
     private WebView WebViewScore;
     private WebSettings WebSettinsScore;
     private String uri;
+
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +30,13 @@ public class ViewScore extends AppCompatActivity {
         WebSettinsScore = WebViewScore.getSettings();
         WebSettinsScore.setJavaScriptEnabled(true);
 
-        String uid = FirebaseAuth.getInstance().getUid();
+//        database = FirebaseDatabase.getInstance();
+//        myRef = database.getReference().child("sheets");
 
-        uri = "http://drawingsound.com:8888/sheet/test?key=-LeuPgx4aYph0nxFquiw&uid=" + uid;
+        String uid = FirebaseAuth.getInstance().getUid();
+        String key = "-LfIunUroLqPGFakqFSZ";
+
+        uri = "http://drawingsound.com:8888/sheet/msheet?key=" + key + "&uid=" + uid;
 
         WebViewScore.loadUrl(uri);
     }
