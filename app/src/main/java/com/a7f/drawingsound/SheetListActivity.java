@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 
+import com.a7f.drawingsound.adapter.MoodAdapter;
 import com.a7f.drawingsound.adapter.SheetAdapter;
 import com.a7f.drawingsound.data.SheetsData;
 import com.a7f.drawingsound.model.Sheet;
@@ -52,6 +54,17 @@ public class SheetListActivity extends AppCompatActivity {
         adapter.setItems(sheetsData.getItems());
         //recyclerView.setAdapter(adapter);
         //adapter.setItems(new SampleData().getItems());
+        adapter.setOnItemClickListener(new SheetAdapter.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(SheetAdapter.ViewHolder holder, View view, int position) {
+
+                long data = adapter.getItemId(position);
+                Intent intent = new Intent(SheetListActivity.this, ViewScore.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 

@@ -13,9 +13,12 @@ import android.widget.Toast;
 
 import com.a7f.drawingsound.adapter.MoodAdapter;
 import com.a7f.drawingsound.data.MoodsData;
+import com.a7f.drawingsound.model.Mood;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+//import static com.a7f.drawingsound.model.Mood.mood;
 
 public class MoodListActivity extends AppCompatActivity {
 
@@ -47,7 +50,8 @@ public class MoodListActivity extends AppCompatActivity {
                 long data = adapter.getItemId(position);
                 Intent intent = new Intent(MoodListActivity.this,SheetListActivity.class);
                 startActivity(intent);
-                //Toast.makeText(getApplicationContext(),"해당 가수가 선택됨",Toast.LENGTH_LONG).show();
+
+               // Toast.makeText(getApplicationContext(), mood,Toast.LENGTH_LONG).show();
             }
         });
     }

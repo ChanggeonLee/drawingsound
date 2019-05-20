@@ -11,18 +11,18 @@ public class MoodsData {
 
     public ArrayList<Mood> getItems() {
 
-        Mood movie1 = new Mood("https://i.ytimg.com/vi/5-mWvUR7_P0/maxresdefault.jpg",
-                "action");
+        Mood mood1 = new Mood("https://i.ytimg.com/vi/5-mWvUR7_P0/maxresdefault.jpg",
+                "밝음");
 
-        Mood movie2 = new Mood("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A",
-                "action");
+        Mood mood2 = new Mood("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A",
+                "잔잔함");
 
-        Mood movie3 = new Mood("https://i.ytimg.com/vi/5-mWvUR7_P0/maxresdefault.jpg",
-                "action");
+        Mood mood3 = new Mood("https://i.ytimg.com/vi/5-mWvUR7_P0/maxresdefault.jpg",
+                "어두움");
 
-        items.add(movie1);
-        items.add(movie2);
-        items.add(movie3);
+        items.add(mood1);
+        items.add(mood2);
+        items.add(mood3);
 
         return items;
     }
