@@ -9,6 +9,12 @@
     android:orientation="vertical"
     android:weightSum="10">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/toolbar_background"
+        android:id="@+id/app_toolbar" />
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -204,7 +210,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:background="@color/indigoPinkDark"
-                    android:text="저장"
+                    android:text="저장하기"
                     android:textColor="@color/white" />
             </LinearLayout>
 

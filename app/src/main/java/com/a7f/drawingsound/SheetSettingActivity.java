@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +36,7 @@ public class SheetSettingActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
 
 
     private static String url_brightness = "https://firebasestorage.googleapis.com/v0/b/drawingsound-1d381.appspot.com/o/brightness.jpeg?alt=media&token=39180ee2-0073-4dc7-840e-f635bafb92b3";
@@ -43,9 +47,13 @@ public class SheetSettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sheet_setting);
+        setTitle("");
         settingDB();
         settingHandler();
         settingAuth();
+
+        Toolbar tb = (Toolbar) findViewById(R.id.app_toolbar);
+        setSupportActionBar(tb);
     }
 
     private void settingDB(){
@@ -64,6 +72,8 @@ public class SheetSettingActivity extends AppCompatActivity {
 
         ButtonPrev.setOnClickListener(Prevonclick);
         ButtonSet.setOnClickListener(Setclick);
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     private void settingAuth(){
@@ -139,4 +149,29 @@ public class SheetSettingActivity extends AppCompatActivity {
         return url;
     }
 
+
+    private void signOut() {
+        mAuth.signOut();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appbar_action, menu) ;
+
+        return true ;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout :
+                signOut();
+                Intent intent = new Intent(SheetSettingActivity.this, SigninActivity.class);
+                startActivity(intent);
+                finish();
+                return true ;
+            default :
+                return super.onOptionsItemSelected(item) ;
+        }
+    }
 }
