@@ -34,9 +34,9 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
 
         Sheet item = items.get(position);
 
-        Glide.with(viewHolder.itemView.getContext())
-                .load(item.getUrl())
-                .into(viewHolder.ImageViewSheet);
+//        Glide.with(viewHolder.itemView.getContext())
+//                .load(item.getUrl())
+//                .into(viewHolder.ImageViewSheet);
 
         viewHolder.TextViewTitle.setText(item.getTitle());
         viewHolder.TextViewComposer.setText(item.getComposer());
@@ -56,14 +56,14 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
     class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        ImageView ImageViewSheet;
+        //ImageView ImageViewSheet;
 
         TextView TextViewTitle, TextViewComposer, TextViewDate, TextViewMood;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            ImageViewSheet = itemView.findViewById(R.id.ImageViewSheet);
+            //ImageViewSheet = itemView.findViewById(R.id.ImageViewSheet);
 
             TextViewTitle = itemView.findViewById(R.id.TextViewTitle);
             TextViewComposer = itemView.findViewById(R.id.TextViewComposer);

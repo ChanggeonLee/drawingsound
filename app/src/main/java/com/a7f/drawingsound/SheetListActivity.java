@@ -44,8 +44,8 @@ public class SheetListActivity extends AppCompatActivity {
         //recycleView 초기화
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
-        // recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
         //new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false);
         recyclerView.setAdapter(adapter);
 
