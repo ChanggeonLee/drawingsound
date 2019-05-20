@@ -31,7 +31,7 @@ public class LoadingSheetActivity extends AppCompatActivity {
         note = intent.getStringArrayListExtra("Note");
 
         note = eraseBlank(note);
-        note = makeNote(note,1);
+        note = makeNote(note,2);
         sheet = divisionNode(note);
 
         TextViewNote.setText(sheet);
@@ -102,9 +102,7 @@ public class LoadingSheetActivity extends AppCompatActivity {
             if(!currentNote.equals(note.get(i))){
                 // 앞뒤가 다른지
                 // 앞에 3개 확인하기
-//                 && !currentNote.equals(note.get(i+1)) && !currentNote.equals(note.get(i+2))
-                if( i+2 < note.size() && !currentNote.equals(note.get(i)) && !currentNote.equals(note.get(i+1)) ){
-//                        || (note.get(i).equals("z")) && !note.get(i+1).equals("z")){
+                if( i+1 < note.size() && !currentNote.equals(note.get(i)) && !currentNote.equals(note.get(i+1)) ) {
                     // 음표 만들기
                     if( beat <= count && count <= (beat*8) ){
                         makeNote.add(currentNote + String.valueOf(count/beat));
