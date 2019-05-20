@@ -10,6 +10,7 @@ public class Sheet {
     private String str;
     private String date;
     private String mood;
+    private String key;
 
     //    private String[] note;
     //    private String source;
@@ -37,6 +38,10 @@ public class Sheet {
                     "\nR: reel" +
                     "\nK: Amin" +
                     "\n" + sheet;
+    }
+
+    public String getKey() {
+        return key;
     }
 
     public String getTitle(){
@@ -88,6 +93,11 @@ public class Sheet {
     //    public String getX() {
     //        return x;
     //    }
+
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public void setTitle(String title){
         this.title = title;

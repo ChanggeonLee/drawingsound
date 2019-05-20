@@ -22,6 +22,7 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
 
     private ArrayList<Sheet> items = new ArrayList<>();
     private OnItemClickListener listener;
+
     @NonNull
     @Override
     public SheetAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -51,6 +52,7 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
         viewHolder.TextViewMood.setText(item.getMood());
 
         viewHolder.setOnItemClickListener(listener);
+
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -102,6 +104,11 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.ViewHolder> 
         public void setOnItemClickListener(OnItemClickListener listener) {
             this.listener = listener;
         }
+    }
+
+    public String getkey(int position){
+        Sheet item = items.get(position);
+        return item.getKey();
     }
 }
 

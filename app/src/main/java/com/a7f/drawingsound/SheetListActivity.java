@@ -58,9 +58,11 @@ public class SheetListActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(SheetAdapter.ViewHolder holder, View view, int position) {
-
-                long data = adapter.getItemId(position);
+//                long data = adapter.getItemId(position);
+                String key = adapter.getkey(position);
+                Log.e("adapter key",key);
                 Intent intent = new Intent(SheetListActivity.this, ViewScore.class);
+                intent.putExtra("sheetKey",key);
                 startActivity(intent);
             }
         });
@@ -76,6 +78,8 @@ public class SheetListActivity extends AppCompatActivity {
             sheetsData = new SheetsData();
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                 sheet = snapshot.getValue(Sheet.class);
+                sheet.setKey(snapshot.getKey());
+                Log.e("Database",sheet.getKey());
                 sheetsData.setItems(sheet);
             }
             onSetRecyclerView(sheetsData);
