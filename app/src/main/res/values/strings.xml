@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">drawingsound</string>
+    <string name="app_name">음을 그리다</string>
     <string name="title_activity_sheet_list">SheetListActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -91,4 +91,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
