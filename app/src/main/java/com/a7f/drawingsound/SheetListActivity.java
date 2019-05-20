@@ -3,6 +3,7 @@ package com.a7f.drawingsound;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -45,9 +46,11 @@ public class SheetListActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),1));
         //recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
         //new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false);
         recyclerView.setAdapter(adapter);
+
 
         adapter.setItems(sheetsData.getItems());
         //recyclerView.setAdapter(adapter);

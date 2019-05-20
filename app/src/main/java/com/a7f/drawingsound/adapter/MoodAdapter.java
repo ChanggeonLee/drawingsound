@@ -46,7 +46,7 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
 
         Mood item = items.get(position);
 
-        Glide.with(viewHolder.itemView.getContext())
+       Glide.with(viewHolder.itemView.getContext())
                 .load(item.getImg())
                 .into(viewHolder.ivMovie);
 
@@ -79,7 +79,7 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
 
             ivMovie = itemView.findViewById(R.id.iv_item_movie);
 
-            tvTitle = itemView.findViewById(R.id.tv_item_movie_title);
+            //tvTitle = itemView.findViewById(R.id.tv_item_movie_title);
 //            tvContent = itemView.findViewById(R.id.tv_item_movie_content);
 //            tvGenre = itemView.findViewById(R.id.tv_item_movie_genre);
             itemView.setOnClickListener(new View.OnClickListener(){
