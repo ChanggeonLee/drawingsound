@@ -103,7 +103,9 @@ public class SheetSettingActivity extends AppCompatActivity {
                 try {
                     Intent intent = getIntent();
                     String sheetdata = intent.getExtras().getString("Sheet");
+//                    String mobilesheetdata = intent.getExtras().getString("MobileSheet");
                     Log.e("sheetdata",sheetdata);
+
                     Sheet sheet = new Sheet(title, composer, url, date, mood, sheetdata);
 
                     myRef.child("sheets").child(currentUser.getUid()).push().setValue(sheet);
