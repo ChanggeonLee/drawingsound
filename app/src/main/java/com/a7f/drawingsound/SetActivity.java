@@ -72,7 +72,7 @@ public class SetActivity extends AppCompatActivity {
     Button.OnClickListener ListClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(SetActivity.this,SheetListActivity.class);
+            Intent intent = new Intent(SetActivity.this,MoodListActivity.class);
             startActivity(intent);
         }
     };
