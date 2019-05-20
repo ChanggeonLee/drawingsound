@@ -76,11 +76,19 @@ public class SheetListActivity extends AppCompatActivity {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             sheetsData = new SheetsData();
+
+            Intent intent = getIntent();
+            String mood = intent.getStringExtra("Mood");
+//            Log.e("get mood",mood);
+
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                 sheet = snapshot.getValue(Sheet.class);
-                sheet.setKey(snapshot.getKey());
-                Log.e("Database",sheet.getKey());
-                sheetsData.setItems(sheet);
+//                Log.e("mood",sheet.getMood());
+                if(mood.equals(sheet.getMood())){
+                    sheet.setKey(snapshot.getKey());
+//                    Log.e("Database",sheet.getMood());
+                    sheetsData.setItems(sheet);
+                }
             }
             onSetRecyclerView(sheetsData);
             Log.d("SheetListActivity", "Single ValueEventListener : " + sheetsData);

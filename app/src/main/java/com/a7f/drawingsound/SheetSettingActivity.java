@@ -113,7 +113,7 @@ public class SheetSettingActivity extends AppCompatActivity {
                     Log.e("firebasesaveerror",e.getMessage());
                 }
 
-                Intent intent = new Intent(SheetSettingActivity.this,SheetListActivity.class);
+                Intent intent = new Intent(SheetSettingActivity.this,MoodListActivity.class);
                 startActivity(intent);
                 finish();
             }else{

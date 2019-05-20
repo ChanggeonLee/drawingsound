@@ -120,6 +120,13 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
 //
 //        }
 
+
+
+    }
+
+    public String getKeyMood(int position){
+        Mood item = items.get(position);
+        return item.getMood();
     }
 
 }

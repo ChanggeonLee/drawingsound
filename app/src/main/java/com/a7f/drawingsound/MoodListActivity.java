@@ -47,10 +47,10 @@ public class MoodListActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(MoodAdapter.ViewHolder holder, View view, int position) {
-                long data = adapter.getItemId(position);
+                String mood = adapter.getKeyMood(position);
                 Intent intent = new Intent(MoodListActivity.this,SheetListActivity.class);
+                intent.putExtra("Mood",mood);
                 startActivity(intent);
-
                // Toast.makeText(getApplicationContext(), mood,Toast.LENGTH_LONG).show();
             }
         });
