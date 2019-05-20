@@ -34,9 +34,10 @@ public class SheetSettingActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseUser currentUser;
 
-//    private final long FINISH_INTERVAL_TIME = 2000;
-//    private long backPressedTime = 0;
 
+    private static String url_brightness = "https://firebasestorage.googleapis.com/v0/b/drawingsound-1d381.appspot.com/o/brightness.jpeg?alt=media&token=39180ee2-0073-4dc7-840e-f635bafb92b3";
+    private static String url_calmness = "https://firebasestorage.googleapis.com/v0/b/drawingsound-1d381.appspot.com/o/calmness.png?alt=media&token=c76726b8-81c2-42e4-8752-194cb18f770a";
+    private static String url_darkness = "https://firebasestorage.googleapis.com/v0/b/drawingsound-1d381.appspot.com/o/darkness.png?alt=media&token=615c451d-92c3-4de6-be61-cc5340e53a10";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +86,10 @@ public class SheetSettingActivity extends AppCompatActivity {
 
             title = EditTextTitle.getText().toString();
             composer = EditTextComposer.getText().toString();
-            url = "https://firebasestorage.googleapis.com/v0/b/drawingsound-1d381.appspot.com/o/sheet.PNG?alt=media&token=f0fbfc88-f562-44bd-a5c9-abf5c66e8bdb";
             long now = System.currentTimeMillis();
             Date formatDate = new Date(now);
             SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd");
             date = sdfNow.format(formatDate);
-            // date = EditTextDate.getText().toString();
 
             final RadioGroup rg = (RadioGroup)findViewById(R.id.radiogroup);
             int id = rg.getCheckedRadioButtonId();
@@ -102,9 +101,9 @@ public class SheetSettingActivity extends AppCompatActivity {
                 try {
                     Intent intent = getIntent();
                     String sheetdata = intent.getExtras().getString("Sheet");
-//                    String mobilesheetdata = intent.getExtras().getString("MobileSheet");
                     Log.e("sheetdata",sheetdata);
 
+                    url = getMoodUrl(mood);
                     Sheet sheet = new Sheet(title, composer, url, date, mood, sheetdata);
 
                     myRef.child("sheets").child(currentUser.getUid()).push().setValue(sheet);
@@ -125,6 +124,19 @@ public class SheetSettingActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+    }
+
+    public String getMoodUrl(String moodtype){
+        String url;
+        if(moodtype.equals("밝음")){
+            url = url_brightness;
+        }else if(moodtype.equals("잔잔함")){
+            url = url_calmness;
+        }else {
+            url = url_darkness;
+        }
+
+        return url;
     }
 
 }
