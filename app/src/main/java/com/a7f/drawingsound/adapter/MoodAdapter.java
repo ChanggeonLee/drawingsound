@@ -46,7 +46,9 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
 
         Mood item = items.get(position);
 
-       Glide.with(viewHolder.itemView.getContext())
+        viewHolder.TextViewMood.setText(item.getMood());
+
+        Glide.with(viewHolder.itemView.getContext())
                 .load(item.getImg())
                 .into(viewHolder.ivMovie);
 
@@ -70,7 +72,7 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView ivMovie;
-        TextView tvTitle, tvContent, tvGenre;
+        TextView TextViewMood;
 
         OnItemClickListener listener;
 
@@ -78,6 +80,7 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
             super(itemView);
 
             ivMovie = itemView.findViewById(R.id.iv_item_movie);
+            TextViewMood = itemView.findViewById(R.id.TextViewMood);
 
             //tvTitle = itemView.findViewById(R.id.tv_item_movie_title);
 //            tvContent = itemView.findViewById(R.id.tv_item_movie_content);
@@ -97,7 +100,6 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
 
 
         void onBind(Mood mood){
-
 
         }
 
