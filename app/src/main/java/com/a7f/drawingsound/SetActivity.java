@@ -17,8 +17,6 @@ public class SetActivity extends AppCompatActivity {
 
     Button ButtonList;
     Button ButtonMake;
-    Button ButtonSignout;
-    Button ButtonTest;
 
     private FirebaseAuth mAuth;
 
@@ -47,11 +45,6 @@ public class SetActivity extends AppCompatActivity {
         ButtonMake.setOnClickListener(MakeClick);
 
     }
-
-    private void signOut() {
-        mAuth.signOut();
-    }
-
 
     Button.OnClickListener ListClick = new View.OnClickListener() {
         @Override
@@ -84,10 +77,13 @@ public class SetActivity extends AppCompatActivity {
         }
     }
 
+    private void signOut() {
+        mAuth.signOut();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.appbar_action, menu) ;
-
         return true ;
     }
 
