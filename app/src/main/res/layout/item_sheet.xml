@@ -5,84 +5,79 @@
     android:layout_height="wrap_content"
     android:singleLine="true">
 
-    <!--<android.support.v7.widget.CardView-->
-    <!--android:id="@+id/cv_item_movie_parent"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:cardCornerRadius="4dp"-->
-    <!--app:cardUseCompatPadding="true"-->
-    <!--app:cardElevation="4dp">-->
-
-    <!--<ImageView-->
-        <!--android:id="@+id/ImageViewSheet"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="540dp"-->
-        <!--android:scaleType="centerCrop" />-->
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
         android:alpha="0.6"
         android:background="@android:color/white"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
+        android:orientation="horizontal"
         android:singleLine="true"
         android:paddingTop="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="8dp">
+        android:paddingBottom="8dp"
+        android:weightSum="13">
 
-        <!--<TextView-->
-            <!--android:id="@+id/TextViewSheet"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="8dp"-->
-            <!--android:text="Music Sheet"-->
-            <!--android:textColor="@android:color/black"-->
-            <!--android:textSize="13dp" />-->
-
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
 
         <TextView
             android:id="@+id/TextViewTitle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="16dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
             android:text="Title"
             android:textColor="@android:color/black"
-            android:textSize="28dp" />
+            android:textSize="20sp" />
 
 
         <TextView
             android:id="@+id/TextViewComposer"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
             android:text="Sheet Composer"
             android:textAlignment="center"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/TextViewDate"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="end"
-            android:text="Date"
-            android:textAlignment="textEnd"
-            android:textColor="@android:color/black" />
+            android:layout_weight="4"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/TextViewDate"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:text="Date"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"/>
 
+            <TextView
+                android:id="@+id/TextViewMood"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:text="Mood"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"/>
+        </LinearLayout>
 
-    </RelativeLayout>
-    <TextView
-        android:id="@+id/TextViewMood"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="8dp"
-        android:gravity="end"
-        android:text="Mood"
-        android:textAlignment="textEnd"
-        android:textColor="@android:color/black" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
+
+    </LinearLayout>
+
     <!--</android.support.v7.widget.CardView>-->
 
 </FrameLayout>
