@@ -38,13 +38,42 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5" />
 
-            <WebView
-                android:id="@+id/WebViewScore"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="12">
+                android:layout_weight="12"
+                android:orientation="vertical"
+                android:weightSum="11">
 
-            </WebView>
+                <WebView
+                    android:id="@+id/WebViewScore"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="9.5">
+
+                </WebView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.2" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.8"
+                    android:background="@color/indigoPinkDark"
+                    android:text="DELETE"
+                    android:textColor="@color/white" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5" />
+
+            </LinearLayout>
 
             <Space
                 android:layout_width="0dp"
