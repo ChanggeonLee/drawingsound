@@ -161,11 +161,11 @@ public class LoadingSheetActivity extends AppCompatActivity {
         }
 
         for(int i = 0 ; i < note.size() ; i++){
-            char beat;
+            char beat = '0';
             if(note.get(i).length() == 2){
                 beat = note.get(i).charAt(1);
-            }else{
-                beat = note.get(i).charAt(0);
+            }else if(note.get(i).length() == 3){
+                beat = note.get(i).charAt(2);
             }
             if(!note.get(i).equals("x") && beat != '0'){
                 erasex.add(note.get(i));
