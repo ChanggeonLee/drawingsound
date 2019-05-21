@@ -5,17 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MoodListActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/moodlist_background"
+    >
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/app_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/toolbar_background"
-        android:id="@+id/app_toolbar" />
+        android:background="@drawable/toolbar_background" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

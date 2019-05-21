@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.a7f.drawingsound.adapter.SheetAdapter;
@@ -29,16 +32,21 @@ public class SheetListActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sheet_list);
+        setTitle("");
 
         // Firebase setting
         onSetFirebase();
 
+        Toolbar tb = (Toolbar) findViewById(R.id.app_toolbar);
+        setSupportActionBar(tb);
 
+        mAuth = FirebaseAuth.getInstance();
     }
 
     private void onSetRecyclerView(SheetsData sheetsData){
@@ -113,5 +121,31 @@ public class SheetListActivity extends AppCompatActivity {
 //        Intent intent = new Intent(SheetListActivity.this, SetActivity.class);
         finish();
 //        startActivity(intent);
+    }
+
+
+    private void signOut() {
+        mAuth.signOut();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appbar_action, menu) ;
+
+        return true ;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout :
+                signOut();
+                Intent intent = new Intent(SheetListActivity.this, SigninActivity.class);
+                startActivity(intent);
+                finish();
+                return true ;
+            default :
+                return super.onOptionsItemSelected(item) ;
+        }
     }
 }
