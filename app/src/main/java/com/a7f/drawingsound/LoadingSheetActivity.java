@@ -30,8 +30,11 @@ public class LoadingSheetActivity extends AppCompatActivity {
 
         note = intent.getStringArrayListExtra("Note");
 
+//        note = eraseBlank(note);
+        note = divRest(note , 3);
+        note = divNote(note , 3);
+        note = eraseX(note);
         note = eraseBlank(note);
-        note = makeNote(note,2);
         sheet = divisionNode(note);
 
         TextViewNote.setText(sheet);
@@ -60,7 +63,6 @@ public class LoadingSheetActivity extends AppCompatActivity {
 
     // 첫 시작 공백 지우기
     private List<String> eraseBlank(List<String> note){
-
         List<String> eraseBlank = new ArrayList<String>();
         int i = 0;
 
@@ -70,7 +72,7 @@ public class LoadingSheetActivity extends AppCompatActivity {
 
         //녹음 시작 후 첫 공백 날리기
         for(i = 0 ; i < note.size() ; i++){
-            if (!note.get(i).equals("z")){
+            if (note.get(i).charAt(0) != 'z'){
                 break;
             }
         }
@@ -79,50 +81,100 @@ public class LoadingSheetActivity extends AppCompatActivity {
             i++;
         }
 
-//        Log.e("after",note.toString());
-//        Log.e("before",eraseBlank.toString());
+        Log.e("eraseBlank",eraseBlank.toString());
 
         return eraseBlank;
     }
 
-    // 음표와 쉼표 만들기
-    private List<String> makeNote(List<String> note, int beat){
-        List<String> makeNote = new ArrayList<String>();
-        String currentNote = "";
-        // char space = ' ';
+    // 음표 구분, 쉼표 넣기
+    private List<String> divRest(List<String> note, int beat){
+        List<String> divrest = new ArrayList<String>();
+
         int count = 0; // 마디세기
 
         if(!NullNote(note)){
-            return makeNote;
+            return divrest;
         }
 
-        currentNote = note.get(0);
-        for(int i = 1 ; i < note.size() ; i++){
-            // 첫음 3개당 8분음표 하나
-            if(!currentNote.equals(note.get(i))){
-                // 앞뒤가 다른지
-                // 앞에 3개 확인하기
-                if( i+1 < note.size() && !currentNote.equals(note.get(i)) && !currentNote.equals(note.get(i+1)) ) {
-                    // 음표 만들기
-                    if( beat <= count && count <= (beat*8) ){
-                        makeNote.add(currentNote + String.valueOf(count/beat));
-                    }
-                    count = 0;
-                    currentNote = note.get(i);
-                }else{
-                    count++;
-                }
-
-            }else if(currentNote.equals(note.get(i))) {
+        // 쉼표 구분
+        for(int i = 0 ; i < note.size() ; i++) {
+            // 음표 구분
+            if (note.get(i).equals("z")) {
                 count++;
+            } else if ( !note.get(i).equals("z") && count >= beat) {
+                divrest.add("z"+Integer.toString(count/beat));
+                divrest.add(note.get(i));
+                count = 0;
+            } else if (!note.get(i).equals("z") && 0 < count && count < 3){
+                divrest.add("x");
+                count = 0;
+            } else {
+                divrest.add(note.get(i));
             }
-            // 음표 만들기
+        }
+        Log.e("note",note.toString());
+        Log.e("divrest", divrest.toString());
+
+        return divrest;
+    }
+
+    // 음표 박자 넣기
+    private List<String> divNote(List<String> note, int beat){
+        List<String> divnote = new ArrayList<String>();
+        int count = 0; // 마디세기
+
+        if(!NullNote(note)){
+            return divnote;
         }
 
-        Log.e("makeNote before", note.toString());
-        Log.e("makeNote after" , makeNote.toString());
+        // 음표 구분
+        String currentNote ="";
+        currentNote = note.get(0);
+        count = 0;
+        for(int i = 0 ; i < note.size()-1 ; i++) {
+            // 음표 구분
+            if(currentNote.equals(note.get(i+1))){
+                count++;
+            }else if(!currentNote.equals(note.get(i+1))){
+                if(currentNote.charAt(0) == 'z' || currentNote.charAt(0) == 'x'){
+                    divnote.add(currentNote);
+                }else{
+                    divnote.add(currentNote + Integer.toString(count/beat));
+                }
+                currentNote = note.get(i+1);
+                count = 0;
+            }
+        }
+        divnote.add(currentNote + Integer.toString(count/beat));
 
-        return makeNote;
+        Log.e("divnote", divnote.toString());
+
+        return divnote;
+    }
+
+    // 음표와 쉼표 만들기
+    private List<String> eraseX(List<String> note){
+        List<String> erasex = new ArrayList<String>();
+
+        if(!NullNote(note)){
+            return erasex;
+        }
+
+        for(int i = 0 ; i < note.size() ; i++){
+            char beat;
+            if(note.get(i).length() == 2){
+                beat = note.get(i).charAt(1);
+            }else{
+                beat = note.get(i).charAt(0);
+            }
+            if(!note.get(i).equals("x") && beat != '0'){
+                erasex.add(note.get(i));
+            }
+        }
+
+        Log.e("erasex", erasex.toString());
+
+        return erasex;
     }
 
     // 마디 나누기
@@ -181,9 +233,8 @@ public class LoadingSheetActivity extends AppCompatActivity {
         }else{
             sheet += "||";
         }
-        //
-        //        Log.e("before",note.toString());
-        //        Log.e("after",sheet);
+
+        Log.e("after",sheet);
         return sheet;
     }
 
