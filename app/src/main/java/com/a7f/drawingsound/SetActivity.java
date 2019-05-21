@@ -1,8 +1,12 @@
 package com.a7f.drawingsound;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -25,8 +29,11 @@ public class SetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
-
+        setTitle("");
         setHandler();
+
+        Toolbar tb = (Toolbar) findViewById(R.id.app_toolbar);
+        setSupportActionBar(tb);
     }
 
     private void setHandler() {
@@ -35,39 +42,16 @@ public class SetActivity extends AppCompatActivity {
         ButtonList = (Button)findViewById(R.id.ButtonList);
         ButtonMake = (Button)findViewById(R.id.ButtonMake);
 
-        ButtonSignout = (Button)findViewById(R.id.ButtonSignout);
-        ButtonSignout.setOnClickListener(SignoutClick);
 
         ButtonList.setOnClickListener(ListClick);
         ButtonMake.setOnClickListener(MakeClick);
 
-        ButtonTest = (Button)findViewById(R.id.ButtonTest);
-        ButtonTest.setOnClickListener(TestClick);
     }
 
     private void signOut() {
         mAuth.signOut();
     }
 
-    Button.OnClickListener TestClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(SetActivity.this, ViewScore.class);
-            startActivity(intent);
-            finish();
-        }
-    };
-
-
-    Button.OnClickListener SignoutClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            signOut();
-            Intent intent = new Intent(SetActivity.this, SigninActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    };
 
     Button.OnClickListener ListClick = new View.OnClickListener() {
         @Override
@@ -97,6 +81,27 @@ public class SetActivity extends AppCompatActivity {
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
             finish();
             toast.cancel();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appbar_action, menu) ;
+
+        return true ;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout :
+                signOut();
+                Intent intent = new Intent(SetActivity.this, SigninActivity.class);
+                startActivity(intent);
+                finish();
+                return true ;
+            default :
+                return super.onOptionsItemSelected(item) ;
         }
     }
 }
