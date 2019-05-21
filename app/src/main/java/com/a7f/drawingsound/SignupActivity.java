@@ -42,7 +42,6 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_signup);
 
         settingDB();
@@ -133,14 +132,9 @@ public class SignupActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             Log.e(TAG, e.getMessage());
                         }
-
-
                     }
                 }
         });
-
-
-
     }
 
 
@@ -170,10 +164,14 @@ public class SignupActivity extends AppCompatActivity {
     Button.OnClickListener CancelClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
-            startActivity(intent);
+            finish();
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
 
 

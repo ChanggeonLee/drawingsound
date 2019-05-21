@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,18 +21,21 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SigninActivity extends AppCompatActivity {
 
-    Button ButtonLogin;
-    Button ButtonSignup;
-    EditText EditTextEmail;
-    EditText EditTextPasswd;
+    private Button ButtonLogin;
+    private Button ButtonSignup;
+    private EditText EditTextEmail;
+    private EditText EditTextPasswd;
 
     private FirebaseAuth mAuth;
     private NetworkCheck networkcheck;
 
+    private long backKeyPressedTime = 0;
+    private Toast toast;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_signin);
 
         PermissionCheck permissioncheck = new PermissionCheck();
@@ -127,5 +129,20 @@ public class SigninActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast = Toast.makeText(getApplicationContext(), "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            finish();
+            toast.cancel();
+        }
+    }
 
 }
