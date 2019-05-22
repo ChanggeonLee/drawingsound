@@ -113,7 +113,7 @@ public class SheetListActivity extends AppCompatActivity {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference().child("sheets").child(currentUser.getUid());
-        myRef.addListenerForSingleValueEvent(sheetListener);
+        myRef.addValueEventListener(sheetListener);
     }
 
     @Override

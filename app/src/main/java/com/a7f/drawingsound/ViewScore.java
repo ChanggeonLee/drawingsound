@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,6 +23,9 @@ public class ViewScore extends AppCompatActivity {
     private WebSettings WebSettinsScore;
     private String uri;
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+    private Button ButtonDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +33,7 @@ public class ViewScore extends AppCompatActivity {
         setContentView(R.layout.activity_view_score);
         setTitle("");
 
-        WebViewScore = (WebView)findViewById(R.id.WebViewScore);
+        WebViewScore = (WebView) findViewById(R.id.WebViewScore);
         WebViewScore.setWebViewClient(new WebViewClient());
         WebSettinsScore = WebViewScore.getSettings();
         WebSettinsScore.setJavaScriptEnabled(true);
@@ -40,9 +46,11 @@ public class ViewScore extends AppCompatActivity {
         setSupportActionBar(tb);
 
         mAuth = FirebaseAuth.getInstance();
+        settingDB();
+        setHandler();
     }
 
-    private String sheetUri(){
+    private String sheetUri() {
         String uri;
         String key;
         String uid;
@@ -63,22 +71,46 @@ public class ViewScore extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.appbar_action, menu) ;
+        getMenuInflater().inflate(R.menu.appbar_action, menu);
 
-        return true ;
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_logout :
+            case R.id.action_logout:
                 signOut();
                 Intent intent = new Intent(ViewScore.this, SigninActivity.class);
                 startActivity(intent);
                 finish();
-                return true ;
-            default :
-                return super.onOptionsItemSelected(item) ;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
+
+    private void setHandler() {
+        ButtonDelete = (Button) findViewById(R.id.ButtonDelete);
+        ButtonDelete.setOnClickListener(DeleteClickListener);
+    }
+
+    Button.OnClickListener DeleteClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String uid = mAuth.getUid();
+            String key;
+            Intent intent = getIntent();
+            key = intent.getStringExtra("sheetKey");
+            myRef.child("sheets").child(uid).child(key).removeValue();
+            finish();
+        }
+    };
+
+
+    private void settingDB(){
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
+    }
+
 }
