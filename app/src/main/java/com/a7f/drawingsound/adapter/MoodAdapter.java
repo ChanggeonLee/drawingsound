@@ -53,7 +53,6 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
                 .into(viewHolder.ivMovie);
 
         viewHolder.setOnItemClickListener(listener);
-       // viewHolder.itemView.setOnClickListener((View.OnClickListener) this);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -82,9 +81,6 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
             ivMovie = itemView.findViewById(R.id.iv_item_movie);
             TextViewMood = itemView.findViewById(R.id.TextViewMood);
 
-            //tvTitle = itemView.findViewById(R.id.tv_item_movie_title);
-//            tvContent = itemView.findViewById(R.id.tv_item_movie_content);
-//            tvGenre = itemView.findViewById(R.id.tv_item_movie_genre);
             itemView.setOnClickListener(new View.OnClickListener(){
 
                 @Override
@@ -99,10 +95,6 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
         }
 
 
-        void onBind(Mood mood){
-
-        }
-
         @Override
         public void onClick(View v) {
 
@@ -111,18 +103,6 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.ViewHolder> {
         public void setOnItemClickListener(OnItemClickListener listener) {
             this.listener = listener;
         }
-
-//        @Override
-//        public void onClick(View v) {
-////            switch (v.getId()){
-////                case R.tvTitle!="dj"
-////            }
-//            Intent intent = new Intent(MoodListActivity.this, HummingFFTActivity.class);
-//            startActivity(intent);
-//
-//        }
-
-
 
     }
 

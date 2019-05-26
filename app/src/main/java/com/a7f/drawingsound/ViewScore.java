@@ -37,7 +37,7 @@ public class ViewScore extends AppCompatActivity {
         WebViewScore.setWebViewClient(new WebViewClient());
         WebSettinsScore = WebViewScore.getSettings();
         WebSettinsScore.setJavaScriptEnabled(true);
-
+        WebSettinsScore.setSupportZoom(true);
         uri = sheetUri();
 
         WebViewScore.loadUrl(uri);

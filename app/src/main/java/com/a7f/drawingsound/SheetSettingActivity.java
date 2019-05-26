@@ -66,9 +66,6 @@ public class SheetSettingActivity extends AppCompatActivity {
         ButtonSet = (Button)findViewById(R.id.ButtonSet);
         EditTextTitle = (EditText)findViewById(R.id.EditTextTitle);
         EditTextComposer = (EditText)findViewById(R.id.EditTextComposer);
-        //EditTextDate = (EditText)findViewById(R.id.EditTextDate);
-        //EditTextMood = (EditText)findViewById(R.id.EditTextMood);
-
 
         ButtonPrev.setOnClickListener(Prevonclick);
         ButtonSet.setOnClickListener(Setclick);

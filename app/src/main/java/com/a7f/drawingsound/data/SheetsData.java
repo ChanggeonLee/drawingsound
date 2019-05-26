@@ -12,7 +12,6 @@ public class SheetsData {
     }
 
     public void setItems(Sheet sheet){
-        //if(sheet.getMood()=="어두움")
             items.add(sheet);
     }
 
