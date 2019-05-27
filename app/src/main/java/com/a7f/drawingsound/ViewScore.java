@@ -111,15 +111,38 @@ public class ViewScore extends AppCompatActivity {
         ButtonDelete.setOnClickListener(DeleteClickListener);
     }
 
+    private void deleteSheet() {
+
+        new AlertDialog.Builder(this).setTitle("DELETE").setMessage("악보를 정말 삭제하시겠습니까?").setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String uid = mAuth.getUid();
+                String key;
+                Intent intent = getIntent();
+                key = intent.getStringExtra("sheetKey");
+                myRef.child("sheets").child(uid).child(key).removeValue();
+                finish();
+            }
+        }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).show();
+    }
+
     Button.OnClickListener DeleteClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String uid = mAuth.getUid();
-            String key;
-            Intent intent = getIntent();
-            key = intent.getStringExtra("sheetKey");
-            myRef.child("sheets").child(uid).child(key).removeValue();
-            finish();
+
+            deleteSheet();
+//            String uid = mAuth.getUid();
+//            String key;
+//            Intent intent = getIntent();
+//            key = intent.getStringExtra("sheetKey");
+//            myRef.child("sheets").child(uid).child(key).removeValue();
+//            finish();
         }
     };
 
