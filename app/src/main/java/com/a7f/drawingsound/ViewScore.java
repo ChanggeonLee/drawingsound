@@ -1,7 +1,9 @@
 package com.a7f.drawingsound;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,12 +30,16 @@ public class ViewScore extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private Button ButtonDelete;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_score);
         setTitle("");
+
+        CheckTypesTask task = new CheckTypesTask();
+        task.execute();
 
         WebViewScore = (WebView) findViewById(R.id.WebViewScore);
         WebViewScore.setWebViewClient(new WebViewClient());
@@ -52,6 +58,41 @@ public class ViewScore extends AppCompatActivity {
         setHandler();
     }
 
+
+    private class CheckTypesTask extends AsyncTask<Void, Void ,Void> {
+
+        ProgressDialog asyncDialog = new ProgressDialog(ViewScore.this);
+
+        @Override
+        protected void onPreExecute(){
+            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            asyncDialog.setMessage("악보를 불러오는 중");
+
+            asyncDialog.show();
+            super.onPreExecute();
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            try{
+                for(int i=0; i<5; i++){
+                    Thread.sleep(500);
+                }
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result){
+            asyncDialog.dismiss();
+            super.onPostExecute(result);
+        }
+    }
+
+
+
     private String sheetUri() {
         String uri;
         String key;
@@ -66,7 +107,23 @@ public class ViewScore extends AppCompatActivity {
         return uri;
     }
 
+    public void showProgress(String msg){
 
+        if(pd==null){
+            pd = new ProgressDialog(this);
+            pd.setCancelable(false);
+        }
+        pd.setMessage(msg);
+        pd.show();
+    }
+
+
+    public void hideProgress(){
+
+        if(pd!=null&&pd.isShowing()){
+            pd.dismiss();
+        }
+    }
     private void signOut() {
 
         new AlertDialog.Builder(this).setTitle("LOGOUT").setMessage("로그아웃 하시겠습니까?").setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {

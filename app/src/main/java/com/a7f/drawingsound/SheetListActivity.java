@@ -3,6 +3,7 @@ package com.a7f.drawingsound;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +44,8 @@ public class SheetListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sheet_list);
         setTitle("");
 
+        CheckTypesTask task = new CheckTypesTask();
+        task.execute();
         // Firebase setting
         onSetFirebase();
 
@@ -53,6 +56,38 @@ public class SheetListActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         //dialog.dismiss();
+    }
+
+    private class CheckTypesTask extends AsyncTask<Void, Void ,Void> {
+
+        ProgressDialog asyncDialog = new ProgressDialog(SheetListActivity.this);
+
+        @Override
+        protected void onPreExecute(){
+            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            asyncDialog.setMessage("악보를 불러오는 중");
+
+            asyncDialog.show();
+            super.onPreExecute();
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            try{
+                for(int i=0; i<5; i++){
+                    Thread.sleep(400);
+                }
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result){
+            asyncDialog.dismiss();
+            super.onPostExecute(result);
+        }
     }
 
     private void onSetRecyclerView(SheetsData sheetsData){
