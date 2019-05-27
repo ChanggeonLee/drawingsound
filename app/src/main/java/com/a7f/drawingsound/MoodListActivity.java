@@ -1,9 +1,11 @@
 package com.a7f.drawingsound;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -68,7 +70,21 @@ public class MoodListActivity extends AppCompatActivity {
     }
 
     private void signOut() {
-        mAuth.signOut();
+
+        new AlertDialog.Builder(this).setTitle("LOGOUT").setMessage("로그아웃 하시겠습니까?").setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mAuth.signOut();
+                Intent i = new Intent(MoodListActivity.this,SigninActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(i);
+            }
+        }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).show();
     }
 
     @Override
@@ -83,9 +99,9 @@ public class MoodListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_logout :
                 signOut();
-                Intent intent = new Intent(MoodListActivity.this, SigninActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(MoodListActivity.this, SigninActivity.class);
+//                startActivity(intent);
+//                finish();
                 return true ;
             default :
                 return super.onOptionsItemSelected(item) ;
