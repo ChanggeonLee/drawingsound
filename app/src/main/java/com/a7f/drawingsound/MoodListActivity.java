@@ -103,6 +103,11 @@ public class MoodListActivity extends AppCompatActivity {
 //                startActivity(intent);
 //                finish();
                 return true ;
+            case R.id.action_license :
+                Intent intent = new Intent(MoodListActivity.this,LicenseActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
             default :
                 return super.onOptionsItemSelected(item) ;
         }

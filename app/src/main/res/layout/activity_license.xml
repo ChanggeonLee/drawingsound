@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HummingFFTActivity"
+    android:orientation="vertical"
+    android:layout_weight="10">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="vertical"
+        android:weightSum="8">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/toolbar_background"
+            android:id="@+id/app_toolbar" />
+
+        <TextView
+            android:id="@+id/TextViewOSS"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:textColor="@color/indigoBlueDark"
+            android:textStyle="bold"
+            android:text="OSS Notice | DrawingSound - Android"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"/>
+
+        <TextView
+            android:id="@+id/TextViewOSSDescription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.3"
+            android:gravity="left"
+            android:textColor="@color/indigoBlueDark"
+            android:text="This application is Copyright 7F. All rights reserved.\n\n
+The following sets forth attribution notices for third party\n
+software that may be contatined in this application.\n\n
+If you have any questions or concerns, please contact us at\n
+drawingsound.com"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"/>
+        <TextView
+            android:id="@+id/TextViewFFT"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:textColor="@color/indigoBlueDark"
+            android:text="Fast Fourier Transform\n"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/TextViewFFT2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:gravity="left"
+            android:autoLink="all"
+            android:textColor="@color/indigoBlueDark"
+            android:text="          https://github.com/fjfdeztoro/fftpack\n"
+        android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/TextViewFFT3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:gravity="left"
+            android:autoLink="all"
+            android:textColor="@color/indigoBlueDark"
+            android:text="          Public Domain"
+            android:textSize="15sp" />
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"/>
+
+        <TextView
+            android:id="@+id/TextViewABC"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:textColor="@color/indigoBlueDark"
+            android:text="Music Notation \n"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/TextViewABC2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:gravity="left"
+            android:autoLink="all"
+            android:textColor="@color/indigoBlueDark"
+            android:text="          https://github.com/paulrosen/abcjs\n"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/TextViewABC3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:gravity="left"
+            android:autoLink="all"
+            android:textColor="@color/indigoBlueDark"
+            android:text="          MIT License"
+            android:textSize="15sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.05"/>
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"/>
+
+        <TextView
+            android:id="@+id/TextViewMIT"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="left"
+            android:text="MIT License \n"
+            android:textColor="@color/indigoBlueDark"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/TextViewMIT2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:gravity="left"
+            android:textColor="@color/indigoBlueDark"
+            android:text="Copyright (c) 2009-2018 Paul Rosen and Gregory Dyke\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+            \n\n
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+            \n\n
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+
+</ScrollView>

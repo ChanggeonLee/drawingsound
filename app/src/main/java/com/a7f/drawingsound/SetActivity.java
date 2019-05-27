@@ -43,7 +43,6 @@ public class SetActivity extends AppCompatActivity {
 
         ButtonList.setOnClickListener(ListClick);
         ButtonMake.setOnClickListener(MakeClick);
-
     }
 
     Button.OnClickListener ListClick = new View.OnClickListener() {
@@ -110,6 +109,12 @@ public class SetActivity extends AppCompatActivity {
 ////                startActivity(intent);
 ////                finish();
                 return true ;
+            case R.id.action_license :
+                Intent intent = new Intent(SetActivity.this,LicenseActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+
             default :
                 return super.onOptionsItemSelected(item) ;
         }

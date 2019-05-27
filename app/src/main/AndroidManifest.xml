@@ -34,6 +34,7 @@
         <activity android:name=".LoadingSheetActivity" />
         <activity android:name=".HummingFFTActivity" />
         <activity android:name=".MoodListActivity" />
+        <activity android:name=".LicenseActivity" />
     </application>
 
 </manifest>

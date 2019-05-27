@@ -198,9 +198,13 @@ public class HummingFFTActivity extends AppCompatActivity {
 //                startActivity(intent);
 //                finish();
                 return true ;
+            case R.id.action_license :
+                Intent intent = new Intent(HummingFFTActivity.this,LicenseActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
             default :
                 return super.onOptionsItemSelected(item) ;
         }
     }
-
 }

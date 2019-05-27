@@ -101,6 +101,11 @@ public class ViewScore extends AppCompatActivity {
 //                startActivity(intent);
 //                finish();
                 return true;
+            case R.id.action_license :
+                Intent intent = new Intent(ViewScore.this,LicenseActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

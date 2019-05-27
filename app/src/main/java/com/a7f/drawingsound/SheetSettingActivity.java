@@ -186,6 +186,11 @@ public class SheetSettingActivity extends AppCompatActivity {
 //                startActivity(intent);
 //                finish();
                 return true ;
+            case R.id.action_license :
+                Intent intent = new Intent(SheetSettingActivity.this,LicenseActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
             default :
                 return super.onOptionsItemSelected(item) ;
         }
