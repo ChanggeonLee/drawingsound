@@ -194,9 +194,6 @@ public class HummingFFTActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_logout :
                 signOut();
-//                Intent intent = new Intent(HummingFFTActivity.this, SigninActivity.class);
-//                startActivity(intent);
-//                finish();
                 return true ;
             case R.id.action_license :
                 Intent intent = new Intent(HummingFFTActivity.this,LicenseActivity.class);

@@ -51,11 +51,8 @@ public class SheetListActivity extends AppCompatActivity {
 
         Toolbar tb = (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(tb);
-        //ProgressDialog dialog = ProgressDialog.show(this, "ProgressDialog 테스트", "테스트 중 입니다.", true, true);
 
         mAuth = FirebaseAuth.getInstance();
-
-        //dialog.dismiss();
     }
 
     private class CheckTypesTask extends AsyncTask<Void, Void ,Void> {
@@ -96,19 +93,14 @@ public class SheetListActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),1));
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
-        //new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false);
         recyclerView.setAdapter(adapter);
 
 
         adapter.setItems(sheetsData.getItems());
-        //recyclerView.setAdapter(adapter);
-        //adapter.setItems(new SampleData().getItems());
         adapter.setOnItemClickListener(new SheetAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(SheetAdapter.ViewHolder holder, View view, int position) {
-//                long data = adapter.getItemId(position);
                 String key = adapter.getkey(position);
                 Log.e("adapter key",key);
                 Intent intent = new Intent(SheetListActivity.this, ViewScore.class);
@@ -195,9 +187,6 @@ public class SheetListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_logout :
                 signOut();
-//                Intent intent = new Intent(SheetListActivity.this, SigninActivity.class);
-//                startActivity(intent);
-//                finish();
                 return true ;
             case R.id.action_license :
                 Intent intent = new Intent(SheetListActivity.this,LicenseActivity.class);

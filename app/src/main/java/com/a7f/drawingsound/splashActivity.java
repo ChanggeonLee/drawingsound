@@ -23,7 +23,6 @@ public class splashActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e){
-                    //
                 }
             }
         };

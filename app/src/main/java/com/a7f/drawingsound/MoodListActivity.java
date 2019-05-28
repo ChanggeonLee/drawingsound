@@ -48,9 +48,6 @@ public class MoodListActivity extends AppCompatActivity {
 
         //아이템 로드
         adapter.setItems(new MoodsData().getItems());
-
-        //recyclerView.setOnClickListener(new ImageClickListener());
-
         adapter.setOnItemClickListener(new MoodAdapter.OnItemClickListener(){
 
             @Override
@@ -99,9 +96,6 @@ public class MoodListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_logout :
                 signOut();
-//                Intent intent = new Intent(MoodListActivity.this, SigninActivity.class);
-//                startActivity(intent);
-//                finish();
                 return true ;
             case R.id.action_license :
                 Intent intent = new Intent(MoodListActivity.this,LicenseActivity.class);

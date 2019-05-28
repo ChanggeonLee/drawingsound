@@ -182,9 +182,6 @@ public class SheetSettingActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_logout :
                 signOut();
-//                Intent intent = new Intent(SheetSettingActivity.this, SigninActivity.class);
-//                startActivity(intent);
-//                finish();
                 return true ;
             case R.id.action_license :
                 Intent intent = new Intent(SheetSettingActivity.this,LicenseActivity.class);

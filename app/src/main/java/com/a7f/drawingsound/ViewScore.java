@@ -59,6 +59,7 @@ public class ViewScore extends AppCompatActivity {
     }
 
 
+    // 로딩 progress dialog 형성 클래스
     private class CheckTypesTask extends AsyncTask<Void, Void ,Void> {
 
         ProgressDialog asyncDialog = new ProgressDialog(ViewScore.this);
@@ -71,6 +72,7 @@ public class ViewScore extends AppCompatActivity {
             asyncDialog.show();
             super.onPreExecute();
         }
+
         @Override
         protected Void doInBackground(Void... voids) {
 
@@ -92,7 +94,6 @@ public class ViewScore extends AppCompatActivity {
     }
 
 
-
     private String sheetUri() {
         String uri;
         String key;
@@ -107,25 +108,9 @@ public class ViewScore extends AppCompatActivity {
         return uri;
     }
 
-    public void showProgress(String msg){
-
-        if(pd==null){
-            pd = new ProgressDialog(this);
-            pd.setCancelable(false);
-        }
-        pd.setMessage(msg);
-        pd.show();
-    }
-
-
-    public void hideProgress(){
-
-        if(pd!=null&&pd.isShowing()){
-            pd.dismiss();
-        }
-    }
     private void signOut() {
 
+        // 로그아웃 확인 메시지
         new AlertDialog.Builder(this).setTitle("LOGOUT").setMessage("로그아웃 하시겠습니까?").setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -154,9 +139,6 @@ public class ViewScore extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_logout:
                 signOut();
-//                Intent intent = new Intent(ViewScore.this, SigninActivity.class);
-//                startActivity(intent);
-//                finish();
                 return true;
             case R.id.action_license :
                 Intent intent = new Intent(ViewScore.this,LicenseActivity.class);
@@ -175,6 +157,7 @@ public class ViewScore extends AppCompatActivity {
 
     private void deleteSheet() {
 
+        // 악보 삭제 확인 메시지 생성
         new AlertDialog.Builder(this).setTitle("DELETE").setMessage("악보를 정말 삭제하시겠습니까?").setPositiveButton("삭제", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -199,12 +182,6 @@ public class ViewScore extends AppCompatActivity {
         public void onClick(View v) {
 
             deleteSheet();
-//            String uid = mAuth.getUid();
-//            String key;
-//            Intent intent = getIntent();
-//            key = intent.getStringExtra("sheetKey");
-//            myRef.child("sheets").child(uid).child(key).removeValue();
-//            finish();
         }
     };
 

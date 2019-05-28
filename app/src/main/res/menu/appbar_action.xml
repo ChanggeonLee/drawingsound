@@ -7,6 +7,12 @@
         android:title="LOGOUT"
         app:showAsAction="never"
         />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#000000" />
+
     <item
         android:id="@+id/action_license"
         android:title="LICENSE"
