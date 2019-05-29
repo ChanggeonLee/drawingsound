@@ -26,9 +26,9 @@ public class LicenseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(LicenseActivity.this, SetActivity.class);
-      //  finish();
-        startActivity(intent);
+        //Intent intent = new Intent(LicenseActivity.this, SetActivity.class);
+        finish();
+        //startActivity(intent);
     }
 
     @Override
