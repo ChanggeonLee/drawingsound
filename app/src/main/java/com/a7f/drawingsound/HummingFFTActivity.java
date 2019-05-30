@@ -173,6 +173,7 @@ public class HummingFFTActivity extends AppCompatActivity {
                 Intent i = new Intent(HummingFFTActivity.this,SigninActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(i);
+                finish();
             }
         }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
@@ -198,10 +199,10 @@ public class HummingFFTActivity extends AppCompatActivity {
             case R.id.action_license :
                 Intent intent = new Intent(HummingFFTActivity.this,LicenseActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
                 return true;
             default :
-                return super.onOptionsItemSelected(item) ;
+                return super.onOptionsItemSelected(item);
         }
     }
 }

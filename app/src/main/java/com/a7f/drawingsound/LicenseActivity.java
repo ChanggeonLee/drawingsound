@@ -27,8 +27,9 @@ public class LicenseActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //Intent intent = new Intent(LicenseActivity.this, SetActivity.class);
-        finish();
+
         //startActivity(intent);
+        finish();
     }
 
     @Override
@@ -47,6 +48,7 @@ public class LicenseActivity extends AppCompatActivity {
                 Intent i = new Intent(LicenseActivity.this,SigninActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(i);
+                finish();
             }
         }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
@@ -63,8 +65,8 @@ public class LicenseActivity extends AppCompatActivity {
                 return true ;
             case R.id.action_license :
                 Intent intent = new Intent(LicenseActivity.this,LicenseActivity.class);
-                startActivity(intent);
                 finish();
+                startActivity(intent);
                 return true;
             default :
                 return super.onOptionsItemSelected(item) ;

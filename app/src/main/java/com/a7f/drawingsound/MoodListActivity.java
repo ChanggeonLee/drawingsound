@@ -75,6 +75,7 @@ public class MoodListActivity extends AppCompatActivity {
                 Intent i = new Intent(MoodListActivity.this,SigninActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(i);
+                finish();
             }
         }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
@@ -100,7 +101,7 @@ public class MoodListActivity extends AppCompatActivity {
             case R.id.action_license :
                 Intent intent = new Intent(MoodListActivity.this,LicenseActivity.class);
                 startActivity(intent);
-                finish();
+               // finish();
                 return true;
             default :
                 return super.onOptionsItemSelected(item) ;

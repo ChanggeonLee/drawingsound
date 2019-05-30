@@ -166,6 +166,7 @@ public class SheetListActivity extends AppCompatActivity {
                 Intent i = new Intent(SheetListActivity.this,SigninActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(i);
+                finish();
             }
         }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
@@ -191,7 +192,7 @@ public class SheetListActivity extends AppCompatActivity {
             case R.id.action_license :
                 Intent intent = new Intent(SheetListActivity.this,LicenseActivity.class);
                 startActivity(intent);
-                finish();
+              //  finish();
                 return true;
             default :
                 return super.onOptionsItemSelected(item) ;

@@ -31,8 +31,8 @@ public class LoadingSheetActivity extends AppCompatActivity {
         note = intent.getStringArrayListExtra("Note");
 
 //        note = eraseBlank(note);
-        note = divRest(note , 3);
-        note = divNote(note , 3);
+        note = divRest(note , 1);
+        note = divNote(note , 1);
         note = eraseX(note);
         note = eraseBlank(note);
         sheet = divisionNode(note);

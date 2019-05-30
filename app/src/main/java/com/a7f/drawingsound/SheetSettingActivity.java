@@ -151,7 +151,6 @@ public class SheetSettingActivity extends AppCompatActivity {
         return url;
     }
 
-
     private void signOut() {
 
         new AlertDialog.Builder(this).setTitle("LOGOUT").setMessage("로그아웃 하시겠습니까?").setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
@@ -161,6 +160,7 @@ public class SheetSettingActivity extends AppCompatActivity {
                 Intent i = new Intent(SheetSettingActivity.this,SigninActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(i);
+                finish();
             }
         }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
@@ -186,7 +186,7 @@ public class SheetSettingActivity extends AppCompatActivity {
             case R.id.action_license :
                 Intent intent = new Intent(SheetSettingActivity.this,LicenseActivity.class);
                 startActivity(intent);
-                finish();
+               // finish();
                 return true;
             default :
                 return super.onOptionsItemSelected(item) ;

@@ -30,7 +30,6 @@ public class ViewScore extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private Button ButtonDelete;
-    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +117,7 @@ public class ViewScore extends AppCompatActivity {
                 Intent i = new Intent(ViewScore.this,SigninActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(i);
+                finish();
             }
         }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
@@ -143,7 +143,7 @@ public class ViewScore extends AppCompatActivity {
             case R.id.action_license :
                 Intent intent = new Intent(ViewScore.this,LicenseActivity.class);
                 startActivity(intent);
-                finish();
+               // finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

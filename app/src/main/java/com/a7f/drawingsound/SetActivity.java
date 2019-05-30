@@ -85,6 +85,7 @@ public class SetActivity extends AppCompatActivity {
                         Intent i = new Intent(SetActivity.this,SigninActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(i);
+                        finish();
                     }
         }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
@@ -109,6 +110,11 @@ public class SetActivity extends AppCompatActivity {
             case R.id.action_license :
                 Intent intent = new Intent(SetActivity.this,LicenseActivity.class);
                 startActivity(intent);
+               // finish();
+                return true;
+            case R.id.action_faq :
+                Intent intent2 = new Intent(SetActivity.this,FAQActivity.class);
+                startActivity(intent2);
                 finish();
                 return true;
 
