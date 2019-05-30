@@ -6,10 +6,15 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LicenseActivity extends AppCompatActivity {
 
@@ -18,6 +23,29 @@ public class LicenseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_license);
+        TextView icon1 = (TextView) findViewById(R.id.TextViewFontDescription);
+        TextView icon2 = (TextView) findViewById(R.id.TextViewFontDescription2);
+        String text = "Icon made by Freepik from www.flaticon.com";
+        String text2 = "Icon made by Eucalyp from www.flaticon.com";
+        icon1.setText(text);
+        icon2.setText(text2);
+
+        Linkify.TransformFilter mTransform = new Linkify.TransformFilter() {
+            @Override
+            public String transformUrl(Matcher match, String url) {
+                return "";
+            }
+        };
+
+        Pattern pattern = Pattern.compile("Freepik");
+        Pattern pattern2 = Pattern.compile("Eucalyp");
+        Pattern pattern3 = Pattern.compile("www.flaticon.com");
+
+        Linkify.addLinks(icon1, pattern, "https://www.freepik.com/",null,mTransform);
+        Linkify.addLinks(icon2,pattern2, "https://www.flaticon.com/authors/eucalyp/",null,mTransform);
+        Linkify.addLinks(icon1,pattern3,"https://www.flaticon.com/",null,mTransform);
+        Linkify.addLinks(icon2,pattern3,"https://www.flaticon.com/",null,mTransform);
+
         setTitle("");
         Toolbar tb = (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(tb);
