@@ -115,9 +115,10 @@ public class ViewScore extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 mAuth.signOut();
                 Intent i = new Intent(ViewScore.this,SigninActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(i);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 finish();
+                startActivity(i);
+
             }
         }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override

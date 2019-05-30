@@ -171,7 +171,7 @@ public class HummingFFTActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 mAuth.signOut();
                 Intent i = new Intent(HummingFFTActivity.this,SigninActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
                 finish();
             }

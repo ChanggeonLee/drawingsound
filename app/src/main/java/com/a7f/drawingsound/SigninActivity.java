@@ -140,6 +140,7 @@ public class SigninActivity extends AppCompatActivity {
             return;
         }
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            //moveTaskToBack(true);
             finish();
             toast.cancel();
         }
