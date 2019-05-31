@@ -112,11 +112,11 @@ public class SetActivity extends AppCompatActivity {
                 startActivity(intent);
                // finish();
                 return true;
-            case R.id.action_faq :
-                Intent intent2 = new Intent(SetActivity.this,FAQActivity.class);
-                startActivity(intent2);
-                finish();
-                return true;
+//            case R.id.action_faq :
+//                Intent intent2 = new Intent(SetActivity.this,FAQActivity.class);
+//                startActivity(intent2);
+//                finish();
+//                return true;
 
             default :
                 return super.onOptionsItemSelected(item) ;
