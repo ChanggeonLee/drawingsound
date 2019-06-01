@@ -1,6 +1,8 @@
 package com.a7f.drawingsound;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +33,8 @@ public class SigninActivity extends AppCompatActivity {
 
     private long backKeyPressedTime = 0;
     private Toast toast;
+
+    ProgressDialog asyncDialog;
 
 
     @Override
@@ -78,11 +82,20 @@ public class SigninActivity extends AppCompatActivity {
     private void signIn(String email, String password) {
         final String TAG = "LoginWithEmail";
         Log.d(TAG, "signIn:" + email);
+
+        // 로딩 중 progressdialog 생성
+        asyncDialog = new ProgressDialog(SigninActivity.this);
+        asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        asyncDialog.setMessage("로그인 중입니다");
+        asyncDialog.show();
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            // 로그인 성공 시, progrerssdialog를 끄기
+                            asyncDialog.dismiss();
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -90,12 +103,16 @@ public class SigninActivity extends AppCompatActivity {
                             Toast.makeText(SigninActivity.this, "Authentication success.",
                                     Toast.LENGTH_SHORT).show();
 
+                            // setactivity로 갈 때, 태스크를 새로 생성하여 클릭이 중복되어도 activity 하나만 생성
                             Intent intent=new Intent(SigninActivity.this,SetActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
 
                         } else {
                             // If sign in fails, display a message to the user.
+                            // 로그인 실패 시 progressdialog를 끄기
+                            asyncDialog.dismiss();
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(SigninActivity.this, "Authentication failed. 이메일과 비번확인",
                                     Toast.LENGTH_SHORT).show();
@@ -103,6 +120,7 @@ public class SigninActivity extends AppCompatActivity {
                     }
         });
     }
+
 
     Button.OnClickListener LoginClickListener = new View.OnClickListener() {
         public void onClick(View v){
