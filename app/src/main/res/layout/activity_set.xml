@@ -55,11 +55,11 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_weight="0.7"
             android:background="@color/white"
-            android:textColor="@color/indigoBlueDark"
-            android:text="환영합니다!\n허밍으로 나만의 악보를 만들어 볼까요?" />
+            android:gravity="center"
+            android:text="환영합니다!\n함께 음을 그려볼까요?"
+            android:textColor="@color/indigoBlueDark" />
 
         <Space
             android:layout_width="match_parent"
@@ -69,7 +69,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_weight="3.2"
             android:orientation="horizontal">
 
             <Space
@@ -81,30 +81,58 @@
                 android:id="@+id/ButtonList"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
                 android:layout_gravity="center"
+                android:layout_weight="5"
                 android:background="@color/indigoPink"
                 android:drawableTop="@drawable/ic_list"
                 android:gravity="center"
                 android:padding="20dp"
-                android:textColor="@color/white"
                 android:text="악보\n리스트"
+                android:textColor="@color/white"
                 android:textSize="25sp" />
 
             <Button
                 android:id="@+id/ButtonMake"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
                 android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="5"
                 android:background="@color/indigoBlue"
                 android:drawableTop="@drawable/ic_humming"
                 android:gravity="center"
                 android:padding="20dp"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/white"
                 android:text="악보\n만들기"
+                android:textColor="@color/white"
                 android:textSize="25sp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/ButtonFind"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@color/darkblue"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:text="음악 검색하기" />
 
             <Space
                 android:layout_width="0dp"
@@ -116,7 +144,7 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.9" />
 
     </LinearLayout>
 

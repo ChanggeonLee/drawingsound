@@ -19,6 +19,7 @@ public class SetActivity extends AppCompatActivity {
 
     Button ButtonList;
     Button ButtonMake;
+    Button ButtonFind;
     private FirebaseAuth mAuth;
 
     private long backKeyPressedTime = 0;
@@ -39,10 +40,12 @@ public class SetActivity extends AppCompatActivity {
 
         ButtonList = (Button)findViewById(R.id.ButtonList);
         ButtonMake = (Button)findViewById(R.id.ButtonMake);
+        ButtonFind = (Button)findViewById(R.id.ButtonFind);
 
 
         ButtonList.setOnClickListener(ListClick);
         ButtonMake.setOnClickListener(MakeClick);
+        ButtonFind.setOnClickListener(FindClick);
     }
 
     Button.OnClickListener ListClick = new View.OnClickListener() {
@@ -61,6 +64,13 @@ public class SetActivity extends AppCompatActivity {
         }
     };
 
+    Button.OnClickListener FindClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(SetActivity.this,FindMusicActivity.class);
+            startActivity(intent);
+        }
+    };
     @Override
     public void onBackPressed() {
         //super.onBackPressed();

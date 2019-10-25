@@ -12,4 +12,5 @@
     <color name="indigoBlueDark">#696C8B</color>
     <color name="white">#FFFFFF</color>
     <color name="secondaryWhite">#CCFFFFFF</color>
+    <color name="darkblue">#D6696C8B</color>
 </resources>
