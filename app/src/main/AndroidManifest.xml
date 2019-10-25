@@ -35,6 +35,8 @@
         <activity android:name=".HummingFFTActivity" />
         <activity android:name=".MoodListActivity" />
         <activity android:name=".LicenseActivity" />
+        <activity android:name=".FindMusicActivity"/>
+        <activity android:name=".FindResultActivity"/>
     </application>
 
 </manifest>
