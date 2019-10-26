@@ -1,6 +1,8 @@
 package com.a7f.drawingsound;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,7 +37,7 @@ public class FindMusicActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
 
     boolean backFlag;
-
+    boolean completeFlag;
     private List<String> note;
 
     @Override
@@ -50,6 +52,43 @@ public class FindMusicActivity extends AppCompatActivity{
 
         Toolbar tb = (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(tb);
+    }
+
+    private class CheckTypesTask extends AsyncTask<Void, Void ,Void> {
+
+        ProgressDialog asyncDialog = new ProgressDialog(FindMusicActivity.this);
+
+        @Override
+        protected void onPreExecute(){
+            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            asyncDialog.setMessage("비슷한 음악 찾는 중");
+
+            asyncDialog.show();
+            super.onPreExecute();
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            try{
+                for(int i=0; i<5; i++){
+                    Thread.sleep(1000);
+                }
+
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result){
+            asyncDialog.dismiss();
+            super.onPostExecute(result);
+            Intent intent = new Intent(FindMusicActivity.this, FindResultActivity.class);
+            //intent.putStringArrayListExtra("Note", (ArrayList<String>) note);
+            finish();
+            startActivity(intent);
+        }
     }
 
     private void setHandler(){
@@ -74,6 +113,7 @@ public class FindMusicActivity extends AppCompatActivity{
         ButtonApply.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoPinkLight));
 
         backFlag = true;
+        completeFlag = false;
 
         mAuth = FirebaseAuth.getInstance();
     }
@@ -143,13 +183,18 @@ public class FindMusicActivity extends AppCompatActivity{
         @Override
         public void onClick(View v) {
             if(!note.isEmpty()) {
-                Intent intent = new Intent(FindMusicActivity.this, FindResultActivity.class);
-                //intent.putStringArrayListExtra("Note", (ArrayList<String>) note);
-                finish();
-                startActivity(intent);
+                CheckTypesTask task = new CheckTypesTask();
+                task.execute();
+
+//                Intent intent = new Intent(FindMusicActivity.this, FindResultActivity.class);
+////                //intent.putStringArrayListExtra("Note", (ArrayList<String>) note);
+////                finish();
+////                startActivity(intent);
+
             }else{
                 Toast.makeText(getApplicationContext(),"인식된 음이 없습니다. 다시 시도하세요",Toast.LENGTH_SHORT).show();
             }
+
         }
     };
 
