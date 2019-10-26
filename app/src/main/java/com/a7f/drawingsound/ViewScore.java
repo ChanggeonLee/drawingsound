@@ -102,7 +102,7 @@ public class ViewScore extends AppCompatActivity {
         key = intent.getStringExtra("sheetKey");
         uid = FirebaseAuth.getInstance().getUid();
 
-        uri = "http://drawingsound.com:8888/sheet/msheet?key=" + key + "&uid=" + uid;
+        uri = "http://drawingsound.com/sheet/msheet?key=" + key + "&uid=" + uid;
 
         return uri;
     }
