@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.a7f.drawingsound.lib.RecordAudio;
+import com.a7f.drawingsound.lib.RecordAudioToWAV;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class FindMusicActivity extends AppCompatActivity{
     TextView TextViewFindDescription;
     ImageView ImageViewHumIcon;
 
-    RecordAudio recordTask;
+    RecordAudioToWAV recordTask;
 
     private FirebaseAuth mAuth;
 
@@ -46,7 +47,7 @@ public class FindMusicActivity extends AppCompatActivity{
         setContentView(R.layout.activity_find_music);
         setTitle("");
 
-        recordTask = new RecordAudio((TextView)findViewById(R.id.TextViewFFT));
+        recordTask = new RecordAudioToWAV((TextView)findViewById(R.id.TextViewFFT));
 
         setHandler();
 
@@ -173,7 +174,7 @@ public class FindMusicActivity extends AppCompatActivity{
             ButtonReset.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueLight));
             ButtonApply.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoPinkLight));
 
-            recordTask = new RecordAudio((TextView)findViewById(R.id.TextViewFFT));
+            recordTask = new RecordAudioToWAV((TextView)findViewById(R.id.TextViewFFT));
         }
     };
 
@@ -183,6 +184,8 @@ public class FindMusicActivity extends AppCompatActivity{
         @Override
         public void onClick(View v) {
             if(!note.isEmpty()) {
+                recordTask.transferToWAV();
+
                 CheckTypesTask task = new CheckTypesTask();
                 task.execute();
 
