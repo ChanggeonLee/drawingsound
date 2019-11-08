@@ -13,10 +13,23 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.media.MediaRecorder;
+import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.TextView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.FileEntity;
+import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import ca.uol.aig.fftpack.RealDoubleFFT;
 
@@ -89,6 +102,8 @@ public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
             waveFile = new File(Environment.getExternalStorageDirectory()+"/"+mFileName+".wav");
             tempFile = new File(Environment.getExternalStorageDirectory()+"/"+TEMP_FILE_NAME);
 
+
+            Log.e("wav file", waveFile.getPath());
             // temp파일로 아웃풋 스트림 설정
             try {
                 mBOStream = new BufferedOutputStream(new FileOutputStream(tempFile));
@@ -129,7 +144,7 @@ public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
     }
 
     // **
-    public void transferToWAV(){
+    public String transferToWAV(){
         if (null != mBOStream) {
             try {
                 // 녹음이 끝나면 temp파일의 길이를 계산한다.
@@ -162,8 +177,8 @@ public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
                 e1.printStackTrace();
             }
         }
+        return mFileName;
     }
-    // **
 
     private byte[] getFileHeader() {
         // temp에 읽어들인 길이 + 헤더길이(40)으로 총 데이터 길이를 잡는다.
@@ -240,7 +255,7 @@ public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
 
     private void getNote(double fre){
         String[] AllNote = {"C3","C#3","D3","D#3","E3","F3","F#3","G3","G#3","A3","A#3","B3",
-                "C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4","A4","A#4","B4",
+                "C4","C#4","D4","D#4","E4","Fㅂ4","F#4","G4","G#4","A4","A#4","B4",
                 "C5","C#5","D5","D#5","E5","F5","F#5","G5","G#5","A5","A#5","B5"};
         String Note ;
 

@@ -39,11 +39,17 @@ public class FindResultActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_result);
-        setTitle("");
+        TextViewFindDescription = findViewById(R.id.TextViewFindDescription);
 
-        //recordTask = new RecordAudio((TextView)findViewById(R.id.TextViewFFT));
+
+        super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        String result = intent.getExtras().getString("result");
+        TextViewFindDescription.setText(result);
+
+
+        setTitle("");
 
         setHandler();
 

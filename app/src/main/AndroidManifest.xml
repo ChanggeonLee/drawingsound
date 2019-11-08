@@ -37,6 +37,11 @@
         <activity android:name=".LicenseActivity" />
         <activity android:name=".FindMusicActivity"/>
         <activity android:name=".FindResultActivity"/>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
+
 
 </manifest>

@@ -18,10 +18,13 @@ import android.widget.Toast;
 
 import com.a7f.drawingsound.lib.RecordAudio;
 import com.a7f.drawingsound.lib.RecordAudioToWAV;
+import com.a7f.drawingsound.lib.SendToServer;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class FindMusicActivity extends AppCompatActivity{
@@ -184,15 +187,29 @@ public class FindMusicActivity extends AppCompatActivity{
         @Override
         public void onClick(View v) {
             if(!note.isEmpty()) {
-                recordTask.transferToWAV();
+                String filename = recordTask.transferToWAV();
+                SendToServer sender = new SendToServer(filename);
+                String result = null;
+                try {
+                    result = sender.execute("http://drawingsound.com/").get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-                CheckTypesTask task = new CheckTypesTask();
-                task.execute();
+//                CheckTypesTask task = new CheckTypesTask();
+//                task.execute();
 
-//                Intent intent = new Intent(FindMusicActivity.this, FindResultActivity.class);
-////                //intent.putStringArrayListExtra("Note", (ArrayList<String>) note);
-////                finish();
-////                startActivity(intent);
+
+
+                Intent intent = new Intent(FindMusicActivity.this, FindResultActivity.class);
+                intent.putExtra("result", result);
+                startActivity(intent);
+//                //intent.putStringArrayListExtra("Note", (ArrayList<String>) note);
+//                finish();
+
+
 
             }else{
                 Toast.makeText(getApplicationContext(),"인식된 음이 없습니다. 다시 시도하세요",Toast.LENGTH_SHORT).show();
