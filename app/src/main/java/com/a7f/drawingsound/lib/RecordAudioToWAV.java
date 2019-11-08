@@ -186,46 +186,74 @@ public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
         int totalDataLen = mAudioLen + 40;
         long byteRate = RECORDER_BPP * RECORDER_SAMPLERATE * WAVE_CHANNEL_MONO/8;
 
+        // 0-3 chunk ID = RIFF
         header[0] = 'R';  // RIFF/WAVE header
         header[1] = 'I';
         header[2] = 'F';
         header[3] = 'F';
+
+        // 4-7 chunk size (4byte) little endian
         header[4] = (byte) (totalDataLen & 0xff);
         header[5] = (byte) ((totalDataLen >> 8) & 0xff);
         header[6] = (byte) ((totalDataLen >> 16) & 0xff);
         header[7] = (byte) ((totalDataLen >> 24) & 0xff);
+
+        // 8-11 format = WAVE
         header[8] = 'W';
         header[9] = 'A';
         header[10] = 'V';
         header[11] = 'E';
+
+        // 12-15 chunk id = fmt
         header[12] = 'f';  // 'fmt ' chunk
         header[13] = 'm';
         header[14] = 't';
         header[15] = ' ';
+
+        // 16-19 chunk size = 16 고정
         header[16] = 16;  // 4 bytes: size of 'fmt ' chunk
         header[17] = 0;
         header[18] = 0;
         header[19] = 0;
+
+        // 20-21 autio format
         header[20] = (byte)1;  // format = 1 (PCM방식)
         header[21] = 0;
+
+        // 22-23 number of channel
         header[22] =  WAVE_CHANNEL_MONO;
         header[23] = 0;
+
+        // 24-27 sample rate little endian, 숫자값이 커질수록 음질 좋아짐
         header[24] = (byte) (RECORDER_SAMPLERATE & 0xff);
         header[25] = (byte) ((RECORDER_SAMPLERATE >> 8) & 0xff);
         header[26] = (byte) ((RECORDER_SAMPLERATE >> 16) & 0xff);
         header[27] = (byte) ((RECORDER_SAMPLERATE >> 24) & 0xff);
+
+        // 28-31 1초 재셍에 필요한 byte 수
+        // sample 1개가 차지하는 byte (bits per smaple) * 44100 * 1
         header[28] = (byte) (byteRate & 0xff);
         header[29] = (byte) ((byteRate >> 8) & 0xff);
         header[30] = (byte) ((byteRate >> 16) & 0xff);
         header[31] = (byte) ((byteRate >> 24) & 0xff);
+
+        // 32-33 smaple frame의 크기
+        // sample 크기 * 1
         header[32] = (byte) RECORDER_BPP * WAVE_CHANNEL_MONO/8;  // block align
         header[33] = 0;
+
+        // 34-35 bit per sample. 샘플 한 개를 몇 bit로 나타낼 것이냐
+        // 값이 클수록 음질 좋아짐
         header[34] = RECORDER_BPP;  // bits per sample
         header[35] = 0;
+
+        // 36-39 chunk id = data
         header[36] = 'd';
         header[37] = 'a';
         header[38] = 't';
         header[39] = 'a';
+
+        // 40-43 chunk size little endian 뒤에 나올 data의 size (파일 전체에서 헤더를 제외한 크기)
         header[40] = (byte)(mAudioLen & 0xff);
         header[41] = (byte)((mAudioLen >> 8) & 0xff);
         header[42] = (byte)((mAudioLen >> 16) & 0xff);
@@ -233,8 +261,6 @@ public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
         return header;
 
     }
-
-
     // **
 
     @Override

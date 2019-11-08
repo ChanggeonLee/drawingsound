@@ -242,9 +242,6 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
 //        } else{
 //            Note = "z";
 //        }
-
-
-
 //        if(126 <= fre && fre <= 134){
 //            // 261 C4
 //            Note = "C";
@@ -320,5 +317,4 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
 //        } else{
 //            Note = "z";
 //        }
-
 //        note += Note;
