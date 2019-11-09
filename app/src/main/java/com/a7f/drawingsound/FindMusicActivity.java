@@ -135,12 +135,7 @@ public class FindMusicActivity extends AppCompatActivity {
     }
 
     private void setHandler() {
-//        button = (Button) findViewById(R.id.button);
-//        button2 = (Button) findViewById(R.id.button2);
-//        button3 = (Button) findViewById(R.id.button3);
-//        button.setOnClickListener(testStartListener);
-//        button2.setOnClickListener(testStopListener);
-//        button3.setOnClickListener(wavTestListener);
+
         record_time = (TextView)findViewById(R.id.TextViewFFT);
         ButtonStart = (Button) findViewById(R.id.ButtonStart);
         ButtonReset = (Button) findViewById(R.id.ButtonReset);
@@ -201,42 +196,8 @@ public class FindMusicActivity extends AppCompatActivity {
     }
 
 
-    private void startMediaPlayer() {
-        mediaPlayer = new MediaPlayer();
-        try {
-            mediaPlayer.setDataSource(_AudioSavePathInDevice);
-            mediaPlayer.prepare();
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    stopMediaPlayer();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //_recordButton.setImageResource(R.drawable.ic_pause);
-        //STATE_BUTTON = "PLAY";
-        //playerSecondsElapsed = 0;
-        //startTimer();
-        mediaPlayer.start();
-    }
-
-
-    private void stopMediaPlayer() {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.reset();
-            mediaPlayer.release();
-            mediaPlayer = null;
-            //_recordButton.setImageResource(R.drawable.ic_play);
-            //STATE_BUTTON = "STOP";
-            //_timerView.setText("00:00:00");
-            //stopTimer();
-        }
-    }
-
     private void startTimer(){
+        recorderSecondsElapsed = 0;
         stopTimer();
         _timer = new Timer();
         _timer.scheduleAtFixedRate(new TimerTask() {
@@ -248,7 +209,7 @@ public class FindMusicActivity extends AppCompatActivity {
     }
 
     private void stopTimer(){
-        recorderSecondsElapsed = 0;
+
         if (_timer != null) {
             _timer.cancel();
             _timer.purge();
@@ -270,85 +231,6 @@ public class FindMusicActivity extends AppCompatActivity {
         });
     }
 
-
-    ////////////////////////////////생성
-    Button.OnClickListener wavTestListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            setupRecorder();
-
-            recorder.startRecording();
-           // startTimer();
-//            try {
-//                mPlayer = MediaPlayer.create(getContext(), R.raw.hangouts_message);
-//                mPlayer.start();
-//                mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//                    @Override
-//                    public void onCompletion(MediaPlayer mp) {
-//                        recorder.startRecording();
-//                        //startTimer();
-//                    }
-//                });
-//            } catch (IllegalStateException e) {
-//                e.printStackTrace();
-//            }
-
-
-            //startMediaPlayer(); // 아 이거는 음악 재생인가본데
-            Toast.makeText(FindMusicActivity.this, "녹음 시작합니다~!", Toast.LENGTH_LONG).show();
-            //recordDialog = RecordDialog.newInstance("Record Audio");
-            //recordDialog.setMessage("press for record");
-            //recordDialog.show(FindMusicActivity.this.getFragmentManager(),"TAG");
-//            recordDialog.setPositiveButton("Save", new RecordDialog.ClickListener() {
-//                @Override
-//                public void OnClickListener(String path) {
-//                    Toast.makeText(FindMusicActivity.this,"Save audio:"+path,Toast.LENGTH_LONG).show();
-//                }
-//            });
-        }
-    };
-
-
-    // 중지
-    Button.OnClickListener testStartListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            try {
-                recorder.stopRecording();
-                stopTimer();
-                //mPlayer = MediaPlayer.create(getContext(), R.raw.pop);
-                //mPlayer.start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Toast.makeText(FindMusicActivity.this, "녹음 중지~!", Toast.LENGTH_LONG).show();
-            //stopMediaPlayer(); // 이것도 음악 재생 중지인가본대
-        }
-
-    };
-
-    //저장
-    Button.OnClickListener testStopListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            //stopMediaPlayer();
-
-            Toast.makeText(FindMusicActivity.this, "Save audio:" + getAudioPath(), Toast.LENGTH_LONG).show();
-//
-        }
-//        @Override
-//        public void onClick(View v) {
-//            if(recorder==null)
-//                return;
-//            recorder.stop();
-//            recorder.release();
-//            recorder = null;
-//
-//            Toast.makeText(getApplicationContext(),"녹음 중지",Toast.LENGTH_LONG).show();
-//        }
-    };
 
     Button.OnClickListener StartClickListener = new View.OnClickListener() {
         @Override
@@ -387,6 +269,7 @@ public class FindMusicActivity extends AppCompatActivity {
         public void onClick(View v) {
 //            recordTask = null;
             stopTimer();
+
             ButtonStart.setEnabled(true);
             ButtonReset.setEnabled(false);
 //            //ButtonPlay.setEnabled(false);
@@ -398,6 +281,12 @@ public class FindMusicActivity extends AppCompatActivity {
             ButtonStart.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueDark));
             ButtonReset.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueLight));
             ButtonApply.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoPinkDark));
+
+            if(recorderSecondsElapsed<=11){
+                ButtonApply.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoPinkLight));
+                ButtonApply.setEnabled(false);
+            }
+
 
 //            recordTask = new RecordAudioToWAV((TextView)findViewById(R.id.TextViewFFT));
             try {
