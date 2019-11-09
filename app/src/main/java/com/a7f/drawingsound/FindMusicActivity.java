@@ -2,6 +2,8 @@ package com.a7f.drawingsound;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,19 +20,30 @@ import android.widget.Toast;
 
 import com.a7f.drawingsound.lib.RecordAudio;
 import com.a7f.drawingsound.lib.RecordAudioToWAV;
-import com.a7f.drawingsound.lib.SendToServer;
+import com.deskode.recorddialog.RecordDialog;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 
 public class FindMusicActivity extends AppCompatActivity{
+    final private static String RECORDED_FILE = "/sdcard/recorede.mp4";
+    MediaPlayer player;
+    MediaRecorder recorder;
+    Button button;
+    Button button2;
+    Button button3;
+    RecordDialog recordDialog;
+    //
     // layout element
+
+
+    //
     Button ButtonStart;
     Button ButtonReset;
+
     //Button ButtonPlay;
     Button ButtonApply;
     TextView TextViewFindDescription;
@@ -96,6 +109,13 @@ public class FindMusicActivity extends AppCompatActivity{
     }
 
     private void setHandler(){
+        //button = (Button)findViewById(R.id.button);
+        //button2 = (Button)findViewById(R.id.button2);
+        button3 = (Button)findViewById(R.id.button3);
+        //button.setOnClickListener(testStartListener);
+        //button2.setOnClickListener(testStopListener);
+        button3.setOnClickListener(wavTestListener);
+
         ButtonStart = (Button)findViewById(R.id.ButtonStart);
         ButtonReset = (Button)findViewById(R.id.ButtonReset);
         //ButtonPlay = (Button)findViewById(R.id.ButtonPlay);
@@ -122,9 +142,70 @@ public class FindMusicActivity extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
     }
 
+    Button.OnClickListener wavTestListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            recordDialog = RecordDialog.newInstance("Record Audio");
+            recordDialog.setMessage("press for record");
+            recordDialog.show(FindMusicActivity.this.getFragmentManager(),"TAG");
+            recordDialog.setPositiveButton("Save", new RecordDialog.ClickListener() {
+                @Override
+                public void OnClickListener(String path) {
+                    Toast.makeText(FindMusicActivity.this,"Save audio:"+path,Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    };
+
+
+//    Button.OnClickListener testStartListener = new View.OnClickListener(){
+//
+//        @Override
+//        public void onClick(View v) {
+//            if(recorder !=null){
+//                recorder.stop();
+//                recorder.release();
+//                recorder = null;
+//            }
+//
+//            recorder = new MediaRecorder();
+//            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+//            recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+//            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+//
+//            recorder.setOutputFile(RECORDED_FILE);
+//
+//            try{
+//                Toast.makeText(getApplicationContext(),"녹음 시작",Toast.LENGTH_LONG).show();
+//                recorder.prepare();
+//                recorder.start();
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//
+//    };
+//
+//    Button.OnClickListener testStopListener = new View.OnClickListener(){
+//
+//        @Override
+//        public void onClick(View v) {
+//            if(recorder==null)
+//                return;
+//            recorder.stop();
+//            recorder.release();
+//            recorder = null;
+//
+//            Toast.makeText(getApplicationContext(),"녹음 중지",Toast.LENGTH_LONG).show();
+//        }
+//    };
+
     Button.OnClickListener StartClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
 
             if(recordTask.getStarted()){
                 Log.d("Buttonstop", "click success");
@@ -187,29 +268,15 @@ public class FindMusicActivity extends AppCompatActivity{
         @Override
         public void onClick(View v) {
             if(!note.isEmpty()) {
-                String filename = recordTask.transferToWAV();
-                SendToServer sender = new SendToServer(filename);
-                String result = null;
-                try {
-                    result = sender.execute("http://drawingsound.com/").get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                recordTask.transferToWAV();
 
-//                CheckTypesTask task = new CheckTypesTask();
-//                task.execute();
+                CheckTypesTask task = new CheckTypesTask();
+                task.execute();
 
-
-
-                Intent intent = new Intent(FindMusicActivity.this, FindResultActivity.class);
-                intent.putExtra("result", result);
-                startActivity(intent);
-//                //intent.putStringArrayListExtra("Note", (ArrayList<String>) note);
-//                finish();
-
-
+//                Intent intent = new Intent(FindMusicActivity.this, FindResultActivity.class);
+////                //intent.putStringArrayListExtra("Note", (ArrayList<String>) note);
+////                finish();
+////                startActivity(intent);
 
             }else{
                 Toast.makeText(getApplicationContext(),"인식된 음이 없습니다. 다시 시도하세요",Toast.LENGTH_SHORT).show();
