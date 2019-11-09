@@ -69,6 +69,7 @@ public class FindMusicActivity extends AppCompatActivity {
 
     RecordAudioToWAV recordTask;
 
+
     private FirebaseAuth mAuth;
 
     boolean backFlag;
@@ -382,6 +383,12 @@ public class FindMusicActivity extends AppCompatActivity {
                 //result = SendToServer.sendWav();
                 Toast.makeText(FindMusicActivity.this,"Save audio:"+getAudioPath(),Toast.LENGTH_LONG).show();
                 // 여기다가 이제 서버에 던지는 코드 줘야됨
+
+            //recordTask = new RecordAudioToWAV((TextView) findViewById(R.id.TextViewFFT));
+
+                String filePath = getAudioPath();
+                SendToServer sendTask = new SendToServer(filePath);
+                result = sendTask.sendWav();
                 CheckTypesTask task = new CheckTypesTask();
                 task.execute();
 
