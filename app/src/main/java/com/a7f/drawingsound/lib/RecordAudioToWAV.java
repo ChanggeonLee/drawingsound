@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,29 +15,29 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.media.MediaRecorder;
-import android.net.http.AndroidHttpClient;
+//import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.TextView;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.FileEntity;
-import org.apache.http.entity.InputStreamEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
+//import org.apache.http.HttpResponse;
+//import org.apache.http.NameValuePair;
+//import org.apache.http.client.ClientProtocolException;
+//import org.apache.http.client.HttpClient;
+//import org.apache.http.client.entity.UrlEncodedFormEntity;
+//import org.apache.http.client.methods.HttpGet;
+//import org.apache.http.client.methods.HttpPost;
+//import org.apache.http.entity.FileEntity;
+//import org.apache.http.entity.InputStreamEntity;
+//import org.apache.http.impl.client.DefaultHttpClient;
+//import org.apache.http.message.BasicNameValuePair;
 
 import ca.uol.aig.fftpack.RealDoubleFFT;
 
 public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
 
-    private final int RECORDER_SAMPLERATE = 44100;
+    private final int RECORDER_SAMPLERATE = 8000;
     private final int RECORDER_CHANNELS = AudioFormat.CHANNEL_CONFIGURATION_MONO;  //안드로이드 녹음시 채널 상수값
     private final int RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
     private final int BUFFER_SIZE = AudioRecord.getMinBufferSize(RECORDER_SAMPLERATE, RECORDER_CHANNELS, RECORDER_AUDIO_ENCODING);
@@ -44,9 +46,9 @@ public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
     private final int HEADER_SIZE = 0x2c;
     private final int RECORDER_BPP = 16;
 
-    private final String TEMP_FILE_NAME = "test_temp.bak";
+    private final String TEMP_FILE_NAME = "test_temp.pcm";
     private boolean started = false;
-    private String mFileName = "20191108";
+    private String mFileName = "11025";
     private int mAudioLen = 0;
 
     private BufferedInputStream mBIStream;
@@ -129,6 +131,9 @@ public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
                     read = audioRecord.read(data, 0, BUFFER_SIZE);
                     if (AudioRecord.ERROR_INVALID_OPERATION != read) {
                         mBOStream.write(data);
+                        mBOStream.write(data);
+                        mBOStream.write(data);
+
                     }
                 }
                 // **
@@ -143,13 +148,15 @@ public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
 //        return note.toString();
     }
 
-    // **
+    //
     public String transferToWAV(){
         if (null != mBOStream) {
             try {
                 // 녹음이 끝나면 temp파일의 길이를 계산한다.
                 mBOStream.flush();
                 mAudioLen = (int)tempFile.length();
+
+                Log.d("mAudioLen tempFile size", Integer.toString(mAudioLen));
 
                 // 인풋스트림으로 temp 파일을 설정하고, 아웃풋스트림은 닫는다.
                 mBIStream = new BufferedInputStream(new FileInputStream(tempFile));
@@ -164,6 +171,11 @@ public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
                 while ((read = mBIStream.read(buffer2)) != -1) {
                     mBOStream.write(buffer2);
                 }
+
+                Log.d("data size ", Integer.toString(data.length));
+                Log.d("getFileHeader size ", Integer.toString(getFileHeader().length));
+                Log.d("buffer2 size ", Integer.toString(buffer2.length));
+                Log.d("** waveFile size ", Integer.toString((int)waveFile.length()));
 
                 // 모두 닫는다.
                 mBOStream.flush();
@@ -183,7 +195,7 @@ public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
     private byte[] getFileHeader() {
         // temp에 읽어들인 길이 + 헤더길이(40)으로 총 데이터 길이를 잡는다.
         byte[] header = new byte[HEADER_SIZE];
-        int totalDataLen = mAudioLen + 40;
+        int totalDataLen = mAudioLen + 36;
         long byteRate = RECORDER_BPP * RECORDER_SAMPLERATE * WAVE_CHANNEL_MONO/8;
 
         // 0-3 chunk ID = RIFF
@@ -211,7 +223,7 @@ public class RecordAudioToWAV extends AsyncTask<Void, double[], Void> {
         header[15] = ' ';
 
         // 16-19 chunk size = 16 고정
-        header[16] = 16;  // 4 bytes: size of 'fmt ' chunk
+        header[16] = 0x10;  // 4 bytes: size of 'fmt ' chunk
         header[17] = 0;
         header[18] = 0;
         header[19] = 0;

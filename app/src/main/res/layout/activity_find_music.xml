@@ -42,24 +42,6 @@
             android:layout_height="0dp"
             android:layout_weight="0.5" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="테스트 녹음" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="테스트 중지" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="wav테스트" />
-
         <ImageView
             android:id="@+id/ImageViewHumIcon"
             android:layout_width="match_parent"
@@ -119,7 +101,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/indigoBlueLight"
                 android:textColor="@color/white"
-                android:text="다시 녹음하기"
+                android:text="녹음 종료하기"
                 android:textSize="15sp"/>
 
             <Button
