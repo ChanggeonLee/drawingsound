@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import omrecorder.AudioChunk;
 import omrecorder.AudioRecordConfig;
@@ -374,8 +375,6 @@ public class FindMusicActivity extends AppCompatActivity {
 
     Button.OnClickListener ApplyClickListener = new View.OnClickListener() {
 
-
-        // 여기다가 서버에 던지는 코드 주기
         @Override
         public void onClick(View v) {
 //            if(!note.isEmpty()) {
@@ -387,15 +386,25 @@ public class FindMusicActivity extends AppCompatActivity {
             //recordTask = new RecordAudioToWAV((TextView) findViewById(R.id.TextViewFFT));
 
                 String filePath = getAudioPath();
-                SendToServer sendTask = new SendToServer(filePath);
-                result = sendTask.sendWav();
-                CheckTypesTask task = new CheckTypesTask();
-                task.execute();
+                SendToServer sendTask = new SendToServer("find_music.wav");
+                //result = sendTask.sendWav();
+                try {
+                    result = sendTask.execute("http://drawingsound.com/model/musicname").get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
 
-                Intent intent = new Intent(FindMusicActivity.this, FindResultActivity.class);
+            Intent intent = new Intent(FindMusicActivity.this, FindResultActivity.class);
+                intent.putExtra("result",result);
+                startActivity(intent);
+                finish();
 //                //intent.putStringArrayListExtra("Note", (ArrayList<String>) note);
 //                finish();
 //                startActivity(intent);
+            // CheckTypesTask task = new CheckTypesTask();
+            // task.execute()
 
 //            }else{
 //                Toast.makeText(getApplicationContext(),"인식된 음이 없습니다. 다시 시도하세요",Toast.LENGTH_SHORT).show();

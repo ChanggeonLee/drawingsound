@@ -3,6 +3,7 @@ package com.a7f.drawingsound.lib;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -25,9 +26,10 @@ public class SendToServer extends AsyncTask<String, Void, String>{
 
 
     public SendToServer(String filename){
-        this.fileName = filename + ".wav";
+        this.fileName = filename;
         path = Environment.getExternalStorageDirectory().toString();
     }
+
     @Override
     protected String doInBackground(String... url) {
         String response_str = sendWav();
@@ -37,8 +39,9 @@ public class SendToServer extends AsyncTask<String, Void, String>{
 
     public String sendWav(){
         String url = "http://drawingsound.com/model/musicname";
+        //File file = new File(Environment.getExternalStorageDirectory(),fileName);
         File file = new File(Environment.getExternalStorageDirectory(),fileName);
-
+        System.out.println(file.getName());
         try {
             HttpClient httpclient = new DefaultHttpClient();
 
