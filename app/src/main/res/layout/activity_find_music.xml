@@ -55,7 +55,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="라라라"
+            android:text="10초 이상 녹음해주세요"
             android:textSize="15sp" />
     </LinearLayout>
 

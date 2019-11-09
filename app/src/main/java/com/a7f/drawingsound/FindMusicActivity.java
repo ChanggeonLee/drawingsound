@@ -26,6 +26,7 @@ import com.a7f.drawingsound.lib.RecordAudio;
 import com.a7f.drawingsound.lib.RecordAudioToWAV;
 import com.a7f.drawingsound.lib.SendToServer;
 import com.deskode.recorddialog.RecordDialog;
+import com.deskode.recorddialog.Util;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
@@ -35,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import omrecorder.AudioChunk;
 import omrecorder.AudioRecordConfig;
@@ -49,6 +52,8 @@ public class FindMusicActivity extends AppCompatActivity {
     MediaPlayer mediaPlayer;
     Recorder recorder;
     private String _AudioSavePathInDevice = null;
+    private Timer _timer;
+    private int recorderSecondsElapsed=0;
 //    Button button;
 //
 //    Button button2;
@@ -67,7 +72,7 @@ public class FindMusicActivity extends AppCompatActivity {
     Button ButtonApply;
     TextView TextViewFindDescription;
     ImageView ImageViewHumIcon;
-
+    TextView record_time;
     RecordAudioToWAV recordTask;
 
 
@@ -83,7 +88,6 @@ public class FindMusicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_find_music);
         setTitle("");
 
-        //recordTask = new RecordAudioToWAV((TextView) findViewById(R.id.TextViewFFT));
 
         setHandler();
         //setupRecorder();
@@ -137,7 +141,7 @@ public class FindMusicActivity extends AppCompatActivity {
 //        button.setOnClickListener(testStartListener);
 //        button2.setOnClickListener(testStopListener);
 //        button3.setOnClickListener(wavTestListener);
-
+        record_time = (TextView)findViewById(R.id.TextViewFFT);
         ButtonStart = (Button) findViewById(R.id.ButtonStart);
         ButtonReset = (Button) findViewById(R.id.ButtonReset);
         //ButtonPlay = (Button)findViewById(R.id.ButtonPlay);
@@ -232,6 +236,40 @@ public class FindMusicActivity extends AppCompatActivity {
         }
     }
 
+    private void startTimer(){
+        stopTimer();
+        _timer = new Timer();
+        _timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                updateTimer();
+            }
+        }, 0, 1000);
+    }
+
+    private void stopTimer(){
+        recorderSecondsElapsed = 0;
+        if (_timer != null) {
+            _timer.cancel();
+            _timer.purge();
+            _timer = null;
+        }
+    }
+
+    private void updateTimer() {
+        // here you check the value of getActivity() and break up if needed
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                    recorderSecondsElapsed++;
+                    //record_time.setText("히히히히 테스트 중이당");
+                    record_time.setText(Util.formatSeconds(recorderSecondsElapsed));
+
+            }
+        });
+    }
+
 
     ////////////////////////////////생성
     Button.OnClickListener wavTestListener = new View.OnClickListener() {
@@ -240,6 +278,7 @@ public class FindMusicActivity extends AppCompatActivity {
             setupRecorder();
 
             recorder.startRecording();
+           // startTimer();
 //            try {
 //                mPlayer = MediaPlayer.create(getContext(), R.raw.hangouts_message);
 //                mPlayer.start();
@@ -277,6 +316,7 @@ public class FindMusicActivity extends AppCompatActivity {
         public void onClick(View v) {
             try {
                 recorder.stopRecording();
+                stopTimer();
                 //mPlayer = MediaPlayer.create(getContext(), R.raw.pop);
                 //mPlayer.start();
             } catch (IOException e) {
@@ -315,15 +355,16 @@ public class FindMusicActivity extends AppCompatActivity {
         public void onClick(View v) {
 
             setupRecorder();
-
+            //record_time.setText("히히히히 테스트 중이당");
             recorder.startRecording();
+            startTimer();
             Toast.makeText(FindMusicActivity.this, "녹음 시작합니다~!", Toast.LENGTH_LONG).show();
 
             //if(recordTask.getStarted()){
             Log.d("Buttonstop", "click success");
             //recordTask.setStarted(false);
             ButtonStart.setText("녹음 시작하기");
-            TextViewFindDescription.setText("녹음이 성공적으로 완료되었습니다!\n노래를 검색해 볼까요?");
+            TextViewFindDescription.setText("녹음 중입니다.\n10초 이상 녹음해주세요!");
             ImageViewHumIcon.setImageResource(R.drawable.ic_humming_start);
 
             // recordTask.cancel(true);
@@ -345,6 +386,7 @@ public class FindMusicActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 //            recordTask = null;
+            stopTimer();
             ButtonStart.setEnabled(true);
             ButtonReset.setEnabled(false);
 //            //ButtonPlay.setEnabled(false);
