@@ -17,7 +17,7 @@ import ca.uol.aig.fftpack.RealDoubleFFT;
 public class RecordAudio extends AsyncTask<Void, double[], Void> {
 
     //private int frequency = 22050;
-    private int frequency = 22050;
+    private int frequency = 44100;
     private int channelConfiguration = AudioFormat.CHANNEL_CONFIGURATION_MONO;
     private int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
 
@@ -138,9 +138,9 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
             Note = "^f";
         } else if(565 <= fre && fre < 610){
             Note = "g";
-        } else if(610 <= fre && fre < 620){
+        } else if(610 <= fre && fre < 626){
             Note = "^g";
-        } else if(620 <= fre && fre < 670){
+        } else if(626 <= fre && fre < 670){
             Note = "a";
         } else if(670 <= fre && fre < 710){
             Note = "^a";
