@@ -44,7 +44,7 @@ public class FindMusicActivity extends AppCompatActivity {
     private int recorderSecondsElapsed=0;
     String result;
     Button ButtonStart;
-    Button ButtonReset;
+    Button ButtonTerminate;
 
     //Button ButtonPlay;
     Button ButtonApply;
@@ -112,23 +112,23 @@ public class FindMusicActivity extends AppCompatActivity {
 
         record_time = (TextView)findViewById(R.id.TextViewFFT);
         ButtonStart = (Button) findViewById(R.id.ButtonStart);
-        ButtonReset = (Button) findViewById(R.id.ButtonReset);
+        ButtonTerminate = (Button) findViewById(R.id.ButtonTerminate);
         //ButtonPlay = (Button)findViewById(R.id.ButtonPlay);
         ButtonApply = (Button) findViewById(R.id.ButtonApply);
         TextViewFindDescription = (TextView) findViewById(R.id.TextViewFindDescription);
         ImageViewHumIcon = (ImageView) findViewById(R.id.ImageViewHumIcon);
 
         ButtonStart.setOnClickListener(StartClickListener);
-        ButtonReset.setOnClickListener(ResetClickListener);
+        ButtonTerminate.setOnClickListener(TerminateClickListener);
         //ButtonPlay.setOnClickListener(PlayClickListener);
         ButtonApply.setOnClickListener(ApplyClickListener);
 
-        ButtonReset.setEnabled(false);
+        ButtonTerminate.setEnabled(false);
         // ButtonPlay.setEnabled(false);
         ButtonApply.setEnabled(false);
 
         ButtonStart.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueDark));
-        ButtonReset.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueLight));
+        ButtonTerminate.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueLight));
         ButtonApply.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoPinkLight));
 
         backFlag = true;
@@ -203,7 +203,6 @@ public class FindMusicActivity extends AppCompatActivity {
         });
     }
 
-
     // 녹음 시작 버튼 리스터
     Button.OnClickListener StartClickListener = new View.OnClickListener() {
         @Override
@@ -219,11 +218,11 @@ public class FindMusicActivity extends AppCompatActivity {
             ImageViewHumIcon.setImageResource(R.drawable.ic_humming_start);
 
             ButtonStart.setEnabled(false);
-            ButtonReset.setEnabled(true);
+            ButtonTerminate.setEnabled(true);
             ButtonApply.setEnabled(false);
 
             ButtonStart.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueLight));
-            ButtonReset.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueDark));
+            ButtonTerminate.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueDark));
             ButtonApply.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoPinkLight));
 
             backFlag = false;
@@ -232,13 +231,13 @@ public class FindMusicActivity extends AppCompatActivity {
     };
 
     // 녹음 종료 버튼 리스너
-    Button.OnClickListener ResetClickListener = new View.OnClickListener() {
+    Button.OnClickListener TerminateClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             stopTimer();
 
             ButtonStart.setEnabled(true);
-            ButtonReset.setEnabled(false);
+            ButtonTerminate.setEnabled(false);
 //            //ButtonPlay.setEnabled(false);
             ButtonApply.setEnabled(true);
 //
@@ -246,7 +245,7 @@ public class FindMusicActivity extends AppCompatActivity {
             ImageViewHumIcon.setImageResource(R.drawable.ic_humming_start);
 
             ButtonStart.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueDark));
-            ButtonReset.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueLight));
+            ButtonTerminate.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoBlueLight));
             ButtonApply.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.indigoPinkDark));
 
             if(recorderSecondsElapsed<=11){
