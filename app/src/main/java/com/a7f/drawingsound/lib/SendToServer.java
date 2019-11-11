@@ -1,48 +1,73 @@
 package com.a7f.drawingsound.lib;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.a7f.drawingsound.FindResultActivity;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONStringer;
+
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class SendToServer extends AsyncTask<String, Void, String>{
+public class SendToServer extends AsyncTask<Void, Void, Void>{
     private String fileName;
     private String path;
+    private ProgressDialog asyncDialog;
+    private Context context;
+    private String result;
 
 
-    public SendToServer(String filename){
+    public SendToServer(String filename, Context context){
+        super();
         this.fileName = filename;
         path = Environment.getExternalStorageDirectory().toString();
+        this.context = context;
+        asyncDialog = null;
+        result=null;
     }
 
     @Override
-    protected String doInBackground(String... url) {
-        String response_str = sendWav();
-        return response_str;
+    protected void onPreExecute() {
+        asyncDialog = new ProgressDialog(context);
+        asyncDialog.setMessage("시발");
+        asyncDialog.show();
+        super.onPreExecute();
+    }
+
+    @Override
+    protected Void doInBackground(Void ... voids) {
+        result = sendWav();
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void r) {
+        asyncDialog.dismiss();
+        Intent intent = new Intent(context, FindResultActivity.class);
+        intent.putExtra("result", result);
+        context.startActivity(intent);
+        super.onPostExecute(r);
     }
 
 
     public String sendWav(){
-        String url = "http://drawingsound.com/model/musicname";
-        //File file = new File(Environment.getExternalStorageDirectory(),fileName);
-        File file = new File(Environment.getExternalStorageDirectory(),fileName);
-        System.out.println(file.getName());
         try {
+            String url = "http://drawingsound.com/model/musicname";
+            Log.e("sendwav","sendwav");
+            File file = new File(Environment.getExternalStorageDirectory(),fileName);
+
             HttpClient httpclient = new DefaultHttpClient();
 
             HttpPost httppost = new HttpPost(url);
@@ -58,8 +83,9 @@ public class SendToServer extends AsyncTask<String, Void, String>{
         } catch (IOException e) {
             // show error
             Log.e("send wav", e.getMessage());
+        } catch (Exception e){
+            Log.e("sendwav exception", e.getMessage());
         }
        return null;
     }
-
 }

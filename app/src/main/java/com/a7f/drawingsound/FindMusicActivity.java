@@ -23,7 +23,15 @@ import com.a7f.drawingsound.lib.SendToServer;
 import com.deskode.recorddialog.Util;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.Timer;
@@ -37,21 +45,17 @@ import omrecorder.PullableSource;
 import omrecorder.Recorder;
 
 public class FindMusicActivity extends AppCompatActivity {
-
     Recorder recorder;
-    private String _AudioSavePathInDevice = null;
     private Timer _timer;
     private int recorderSecondsElapsed=0;
-    String result;
     Button ButtonStart;
     Button ButtonTerminate;
 
-    //Button ButtonPlay;
     Button ButtonApply;
     TextView TextViewFindDescription;
     ImageView ImageViewHumIcon;
     TextView record_time;
-
+    Intent intent;
     private FirebaseAuth mAuth;
 
     boolean backFlag;
@@ -69,44 +73,6 @@ public class FindMusicActivity extends AppCompatActivity {
         Toolbar tb = (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(tb);
     }
-
-//    // 진행 상황 나타내는 클래스, progress dialog 출력 부분
-//    private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
-//
-//        ProgressDialog asyncDialog = new ProgressDialog(FindMusicActivity.this);
-//
-//        @Override
-//        protected void onPreExecute() {
-//            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//            asyncDialog.setMessage("비슷한 음악 찾는 중");
-//
-//            asyncDialog.show();
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//
-//            try {
-//                for (int i = 0; i < 5; i++) {
-//                    Thread.sleep(1000);
-//                }
-//
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void result) {
-//            asyncDialog.dismiss();
-//            super.onPostExecute(result);
-//            Intent intent = new Intent(FindMusicActivity.this, FindResultActivity.class);
-//            finish();
-//            startActivity(intent);
-//        }
-//    }
 
     private void setHandler() {
 
@@ -160,13 +126,7 @@ public class FindMusicActivity extends AppCompatActivity {
     @NonNull
     private File file() {
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "find_music.wav");
-        _AudioSavePathInDevice = file.getPath();
         return file;
-    }
-
-    // 파일 경로
-    public String getAudioPath() {
-        return _AudioSavePathInDevice;
     }
 
     // 타이머 시작
@@ -198,7 +158,7 @@ public class FindMusicActivity extends AppCompatActivity {
             @Override
             public void run() {
                     recorderSecondsElapsed++;
-                    record_time.setText(Util.formatSeconds(recorderSecondsElapsed));
+                    record_time.setText(Util.formatSeconds(recorderSecondsElapsed-1));
             }
         });
     }
@@ -238,7 +198,6 @@ public class FindMusicActivity extends AppCompatActivity {
 
             ButtonStart.setEnabled(true);
             ButtonTerminate.setEnabled(false);
-//            //ButtonPlay.setEnabled(false);
             ButtonApply.setEnabled(true);
 //
             TextViewFindDescription.setText("녹음 시작하기 버튼을 누른 뒤\n노래 시작해주세요!");
@@ -268,27 +227,13 @@ public class FindMusicActivity extends AppCompatActivity {
 
     // 음악 검색하기 버튼 리스너
     Button.OnClickListener ApplyClickListener = new View.OnClickListener() {
-
         @Override
         public void onClick(View v) {
-
-                SendToServer sendTask = new SendToServer("find_music.wav");
-
-                try {
-                    result = sendTask.execute("http://drawingsound.com/model/musicname").get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-
-            Intent intent = new Intent(FindMusicActivity.this, FindResultActivity.class);
-                intent.putExtra("result",result);
-                startActivity(intent);
-                finish();
-
+            SendToServer sendTask = new SendToServer("find_music.wav",FindMusicActivity.this);
+            sendTask.execute();
         }
     };
+
 
     @Override
     public void onBackPressed() {
@@ -342,4 +287,5 @@ public class FindMusicActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }
