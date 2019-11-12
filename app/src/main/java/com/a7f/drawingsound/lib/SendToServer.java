@@ -41,7 +41,8 @@ public class SendToServer extends AsyncTask<Void, Void, Void>{
     @Override
     protected void onPreExecute() {
         asyncDialog = new ProgressDialog(context);
-        asyncDialog.setMessage("시발");
+        asyncDialog.setMessage("유사한 음악을 찾는 중입니다.");
+        asyncDialog.setCancelable(false);
         asyncDialog.show();
         super.onPreExecute();
     }

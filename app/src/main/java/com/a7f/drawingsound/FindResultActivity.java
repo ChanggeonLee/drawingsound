@@ -13,28 +13,42 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.a7f.drawingsound.data.AlbumData;
+import com.a7f.drawingsound.model.Album;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 
 public class FindResultActivity extends AppCompatActivity {
     // layout element
-    Button ButtonRetry;
-    TextView TextViewFindDescription;
-    ImageView ImageViewHumIcon;
+    private Button ButtonRetry;
+    private Button ButtonHome;
+
+
+    private TextView TextViewFindDescription;
+    private TextView TextViewFindArtist;
+    private TextView TextViewMusic;
+
+    private ImageView ImageViewHumIcon;
 
     private FirebaseAuth mAuth;
 
     boolean backFlag;
 
+    private AlbumData albumList;
+    private Album albumData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_find_result);
-        TextViewFindDescription = findViewById(R.id.TextViewFindDescription);
 
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         String result = intent.getExtras().getString("result");
-        TextViewFindDescription.setText(result);
+        Log.e("result", result);
+        albumList = new AlbumData();
+        albumData = albumList.findItems(result);
 
         setTitle("");
 
@@ -45,21 +59,31 @@ public class FindResultActivity extends AppCompatActivity {
     }
 
     private void setHandler(){
-        ButtonRetry = (Button)findViewById(R.id.ButtonRetry);
         TextViewFindDescription = (TextView)findViewById(R.id.TextViewFindDescription);
-        ImageViewHumIcon = (ImageView)findViewById(R.id.ImageViewHumIcon);
+        TextViewFindDescription.setText(albumData.getTitle());
+
+        TextViewFindArtist = (TextView)findViewById(R.id.TextViewFindArtist);
+        TextViewFindArtist.setText(albumData.getArtist());
+
+        ImageViewHumIcon = (ImageView)findViewById(R.id.mock_up);
+        String imageUrl = albumData.getImg();
+        Glide.with(this).load(imageUrl).into(ImageViewHumIcon);
+
+        TextViewMusic = (TextView)findViewById(R.id.TextViewMusic);
+        TextViewMusic.setText("비슷한 노래는 " + albumData.getTitle() + " 입니다.");
+
+        ButtonRetry = (Button)findViewById(R.id.ButtonRetry);
         ButtonRetry.setOnClickListener(RetryClickListener);
-        ButtonRetry.setEnabled(true);
-        ButtonRetry.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.darkblue));
 
-        backFlag = true;
+        ButtonHome = (Button)findViewById(R.id.ButtonHome);
+        ButtonHome.setOnClickListener(HomeClickListener);
 
+        backFlag = false;
         mAuth = FirebaseAuth.getInstance();
     }
 
+
     Button.OnClickListener RetryClickListener = new View.OnClickListener() {
-
-
         @Override
         public void onClick(View v) {
                 Intent intent = new Intent(FindResultActivity.this, FindMusicActivity.class);
@@ -68,13 +92,19 @@ public class FindResultActivity extends AppCompatActivity {
         }
     };
 
+    Button.OnClickListener HomeClickListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            finish();
+        }
+    };
+
     @Override
     public void onBackPressed() {
         if(backFlag){
             super.onBackPressed();
         }else{
-            //
-            Toast.makeText(getApplicationContext(),"녹음 중입니다. 종료 후 다시 시도해주세요.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"하단의 버튼을 눌러주세요",Toast.LENGTH_SHORT).show();
         }
 
     }
