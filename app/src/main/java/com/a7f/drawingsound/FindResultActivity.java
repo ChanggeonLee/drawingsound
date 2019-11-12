@@ -75,10 +75,10 @@ public class FindResultActivity extends AppCompatActivity {
         ButtonRetry = (Button)findViewById(R.id.ButtonRetry);
         ButtonRetry.setOnClickListener(RetryClickListener);
 
-        ButtonHome = (Button)findViewById(R.id.ButtonHome);
-        ButtonHome.setOnClickListener(HomeClickListener);
+//        ButtonHome = (Button)findViewById(R.id.ButtonHome);
+//        ButtonHome.setOnClickListener(HomeClickListener);
 
-        backFlag = false;
+        backFlag = true;
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -92,12 +92,12 @@ public class FindResultActivity extends AppCompatActivity {
         }
     };
 
-    Button.OnClickListener HomeClickListener = new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
-            finish();
-        }
-    };
+//    Button.OnClickListener HomeClickListener = new View.OnClickListener(){
+//        @Override
+//        public void onClick(View v) {
+//            finish();
+//        }
+//    };
 
     @Override
     public void onBackPressed() {
