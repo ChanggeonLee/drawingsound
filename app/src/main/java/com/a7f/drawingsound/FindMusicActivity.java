@@ -117,7 +117,7 @@ public class FindMusicActivity extends AppCompatActivity {
         return new PullableSource.Default(
                 new AudioRecordConfig.Default(
                         MediaRecorder.AudioSource.MIC, AudioFormat.ENCODING_PCM_16BIT,
-                        AudioFormat.CHANNEL_IN_MONO, 44100
+                        AudioFormat.CHANNEL_IN_MONO, 11025
                 )
         );
     }

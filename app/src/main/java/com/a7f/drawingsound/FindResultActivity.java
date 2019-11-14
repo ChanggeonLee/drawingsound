@@ -23,14 +23,18 @@ import com.google.firebase.auth.FirebaseAuth;
 public class FindResultActivity extends AppCompatActivity {
     // layout element
     private Button ButtonRetry;
-    private Button ButtonHome;
 
 
-    private TextView TextViewFindDescription;
     private TextView TextViewFindArtist;
     private TextView TextViewMusic;
 
-    private ImageView ImageViewHumIcon;
+    private TextView TextViewAlbumTitle0;
+    private TextView TextViewAlbumTitle1;
+    private TextView TextViewAlbumTitle2;
+
+    private ImageView ImageViewAlbumImg0;
+    private ImageView ImageViewAlbumImg1;
+    private ImageView ImageViewAlbumImg2;
 
     private FirebaseAuth mAuth;
 
@@ -38,6 +42,9 @@ public class FindResultActivity extends AppCompatActivity {
 
     private AlbumData albumList;
     private Album albumData;
+    private String[] results;
+    private String imageUrl;
+    private String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +52,10 @@ public class FindResultActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String result = intent.getExtras().getString("result");
-        Log.e("result", result);
+        result = intent.getExtras().getString("result");
+        results = result.split("/");
+
         albumList = new AlbumData();
-        albumData = albumList.findItems(result);
 
         setTitle("");
 
@@ -59,24 +66,38 @@ public class FindResultActivity extends AppCompatActivity {
     }
 
     private void setHandler(){
-        TextViewFindDescription = (TextView)findViewById(R.id.TextViewFindDescription);
-        TextViewFindDescription.setText(albumData.getTitle());
-
-        TextViewFindArtist = (TextView)findViewById(R.id.TextViewFindArtist);
-        TextViewFindArtist.setText(albumData.getArtist());
-
-        ImageViewHumIcon = (ImageView)findViewById(R.id.mock_up);
-        String imageUrl = albumData.getImg();
-        Glide.with(this).load(imageUrl).into(ImageViewHumIcon);
-
+        TextViewAlbumTitle0 = (TextView)findViewById(R.id.TextViewAlbumTitle0);
+        TextViewAlbumTitle1 = (TextView)findViewById(R.id.TextViewAlbumTitle1);
+        TextViewAlbumTitle2 = (TextView)findViewById(R.id.TextViewAlbumTitle2);
+        ImageViewAlbumImg0 = (ImageView)findViewById(R.id.ImageViewAlbumImg0);
+        ImageViewAlbumImg1 = (ImageView)findViewById(R.id.ImageViewAlbumImg1);
+        ImageViewAlbumImg2 = (ImageView)findViewById(R.id.ImageViewAlbumImg2);
         TextViewMusic = (TextView)findViewById(R.id.TextViewMusic);
-        TextViewMusic.setText("비슷한 노래는 " + albumData.getTitle() + " 입니다.");
+
+        if(!result.trim().equals("error")){
+            albumData = albumList.findItems(results[0]);
+            TextViewAlbumTitle0.setText(albumData.getTitle()+" "+albumData.getArtist());
+            imageUrl = albumData.getImg();
+            Glide.with(this).load(imageUrl).into(ImageViewAlbumImg0);
+
+            albumData = albumList.findItems(results[1]);
+            TextViewAlbumTitle1.setText(albumData.getTitle()+" "+albumData.getArtist());
+            imageUrl = albumData.getImg();
+            Glide.with(this).load(imageUrl).into(ImageViewAlbumImg1);
+
+            albumData = albumList.findItems(results[2]);
+            TextViewAlbumTitle2.setText(albumData.getTitle()+" "+albumData.getArtist());
+            imageUrl = albumData.getImg();
+            Glide.with(this).load(imageUrl).into(ImageViewAlbumImg2);
+            TextViewMusic.setText("비슷한 노래는 입니다.");
+
+        }else {
+            TextViewAlbumTitle0.setText("비슷한 노래를 찾을 수 없습니다.");
+            TextViewMusic.setText("잠시후에 다시 시도해주세요.");
+        }
 
         ButtonRetry = (Button)findViewById(R.id.ButtonRetry);
         ButtonRetry.setOnClickListener(RetryClickListener);
-
-//        ButtonHome = (Button)findViewById(R.id.ButtonHome);
-//        ButtonHome.setOnClickListener(HomeClickListener);
 
         backFlag = true;
         mAuth = FirebaseAuth.getInstance();
@@ -91,13 +112,6 @@ public class FindResultActivity extends AppCompatActivity {
                 finish();
         }
     };
-
-//    Button.OnClickListener HomeClickListener = new View.OnClickListener(){
-//        @Override
-//        public void onClick(View v) {
-//            finish();
-//        }
-//    };
 
     @Override
     public void onBackPressed() {

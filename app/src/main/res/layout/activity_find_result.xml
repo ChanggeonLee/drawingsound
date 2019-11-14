@@ -20,7 +20,7 @@
         android:layout_height="0dp"
         android:layout_weight="6"
         android:orientation="vertical"
-        android:weightSum="8">
+        android:weightSum="24">
 
         <Space
             android:layout_width="match_parent"
@@ -28,36 +28,62 @@
             android:layout_weight="0.5"/>
 
         <TextView
-            android:id="@+id/TextViewFindDescription"
+            android:id="@+id/TextViewAlbumTitle0"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.7"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="아메리카노"
             android:textStyle="bold"
             android:textColor="@color/indigoBlueDark"
-            android:textSize="30sp" />
+            android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/TextViewFindArtist"
+        <ImageView
+            android:id="@+id/ImageViewAlbumImg0"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4"
-            android:gravity="center"
-            android:text="10cm"
-            android:textColor="@color/indigoBlueDark"
-            android:textSize="20sp" />
+            android:layout_weight="6"/>
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"/>
 
-        <ImageView
-            android:id="@+id/mock_up"
+        <TextView
+            android:id="@+id/TextViewAlbumTitle1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
-            app:srcCompat="@drawable/mockup" />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/indigoBlueDark"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/ImageViewAlbumImg1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"/>
+
+        <TextView
+            android:id="@+id/TextViewAlbumTitle2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/indigoBlueDark"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/ImageViewAlbumImg2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"/>
 
         <TextView
             android:id="@+id/TextViewMusic"
@@ -68,6 +94,11 @@
             android:text="비슷한 노래는 아메리카노 입니다."
             android:textSize="20sp" />
     </LinearLayout>
+
+
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -99,34 +130,6 @@
                 android:text="다시 검색하기"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
-
-<!--            <Space-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/ButtonHome"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_weight="2"-->
-<!--                android:background="@color/darkblue"-->
-<!--                android:text="홈으로 "-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="15sp" />-->
-
-
-
         </LinearLayout>
-
-        <!--
-    <Button
-        android:id="@+id/ButtonPlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:text="Play"/>
-        -->
     </LinearLayout>
 </LinearLayout>
