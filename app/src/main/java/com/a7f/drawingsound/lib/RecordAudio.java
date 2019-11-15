@@ -16,7 +16,7 @@ import ca.uol.aig.fftpack.RealDoubleFFT;
 
 public class RecordAudio extends AsyncTask<Void, double[], Void> {
 
-    //private int frequency = 22050;
+    //private int frequency = 11025;
     private int frequency = 44100;
     private int channelConfiguration = AudioFormat.CHANNEL_CONFIGURATION_MONO;
     private int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
@@ -76,6 +76,7 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
     protected void onProgressUpdate(double[]... toTransform) {
         int max = 0;
         int index = 0;
+        Log.d("buffer size", Integer.toString(blockSize));
         Log.d("length",Integer.toString(toTransform[0].length));
         for(int i = 0; i < toTransform[0].length; i++){
             if(max < toTransform[0][i]){
@@ -100,41 +101,41 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
             Note = "C";
         } else if(196 <= fre && fre < 205){
             Note = "^C";
-        } else if(205 <= fre && fre < 215){
+        } else if(205 <= fre && fre < 222){
             Note = "D";
-        } else if(215 <= fre && fre < 236){
+        } else if(222 <= fre && fre < 236){
             Note = "^D";
-        } else if(236 <= fre && fre < 248){
+        } else if(236 <= fre && fre < 250){
             Note = "E";
-        } else if(248 <= fre && fre < 268){
+        } else if(250 <= fre && fre < 270){
             Note = "F";
-        } else if(268 <= fre && fre < 286){
+        } else if(270 <= fre && fre < 286){
             Note = "^F";
         } else if(286 <= fre && fre < 305){
             Note = "G";
         } else if(305 <= fre && fre < 314){
             Note = "^G";
-        } else if(314 <= fre && fre < 333){
+        } else if(314 <= fre && fre < 338){
             Note = "A";
-        } else if(333 <= fre && fre < 351){
+        } else if(338 <= fre && fre < 356){
             Note = "^A";
-        } else if(351 <= fre && fre < 378){
+        } else if(356 <= fre && fre < 376){
             Note = "B";
         }
         // 높은음
-        else if(378 <= fre && fre < 408){
+        else if(376 <= fre && fre < 400){
             Note = "c";
-        } else if(408 <= fre && fre < 430){
+        } else if(400 <= fre && fre < 425){
             Note = "^c";
-        } else if(430 <= fre && fre < 456){
+        } else if(425 <= fre && fre < 455){
             Note = "d";
-        } else if(456 <= fre && fre < 475){
+        } else if(455 <= fre && fre < 472){
             Note = "^d";
-        } else if(475 <= fre && fre < 505){
+        } else if(472 <= fre && fre < 500){
             Note = "e";
-        } else if(505 <= fre && fre < 540){
+        } else if(500 <= fre && fre < 536){
             Note = "f";
-        } else if(540 <= fre && fre < 565){
+        } else if(536 <= fre && fre < 565){
             Note = "^f";
         } else if(565 <= fre && fre < 610){
             Note = "g";
